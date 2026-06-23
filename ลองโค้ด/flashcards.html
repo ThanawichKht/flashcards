@@ -3,48 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Law Flashcards - บัตรจำมาตรากฎหมาย</title>
-    <!-- Google Fonts: Sarabun for readability, Prompt for modern headings -->
+    <title>Spectra Law - บัตรจำมาตรากฎหมาย</title>
+    <!-- Google Fonts: Sarabun for readability, Press Start 2P for retro pixel style -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-primary: #0a1128;
-            --bg-secondary: #101f42;
-            --bg-card: rgba(22, 38, 77, 0.7);
-            --border-color: rgba(255, 255, 255, 0.1);
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #121212;
+            --bg-card: #181818;
+            --border-color: #39ff14;
             
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
             
-            --color-gold: #d4af37;
-            --color-gold-hover: #f3e5ab;
+            --color-gold: #39ff14; /* Neon green */
+            --color-gold-hover: #b2ff59;
             
-            --color-success: #10b981;
+            --color-success: #39ff14; /* Neon green */
             --color-danger: #ef4444;
-            --color-warning: #f59e0b;
-            --color-info: #3b82f6;
+            --color-warning: #ff6ec7; /* Pixel pink */
+            --color-info: #00bfff; /* Electric blue */
             
-            --glass-backdrop: blur(12px);
-            --shadow-premium: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --glass-backdrop: none;
+            --shadow-premium: 4px 4px 0px #000000;
+            --transition-smooth: all 0.1s steps(4);
         }
 
         [data-theme="light"] {
-            --bg-primary: #f1f5f9;
-            --bg-secondary: #ffffff;
-            --bg-card: rgba(248, 250, 252, 0.85);
-            --border-color: rgba(15, 23, 42, 0.08);
+            --bg-primary: #f4f4f5;
+            --bg-secondary: #e4e4e7;
+            --bg-card: #ffffff;
+            --border-color: #0f172a;
             
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
+            --text-primary: #09090b;
+            --text-secondary: #71717a;
             
             --color-gold: #b8860b;
             --color-gold-hover: #996515;
             
-            --shadow-premium: 0 8px 24px 0 rgba(148, 163, 184, 0.15);
+            --shadow-premium: 4px 4px 0px #71717a;
         }
 
         * {
@@ -52,6 +52,15 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Sarabun', sans-serif;
+        }
+
+        /* Prevent 'Press Start 2P' font from breaking Thai text readability */
+        body, input, textarea, button, select {
+            font-family: 'Sarabun', 'Prompt', sans-serif !important;
+        }
+
+        .retro-font, .stat-value, .badge-count, .mode-btn span, .volume-control-wrapper span {
+            font-family: 'Press Start 2P', monospace !important;
         }
 
         h1, h2, h3, h4, .font-heading {
@@ -102,24 +111,33 @@
             gap: 0.75rem;
         }
 
-        .logo-icon {
-            font-size: 2rem;
-            color: var(--color-gold);
-            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
+        .logo-icon-neon {
+            font-size: 2.2rem;
+            filter: drop-shadow(0 0 8px #39ff14);
+            animation: pulse 1.5s infinite alternate;
         }
 
-        .logo-text h1 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--color-gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        @keyframes pulse {
+            from { transform: scale(1); filter: drop-shadow(0 0 5px #39ff14); }
+            to { transform: scale(1.1); filter: drop-shadow(0 0 15px #39ff14); }
+        }
+
+        .logo-text h1.neon-text-pink {
+            font-family: 'Press Start 2P', monospace !important;
+            font-size: 1.3rem !important;
+            color: #ff6ec7 !important;
+            text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7, 0 0 20px #ff6ec7 !important;
+            background: none !important;
+            -webkit-text-fill-color: initial !important;
+            -webkit-background-clip: initial !important;
+            letter-spacing: 1px;
         }
 
         .logo-text p {
             font-size: 0.75rem;
             color: var(--text-secondary);
+            font-weight: bold;
+            letter-spacing: 0.5px;
         }
 
         .header-actions {
@@ -129,23 +147,30 @@
         }
 
         .btn-circle {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
+            background: #111111;
+            border: 3px solid var(--border-color);
             color: var(--text-primary);
             width: 40px;
             height: 40px;
-            border-radius: 50%;
+            border-radius: 0px;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             transition: var(--transition-smooth);
+            box-shadow: 0 4px 0 #000;
         }
 
         .btn-circle:hover {
-            transform: scale(1.08);
-            border-color: var(--color-gold);
-            color: var(--color-gold);
+            transform: translateY(-2px);
+            border-color: var(--color-warning);
+            color: var(--color-warning);
+            box-shadow: 0 6px 0 #000;
+        }
+
+        .btn-circle:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #000;
         }
 
         /* App Layout */
@@ -469,17 +494,17 @@
         }
 
         .quiz-option-btn {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
+            background: #111111;
+            border: 4px solid var(--border-color);
             color: var(--text-primary);
             padding: 1.25rem;
-            border-radius: 12px;
+            border-radius: 0px;
             cursor: pointer;
             transition: var(--transition-smooth);
             font-size: 1.1rem;
             font-weight: 600;
             text-align: center;
-            box-shadow: var(--shadow-premium);
+            box-shadow: 0 6px 0 #000000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -487,22 +512,29 @@
         }
 
         .quiz-option-btn:hover:not(:disabled) {
-            border-color: var(--color-gold);
+            border-color: var(--color-warning);
             transform: translateY(-2px);
-            background: var(--bg-card);
+            background: #222222;
+            box-shadow: 0 8px 0 #000000;
+        }
+
+        .quiz-option-btn:active:not(:disabled) {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #000000;
         }
 
         .quiz-option-btn.correct {
-            background: rgba(16, 185, 129, 0.2) !important;
+            background: rgba(57, 255, 20, 0.15) !important;
             border-color: var(--color-success) !important;
             color: var(--color-success) !important;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2) !important;
+            box-shadow: 0 4px 0 #000000, 0 0 15px rgba(57, 255, 20, 0.4) !important;
         }
 
         .quiz-option-btn.wrong {
-            background: rgba(239, 68, 68, 0.2) !important;
+            background: rgba(239, 68, 68, 0.15) !important;
             border-color: var(--color-danger) !important;
             color: var(--color-danger) !important;
+            box-shadow: 0 4px 0 #000000, 0 0 15px rgba(239, 68, 68, 0.4) !important;
         }
 
         /* Control Panel (Next, Flashcard Rating Buttons) */
@@ -515,63 +547,92 @@
 
         .btn-action {
             padding: 0.75rem 2rem;
-            border-radius: 30px;
+            border-radius: 0px;
             font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition-smooth);
-            border: 1px solid transparent;
+            border: 4px solid #ffffff;
+            box-shadow: 0 6px 0 #000000;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
         .btn-action-primary {
-            background: linear-gradient(135deg, var(--color-gold) 0%, #b8860b 100%);
-            color: #0a1128;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            background: #ff6ec7; /* Pixel pink */
+            color: #000000;
+            border-color: #ffffff;
+            box-shadow: 0 6px 0 #000000;
         }
 
         .btn-action-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+            background: #ff8ad8;
+            box-shadow: 0 8px 0 #000000;
+        }
+
+        .btn-action-primary:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #000000;
         }
 
         .btn-rate-easy {
-            background: rgba(16, 185, 129, 0.1);
+            background: #111111;
             border-color: var(--color-success);
             color: var(--color-success);
         }
         .btn-rate-easy:hover {
             background: var(--color-success);
-            color: white;
+            color: #000000;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #000000;
+        }
+        .btn-rate-easy:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #000000;
         }
 
         .btn-rate-medium {
-            background: rgba(245, 158, 11, 0.1);
+            background: #111111;
             border-color: var(--color-warning);
             color: var(--color-warning);
         }
         .btn-rate-medium:hover {
             background: var(--color-warning);
-            color: white;
+            color: #000000;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #000000;
+        }
+        .btn-rate-medium:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #000000;
         }
 
         .btn-rate-hard {
-            background: rgba(239, 68, 68, 0.1);
+            background: #111111;
             border-color: var(--color-danger);
             color: var(--color-danger);
         }
         .btn-rate-hard:hover {
             background: var(--color-danger);
-            color: white;
+            color: #ffffff;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #000000;
+        }
+        .btn-rate-hard:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #000000;
         }
 
         /* Custom Law Form Modal/Card */
         .custom-form-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
+            background: #111111;
+            border: 4px solid #ffffff;
+            border-radius: 0px;
             padding: 2rem;
             margin-top: 2rem;
             box-shadow: var(--shadow-premium);
@@ -592,17 +653,17 @@
         .form-control {
             width: 100%;
             padding: 0.75rem 1rem;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
+            background: #000000;
+            border: 3px solid var(--border-color);
             color: var(--text-primary);
-            border-radius: 8px;
+            border-radius: 0px;
             outline: none;
             transition: var(--transition-smooth);
         }
 
         .form-control:focus {
-            border-color: var(--color-gold);
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+            border-color: var(--color-warning);
+            box-shadow: 0 0 8px rgba(255, 110, 199, 0.4);
         }
 
         textarea.form-control {
@@ -770,10 +831,10 @@
     <!-- Header -->
     <header>
         <div class="logo-container">
-            <div class="logo-icon">⚖️</div>
+            <div class="logo-icon-neon">👾</div>
             <div class="logo-text">
-                <h1>LAW FLASHCARDS</h1>
-                <p>ฝึกฝนมาตรากฎหมายอัจฉริยะ</p>
+                <h1 class="neon-text-pink">SPECTRA LAW</h1>
+                <p>ARCADE FLASHCARDS &bull; v2.0</p>
             </div>
         </div>
         <div class="header-actions">
