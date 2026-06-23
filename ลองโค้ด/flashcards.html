@@ -845,6 +845,181 @@
         .logo-text h1, .stat-value, .card-answer-big {
             text-shadow: 0 0 5px var(--color-gold), 0 0 10px var(--color-gold);
         }
+
+        /* Weekly Quest & Archive Styles */
+        .weekly-quest-card {
+            background: #111111;
+            border: 3px solid var(--color-info);
+            padding: 1rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 0 #000;
+        }
+        .quest-title {
+            font-family: 'Press Start 2P', monospace !important;
+            font-size: 0.75rem !important;
+            color: var(--color-warning);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .quest-progress-text {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        .quest-progress-track {
+            height: 12px;
+            background: #000000;
+            border: 2px solid #ffffff;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            position: relative;
+        }
+        .quest-progress-bar {
+            height: 100%;
+            background: var(--color-warning);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .btn-quest-action {
+            width: 100%;
+            padding: 0.35rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            background: #222222;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 3px 0 #000;
+        }
+        .btn-quest-action:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #000;
+        }
+
+        .filter-toggle-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #111111;
+            border: 2px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 0 #000;
+        }
+        .checkbox-custom {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--color-gold);
+            cursor: pointer;
+        }
+
+        /* Retro Modal styles */
+        .retro-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+        }
+        .retro-modal-content {
+            background: #111111;
+            border: 4px solid #ffffff;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 12px 0 #000000;
+            padding: 1.5rem;
+            position: relative;
+        }
+        .retro-modal-header {
+            border-bottom: 3px dashed #ffffff;
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .retro-modal-title {
+            font-family: 'Press Start 2P', monospace !important;
+            font-size: 0.95rem;
+            color: var(--color-gold);
+        }
+        .retro-modal-close {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .retro-modal-close:hover {
+            color: var(--color-danger);
+        }
+        .retro-modal-body {
+            overflow-y: auto;
+            flex: 1;
+            margin-bottom: 1rem;
+            padding-right: 0.5rem;
+        }
+        .archive-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .archive-item {
+            background: #000000;
+            border: 2px solid var(--border-color);
+            padding: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .archive-item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            max-width: 75%;
+        }
+        .archive-item-sec {
+            font-weight: bold;
+            color: var(--color-warning);
+        }
+        .archive-item-text {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .btn-archive-item-delete {
+            background: #000000;
+            border: 2px solid var(--color-danger);
+            color: var(--color-danger);
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        .btn-archive-item-delete:hover {
+            background: var(--color-danger);
+            color: #ffffff;
+        }
+        .retro-modal-footer {
+            border-top: 3px dashed #ffffff;
+            padding-top: 0.75rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -895,6 +1070,24 @@
             <ul class="category-list" id="categoryList">
                 <!-- Javascript will inject categories here -->
             </ul>
+
+            <!-- Weekly Quest Study Target Card -->
+            <div class="weekly-quest-card">
+                <div class="quest-title">👑 WEEKLY QUEST</div>
+                <div class="quest-progress-text">
+                    <span style="color: var(--text-secondary);">ความจำสัปดาห์นี้:</span>
+                    <span id="questProgressText" style="font-weight: bold; color: var(--color-warning);">0 / 50</span>
+                </div>
+                <div class="quest-progress-track">
+                    <div class="quest-progress-bar" id="questProgressBar"></div>
+                </div>
+                <button class="btn-quest-action" onclick="changeWeeklyGoal()">⚙️ ตั้งเป้าหมายสัปดาห์</button>
+            </div>
+
+            <!-- View Learned Archive Button -->
+            <button class="btn-quest-action" style="margin-top: 1rem; border-color: var(--color-gold); color: var(--color-gold);" onclick="openArchiveModal()">
+                📚 คลังมาตราที่จำได้แล้ว (<span id="archiveCount">0</span>)
+            </button>
         </aside>
 
         <!-- Main Study Workspace -->
@@ -902,13 +1095,19 @@
             
             <!-- Mode selection and Stats -->
             <div class="workspace-header">
-                <div class="mode-selector">
-                    <button class="mode-btn active" id="modeQuiz" onclick="switchMode('quiz')">
-                        <span>📝</span> โหมดแบบทดสอบ
-                    </button>
-                    <button class="mode-btn" id="modeFlashcard" onclick="switchMode('flashcard')">
-                        <span>🎴</span> โหมดแฟลชการ์ด
-                    </button>
+                <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <div class="mode-selector">
+                        <button class="mode-btn active" id="modeQuiz" onclick="switchMode('quiz')">
+                            <span>📝</span> โหมดแบบทดสอบ
+                        </button>
+                        <button class="mode-btn" id="modeFlashcard" onclick="switchMode('flashcard')">
+                            <span>🎴</span> โหมดแฟลชการ์ด
+                        </button>
+                    </div>
+                    <div class="filter-toggle-wrapper">
+                        <input type="checkbox" id="hideMemorizedToggle" class="checkbox-custom" onchange="toggleHideMemorized()">
+                        <label for="hideMemorizedToggle" style="cursor: pointer; font-weight: bold; color: var(--text-primary);">🙈 ซ่อนมาตราที่จำได้แล้ว</label>
+                    </div>
                 </div>
                 
                 <div class="stats-row">
@@ -3232,6 +3431,11 @@
             streak: 0
         };
 
+        // --- Memory & Planner State ---
+        let memorizedCardIds = [];
+        let hideMemorized = false;
+        let weeklyGoal = 50;
+
         // Theme and Audio State
         let theme = "dark";
         let audioEnabled = true;
@@ -3396,6 +3600,7 @@
         // --- 4. APP INITS & LOCAL STORAGE ---
         window.addEventListener('DOMContentLoaded', () => {
             loadCustomLaws();
+            initMemorizedState();
             updateCategoriesList();
             setCategory("ทั้งหมด");
             
@@ -3424,6 +3629,135 @@
                     console.error("Error loading custom laws", e);
                 }
             }
+        }
+
+        // --- Memory & Planner Functions ---
+        function initMemorizedState() {
+            const savedMemorized = localStorage.getItem('law_flashcards_memorized');
+            if (savedMemorized) {
+                try {
+                    memorizedCardIds = JSON.parse(savedMemorized);
+                } catch(e) {
+                    console.error("Error parsing memorized IDs", e);
+                }
+            }
+            
+            const savedGoal = localStorage.getItem('law_flashcards_weekly_goal');
+            if (savedGoal) {
+                weeklyGoal = parseInt(savedGoal, 10) || 50;
+            }
+            
+            const savedHide = localStorage.getItem('law_flashcards_hide_memorized');
+            hideMemorized = savedHide === 'true';
+            document.getElementById('hideMemorizedToggle').checked = hideMemorized;
+            
+            updateQuestUI();
+        }
+        
+        function saveMemorizedState() {
+            localStorage.setItem('law_flashcards_memorized', JSON.stringify(memorizedCardIds));
+            updateQuestUI();
+        }
+        
+        function markCardAsMemorized(cardId) {
+            if (!cardId) return;
+            if (!memorizedCardIds.includes(cardId)) {
+                memorizedCardIds.push(cardId);
+                saveMemorizedState();
+            }
+        }
+        
+        function forgetCard(cardId) {
+            const index = memorizedCardIds.indexOf(cardId);
+            if (index > -1) {
+                memorizedCardIds.splice(index, 1);
+                saveMemorizedState();
+                filterCards();
+                renderArchiveList();
+            }
+        }
+        
+        function resetAllMemorized() {
+            if (confirm("คุณต้องการรีเซ็ตมาตราที่จำได้ทั้งหมดกลับเป็นยังไม่ได้เริ่มจำใช่หรือไม่?")) {
+                memorizedCardIds = [];
+                saveMemorizedState();
+                filterCards();
+                renderArchiveList();
+                closeArchiveModal();
+            }
+        }
+        
+        function toggleHideMemorized() {
+            hideMemorized = document.getElementById('hideMemorizedToggle').checked;
+            localStorage.setItem('law_flashcards_hide_memorized', hideMemorized);
+            filterCards();
+            showCard();
+        }
+        
+        function changeWeeklyGoal() {
+            const newGoal = prompt("ตั้งเป้าหมายจำนวนมาตราที่ต้องการจำต่อสัปดาห์:", weeklyGoal);
+            if (newGoal !== null) {
+                const parsed = parseInt(newGoal, 10);
+                if (parsed > 0) {
+                    weeklyGoal = parsed;
+                    localStorage.setItem('law_flashcards_weekly_goal', weeklyGoal);
+                    updateQuestUI();
+                } else {
+                    alert("กรุณากรอกตัวเลขที่มากกว่า 0");
+                }
+            }
+        }
+        
+        function updateQuestUI() {
+            const count = memorizedCardIds.length;
+            document.getElementById('archiveCount').innerText = count;
+            document.getElementById('questProgressText').innerText = `${count} / ${weeklyGoal}`;
+            
+            const percent = Math.min((count / weeklyGoal) * 100, 100);
+            document.getElementById('questProgressBar').style.width = `${percent}%`;
+            
+            if (percent >= 100) {
+                document.getElementById('questProgressBar').style.backgroundColor = 'var(--color-success)';
+            } else {
+                document.getElementById('questProgressBar').style.backgroundColor = 'var(--color-warning)';
+            }
+        }
+        
+        function openArchiveModal() {
+            renderArchiveList();
+            document.getElementById('archiveModal').style.display = 'flex';
+            playSound('flip');
+        }
+        
+        function closeArchiveModal() {
+            document.getElementById('archiveModal').style.display = 'none';
+            playSound('flip');
+        }
+        
+        function renderArchiveList() {
+            const container = document.getElementById('archiveListContainer');
+            container.innerHTML = '';
+            
+            if (memorizedCardIds.length === 0) {
+                container.innerHTML = `<li style="text-align: center; color: var(--text-secondary); padding: 2rem 0;">ยังไม่มีมาตราที่จำได้ในขณะนี้</li>`;
+                return;
+            }
+            
+            memorizedCardIds.forEach(id => {
+                const card = database.find(c => c.id === id);
+                if (card) {
+                    const li = document.createElement('li');
+                    li.className = 'archive-item';
+                    li.innerHTML = `
+                        <div class="archive-item-info">
+                            <span class="archive-item-sec">${card.section}</span>
+                            <span class="archive-item-text">${card.text}</span>
+                        </div>
+                        <button class="btn-archive-item-delete" onclick="forgetCard('${card.id}')">ลบลืม 🗑️</button>
+                    `;
+                    container.appendChild(li);
+                }
+            });
         }
 
         function toggleTheme() {
@@ -3503,20 +3837,32 @@
                 }
             });
 
-            if (catName === "ทั้งหมด") {
-                filteredCards = [...database];
-            } else {
-                filteredCards = database.filter(c => c.category === catName);
-            }
+            filterCards();
+            showCard();
+        }
 
+        function filterCards() {
+            let baseList = [];
+            if (activeCategory === "ทั้งหมด") {
+                baseList = [...database];
+            } else {
+                baseList = database.filter(c => c.category === activeCategory);
+            }
+            
+            if (hideMemorized) {
+                filteredCards = baseList.filter(c => !memorizedCardIds.includes(c.id));
+            } else {
+                filteredCards = baseList;
+            }
+            
             shuffle(filteredCards);
             currentCardIndex = 0;
             isCardFlipped = false;
             isAnswered = false;
-
-            document.getElementById('flashcardStage').classList.remove('flipped');
+            
+            const stage = document.getElementById('flashcardStage');
+            if (stage) stage.classList.remove('flipped');
             updateProgressUI();
-            showCard();
         }
 
         function shuffle(array) {
@@ -3650,12 +3996,12 @@
                 const btn = document.createElement('button');
                 btn.className = 'quiz-option-btn';
                 btn.innerText = opt;
-                btn.onclick = () => selectQuizOption(btn, opt, correctCard.section);
+                btn.onclick = () => selectQuizOption(btn, opt, correctCard.section, correctCard.id);
                 optionsContainer.appendChild(btn);
             });
         }
 
-        function selectQuizOption(button, selected, correct) {
+        function selectQuizOption(button, selected, correct, cardId) {
             if (isAnswered) return;
             isAnswered = true;
 
@@ -3669,6 +4015,7 @@
                 stats.streak++;
                 playSound('correct');
                 triggerConfetti(button);
+                markCardAsMemorized(cardId);
             } else {
                 button.classList.add('wrong');
                 stats.streak = 0;
@@ -3720,6 +4067,10 @@
                 stats.correct++;
                 stats.streak++;
                 playSound('correct');
+                const currentCard = filteredCards[currentCardIndex];
+                if (currentCard) {
+                    markCardAsMemorized(currentCard.id);
+                }
             } else if (rating === 'medium') {
                 stats.streak++;
                 playSound('correct');
@@ -3818,6 +4169,33 @@
                 setTimeout(() => confetti.remove(), 1000);
             }
         }
+        
+        // Modal close handler
+        window.onclick = function(event) {
+            const modal = document.getElementById('archiveModal');
+            if (event.target === modal) {
+                closeArchiveModal();
+            }
+        }
     </script>
+
+    <!-- Memorized Laws Archive Modal -->
+    <div class="retro-modal-overlay" id="archiveModal">
+        <div class="retro-modal-content">
+            <div class="retro-modal-header">
+                <span class="retro-modal-title">📚 คลังมาตราที่จำได้แล้ว</span>
+                <button class="retro-modal-close" onclick="closeArchiveModal()">&times;</button>
+            </div>
+            <div class="retro-modal-body">
+                <ul class="archive-list" id="archiveListContainer">
+                    <!-- Dynamic archive items -->
+                </ul>
+            </div>
+            <div class="retro-modal-footer">
+                <button class="btn-action btn-rate-hard" onclick="resetAllMemorized()" style="padding: 0.5rem 1rem; font-size: 0.8rem; border-width: 2px;">⚠️ รีเซ็ตทั้งหมด</button>
+                <button class="btn-action btn-action-primary" onclick="closeArchiveModal()" style="padding: 0.5rem 1rem; font-size: 0.8rem; border-width: 2px;">ปิด ❌</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
