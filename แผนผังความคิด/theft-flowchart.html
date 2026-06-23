@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowchart การวินิจฉัยความผิดเกี่ยวกับทรัพย์</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            color: #0056b3;
+        }
+
+        .mermaid {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        pre {
+            background-color: #e9e9e9;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .explanation-section {
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .explanation-section h2 {
+            color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Flowchart การวินิจฉัยระหว่าง 'ลักทรัพย์' (ม.334), 'วิ่งราวทรัพย์' (ม.336) และ 'ชิงทรัพย์' (ม.339)</h1>
+
+    <div class="mermaid">
+        graph TD
+        A[เริ่มต้น] --> B{มีการเอาทรัพย์ของผู้อื่นไปโดยทุจริตหรือไม่?};
+        B -- ใช่ --> C{มีการ "ฉกฉวยเอาไปซึ่งหน้า" หรือไม่?};
+        B -- ไม่ใช่ --> D[ไม่ใช่ความผิดฐานลักทรัพย์ วิ่งราวทรัพย์ หรือชิงทรัพย์];
+
+        C -- ไม่ใช่ --> E[ลักทรัพย์ (ม.334)];
+        C -- ใช่ --> F{มีการ "ใช้กำลังประทุษร้าย" หรือ "ขู่เข็ญว่าจะใช้กำลังประทุษร้าย" หรือไม่?};
+
+        F -- ไม่ใช่ --> G[วิ่งราวทรัพย์ (ม.336)];
+        F -- ใช่ --> H[ชิงทรัพย์ (ม.339)];
+    </div>
+
+    <div class="explanation-section">
+        <h2>คำอธิบาย Flowchart:</h2>
+        <ul>
+            <li><strong>A[เริ่มต้น]</strong>: จุดเริ่มต้นของการวินิจฉัย</li>
+            <li><strong>B{มีการเอาทรัพย์ของผู้อื่นไปโดยทุจริตหรือไม่?}</strong>:
+                คำถามแรกเพื่อพิจารณาว่าเข้าข่ายความผิดเกี่ยวกับทรัพย์หรือไม่ หากไม่ใช่ ก็ไม่ใช่ทั้งสามข้อหา</li>
+            <li><strong>C{มีการ "ฉกฉวยเอาไปซึ่งหน้า" หรือไม่?}</strong>: จุดแบ่งสำคัญระหว่าง "ลักทรัพย์" กับ
+                "วิ่งราวทรัพย์/ชิงทรัพย์"
+                <ul>
+                    <li>ถ้า <strong>ไม่มี</strong> การฉกฉวยเอาไปซึ่งหน้า (เช่น ขโมยของในที่ลับตา) จะเข้าข่าย
+                        <strong>E[ลักทรัพย์ (ม.334)]</strong></li>
+                </ul>
+            </li>
+            <li><strong>F{มีการ "ใช้กำลังประทุษร้าย" หรือ "ขู่เข็ญว่าจะใช้กำลังประทุษร้าย" หรือไม่?}</strong>:
+                จุดแบ่งสำคัญระหว่าง "วิ่งราวทรัพย์" กับ "ชิงทรัพย์" ซึ่งจะพิจารณาเมื่อมีการฉกฉวยเอาไปซึ่งหน้าแล้ว
+                <ul>
+                    <li>ถ้า <strong>ไม่มี</strong> การใช้กำลังประทุษร้าย จะเข้าข่าย <strong>G[วิ่งราวทรัพย์
+                            (ม.336)]</strong></li>
+                    <li>ถ้า <strong>มี</strong> การใช้กำลังประทุษร้าย จะเข้าข่าย <strong>H[ชิงทรัพย์ (ม.339)]</strong>
+                    </li>
+                </ul>
+            </li>
+            <li><strong>D[ไม่ใช่ความผิดฐานลักทรัพย์ วิ่งราวทรัพย์ หรือชิงทรัพย์]</strong>:
+                หากไม่มีการเอาทรัพย์ของผู้อื่นไปโดยทุจริต</li>
+        </ul>
+        <p>แผนนี้จะช่วยให้คุณสามารถแยกแยะความแตกต่างของความผิดทั้งสามได้ตามหลักเกณฑ์ที่คุณระบุไว้</p>
+    </div>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+
+</html>

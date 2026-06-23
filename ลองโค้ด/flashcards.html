@@ -1,0 +1,3721 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law Flashcards - บัตรจำมาตรากฎหมาย</title>
+    <!-- Google Fonts: Sarabun for readability, Prompt for modern headings -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0a1128;
+            --bg-secondary: #101f42;
+            --bg-card: rgba(22, 38, 77, 0.7);
+            --border-color: rgba(255, 255, 255, 0.1);
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            
+            --color-gold: #d4af37;
+            --color-gold-hover: #f3e5ab;
+            
+            --color-success: #10b981;
+            --color-danger: #ef4444;
+            --color-warning: #f59e0b;
+            --color-info: #3b82f6;
+            
+            --glass-backdrop: blur(12px);
+            --shadow-premium: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(248, 250, 252, 0.85);
+            --border-color: rgba(15, 23, 42, 0.08);
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            
+            --color-gold: #b8860b;
+            --color-gold-hover: #996515;
+            
+            --shadow-premium: 0 8px 24px 0 rgba(148, 163, 184, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-smooth);
+            overflow-x: hidden;
+        }
+
+        /* Ambient Background Lights */
+        .ambient-light {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+        .light-1 { top: -100px; right: -100px; }
+        .light-2 { bottom: -100px; left: -100px; }
+
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-premium);
+            backdrop-filter: var(--glass-backdrop);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--color-gold);
+            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
+        }
+
+        .logo-text h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--color-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-circle {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-circle:hover {
+            transform: scale(1.08);
+            border-color: var(--color-gold);
+            color: var(--color-gold);
+        }
+
+        /* App Layout */
+        .app-container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+                gap: 1rem;
+            }
+        }
+
+        /* Sidebar Style */
+        .sidebar {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            height: fit-content;
+            box-shadow: var(--shadow-premium);
+            backdrop-filter: var(--glass-backdrop);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .category-item button {
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-item button:hover, .category-item.active button {
+            background: var(--bg-card);
+            border-color: var(--border-color);
+            color: var(--text-primary);
+            transform: translateX(4px);
+        }
+
+        .category-item.active button {
+            border-color: var(--color-gold);
+            border-left: 4px solid var(--color-gold);
+        }
+
+        .badge-count {
+            background: var(--bg-primary);
+            padding: 0.15rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: var(--color-gold);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Main Workspace */
+        .workspace {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Top Panel: Stats & Mode Selectors */
+        .workspace-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .mode-selector {
+            display: flex;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 0.35rem;
+            border-radius: 30px;
+            box-shadow: var(--shadow-premium);
+        }
+
+        .mode-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .mode-btn.active {
+            background: var(--color-gold);
+            color: #0a1128;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Stats Panel */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: var(--shadow-premium);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-gold);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-top: 0.25rem;
+        }
+
+        /* Progress Bar */
+        .progress-wrapper {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-premium);
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .progress-track {
+            height: 8px;
+            background: var(--bg-primary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-info) 0%, var(--color-gold) 100%);
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+
+        /* Flashcard Container (3D Flip Animation Area) */
+        .flashcard-stage {
+            perspective: 1200px;
+            width: 100%;
+            min-height: 380px;
+            margin: 1rem 0;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 380px;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flashcard-stage.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            min-height: 380px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-premium);
+            backdrop-filter: var(--glass-backdrop);
+        }
+
+        /* Card Front Styling */
+        .card-front {
+            background: var(--bg-card);
+            border-top: 5px solid var(--color-gold);
+        }
+
+        /* Card Back Styling */
+        .card-back {
+            background: var(--bg-secondary);
+            transform: rotateY(180deg);
+            border-top: 5px solid var(--color-success);
+        }
+
+        .card-tag {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--color-gold);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 0.35rem 1rem;
+            border-radius: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .card-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            max-width: 90%;
+            overflow-y: auto;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .card-hint {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .card-answer-big {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-success);
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+            margin: auto;
+        }
+
+        .card-answer-sub {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Quiz Mode Options Grid */
+        .quiz-options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .quiz-options-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .quiz-option-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 1.25rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: var(--shadow-premium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            border-color: var(--color-gold);
+            transform: translateY(-2px);
+            background: var(--bg-card);
+        }
+
+        .quiz-option-btn.correct {
+            background: rgba(16, 185, 129, 0.2) !important;
+            border-color: var(--color-success) !important;
+            color: var(--color-success) !important;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2) !important;
+        }
+
+        .quiz-option-btn.wrong {
+            background: rgba(239, 68, 68, 0.2) !important;
+            border-color: var(--color-danger) !important;
+            color: var(--color-danger) !important;
+        }
+
+        /* Control Panel (Next, Flashcard Rating Buttons) */
+        .control-panel {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn-action {
+            padding: 0.75rem 2rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-action-primary {
+            background: linear-gradient(135deg, var(--color-gold) 0%, #b8860b 100%);
+            color: #0a1128;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-action-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn-rate-easy {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--color-success);
+            color: var(--color-success);
+        }
+        .btn-rate-easy:hover {
+            background: var(--color-success);
+            color: white;
+        }
+
+        .btn-rate-medium {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--color-warning);
+            color: var(--color-warning);
+        }
+        .btn-rate-medium:hover {
+            background: var(--color-warning);
+            color: white;
+        }
+
+        .btn-rate-hard {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--color-danger);
+            color: var(--color-danger);
+        }
+        .btn-rate-hard:hover {
+            background: var(--color-danger);
+            color: white;
+        }
+
+        /* Custom Law Form Modal/Card */
+        .custom-form-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow-premium);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 8px;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .form-control:focus {
+            border-color: var(--color-gold);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Empty/End Screen State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            color: var(--color-gold);
+        }
+
+        /* Particle effects on success */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--color-gold);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: blow 1s ease-out forwards;
+            opacity: 0.8;
+            z-index: 100;
+        }
+
+        @keyframes blow {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* 8-bit Fun Styling & Characters */
+        .character-track-container {
+            width: 100%;
+            background: rgba(16, 31, 66, 0.4);
+            border-bottom: 2px dashed rgba(212, 175, 55, 0.3);
+            position: relative;
+            height: 50px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+
+        [data-theme="light"] .character-track-container {
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 2px dashed rgba(184, 134, 11, 0.3);
+        }
+
+        .running-character {
+            position: absolute;
+            bottom: 4px;
+            font-size: 1.8rem;
+            left: 0%;
+            animation: run-across 14s linear infinite;
+            white-space: nowrap;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .running-character-2 {
+            position: absolute;
+            bottom: 4px;
+            font-size: 1.8rem;
+            left: 0%;
+            animation: run-across 20s linear infinite;
+            animation-delay: -5s;
+            white-space: nowrap;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            pointer-events: none;
+            user-select: none;
+        }
+
+        @keyframes run-across {
+            0% { left: -10%; transform: scaleX(1); }
+            49% { transform: scaleX(1); }
+            50% { left: 110%; transform: scaleX(-1); }
+            99% { transform: scaleX(-1); }
+            100% { left: -10%; transform: scaleX(1); }
+        }
+
+        /* Volume Control Overlay */
+        .volume-control-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+        }
+
+        .volume-slider {
+            width: 70px;
+            height: 6px;
+            -webkit-appearance: none;
+            background: var(--bg-primary);
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: var(--color-gold);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(212, 175, 55, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-light light-1"></div>
+    <div class="ambient-light light-2"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="logo-icon">⚖️</div>
+            <div class="logo-text">
+                <h1>LAW FLASHCARDS</h1>
+                <p>ฝึกฝนมาตรากฎหมายอัจฉริยะ</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <!-- Volume Control -->
+            <div class="volume-control-wrapper">
+                <span>🔊 BGM</span>
+                <input type="range" id="bgmVolumeSlider" class="volume-slider" min="0" max="100" value="50">
+            </div>
+            <!-- Theme Toggle -->
+            <button class="btn-circle" id="themeToggleBtn" title="เปลี่ยนธีม">🌓</button>
+            <!-- BGM Toggle -->
+            <button class="btn-circle" id="bgmToggleBtn" title="เปิดเพลงพื้นหลัง" style="font-size:1.1rem;">🎵</button>
+            <!-- Audio Toggle -->
+            <button class="btn-circle" id="audioToggleBtn" title="เปิด/ปิดเสียง">🔊</button>
+        </div>
+    </header>
+
+    <!-- Animated 8-bit characters track -->
+    <div class="character-track-container">
+        <div class="running-character" id="runner1">🏃‍♂️💨 📜 ⚖️</div>
+        <div class="running-character-2" id="runner2">👾 🛡️ ⚔️</div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        
+        <!-- Sidebar: Law Categories -->
+        <aside class="sidebar">
+            <div class="sidebar-section-title">
+                <span>📂 หมวดหมู่กฎหมาย</span>
+            </div>
+            <ul class="category-list" id="categoryList">
+                <!-- Javascript will inject categories here -->
+            </ul>
+        </aside>
+
+        <!-- Main Study Workspace -->
+        <main class="workspace">
+            
+            <!-- Mode selection and Stats -->
+            <div class="workspace-header">
+                <div class="mode-selector">
+                    <button class="mode-btn active" id="modeQuiz" onclick="switchMode('quiz')">
+                        <span>📝</span> โหมดแบบทดสอบ
+                    </button>
+                    <button class="mode-btn" id="modeFlashcard" onclick="switchMode('flashcard')">
+                        <span>🎴</span> โหมดแฟลชการ์ด
+                    </button>
+                </div>
+                
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-value" id="statStreak">0</div>
+                        <div class="stat-label">สตรีคตอบถูก 🔥</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statCorrect">0</div>
+                        <div class="stat-label">ตอบถูกทั้งหมด</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statTotal">0</div>
+                        <div class="stat-label">ทำไปแล้ว</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statAccuracy">0%</div>
+                        <div class="stat-label">ความถูกต้อง</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-wrapper">
+                <div class="progress-text">
+                    <span>ความก้าวหน้าในหมวดนี้</span>
+                    <span id="progressText">0 / 0 มาตรา</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+
+            <!-- Stage: Flashcard Display -->
+            <div id="flashcardStage" class="flashcard-stage">
+                <!-- HTML dynamic injection -->
+                <div class="flashcard-inner" id="flashcardInner" onclick="handleCardClick()">
+                    <!-- Card Front -->
+                    <div class="card-face card-front">
+                        <span class="card-tag" id="cardCategory">หมวดหมู่</span>
+                        <div class="card-text" id="cardQuestion">คำอธิบายมาตราจะแสดงขึ้นที่นี่...</div>
+                        <div class="card-hint">
+                            <span>💡 คลิกที่บัตรเพื่อดูเฉลยมาตรา</span>
+                        </div>
+                    </div>
+                    <!-- Card Back -->
+                    <div class="card-face card-back">
+                        <span class="card-tag">เฉลย</span>
+                        <div class="card-answer-big" id="cardAnswer">ม. 59</div>
+                        <div class="card-answer-sub" id="cardAnswerFull">ประมวลกฎหมายอาญา มาตรา 59 (รายละเอียดตัวบทเต็ม)</div>
+                        <div class="card-hint">
+                            <span>🔄 คลิกที่บัตรเพื่อพลิกกลับ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Option Buttons (Visible only in Quiz Mode) -->
+            <div class="quiz-options-container" id="quizOptions">
+                <!-- Javascript will inject 4 buttons here -->
+            </div>
+
+            <!-- Action Controls (Flashcard rating, next buttons) -->
+            <div class="control-panel" id="controlPanel">
+                <!-- Javascript will inject buttons depending on mode -->
+            </div>
+
+            <!-- Custom Law Import Section -->
+            <div class="custom-form-card">
+                <h3 style="margin-bottom: 1rem; color: var(--color-gold);">➕ เพิ่มมาตรากฎหมายด้วยตัวคุณเอง</h3>
+                <form id="customLawForm" onsubmit="addCustomLaw(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customLawNum">เลขมาตรา (เช่น ม. 288 หรือ ป.พ.พ. ม. 420)</label>
+                            <input type="text" id="customLawNum" class="form-control" placeholder="เช่น ม. 288" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customLawCat">กลุ่มหมวดหมู่ (เช่น กฎหมายอาญาภาค 2, สัญญา)</label>
+                            <input type="text" id="customLawCat" class="form-control" placeholder="เช่น ความผิดเกี่ยวกับชีวิต" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customLawText">ตัวบท / คำอธิบายมาตรา</label>
+                        <textarea id="customLawText" class="form-control" placeholder="ระบุตัวบทแบบละเอียดที่คุณต้องการท่องจำ" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-action btn-action-primary">💾 บันทึกมาตราใหม่</button>
+                </form>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Script Area -->
+    <script>
+        // --- 1. DEFAULT LAW DATABASE ---
+        const defaultLaws = [
+    {
+        "id": "d1_7",
+        "section": "ม. 1 (7)",
+        "text": "'ใช้กำลังประทุษร้าย' หมายความว่า ทำการประทุษร้ายแก่กายหรือจิตใจของบุคคล ไม่ว่าจะทำด้วยใช้แรงกายภาพ หรือด้วยวิธีอื่นใด",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "d1_8",
+        "section": "ม. 1 (8)",
+        "text": "'สาธารณชน' หมายความว่า ประชาชนทั่วไป หรือประชาชนส่วนหนึ่งส่วนใด",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "d1_9",
+        "section": "ม. 1 (9)",
+        "text": "'เจ้าพนักงาน' หมายความว่า บุคคลซึ่งกฎหมายบัญญัติว่าเป็นเจ้าพนักงาน หรือได้รับแต่งตั้งตามกฎหมายให้ปฏิบัติหน้าที่ราชการ",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "d1_12",
+        "section": "ม. 1 (12)",
+        "text": "'ทรัพย์' และ 'ทรัพย์สิน' มีความหมายตามประมวลกฎหมายแพ่งและพาณิชย์",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "d1_14",
+        "section": "ม. 1 (14)",
+        "text": "'เอกสาร' หมายความว่า กระดาษหรือวัตถุอื่นใดซึ่งได้ทำให้ปรากฏความหมายด้วยตัวอักษร ตัวเลข ผัง หรือแผนแบบอย่างอื่น จะโดยวิธีพิมพ์ ถ่ายภาพ หรือวิธีอื่นอันเป็นหลักฐานแห่งความหมายนั้น",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "d1_15",
+        "section": "ม. 1 (15)",
+        "text": "'เอกสารราชการ' หมายความว่า เอกสารซึ่งเจ้าพนักงานได้ทำขึ้นหรือรับรองในหน้าที่ และให้หมายความรวมถึงสำเนาเอกสารนั้น อันเจ้าพนักงานได้รับรองว่าถูกต้องด้วย",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "d1_16",
+        "section": "ม. 1 (16)",
+        "text": "'เอกสารสิทธิ' หมายความว่า เอกสารที่เป็นหลักฐานแห่งการก่อ เปลี่ยนแปลง โอน สงวน หรือระงับซึ่งสิทธิ",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "b4",
+        "section": "ม. 4",
+        "text": "ผู้ใดกระทำความผิดในราชอาณาจักร ต้องรับโทษตามกฎหมาย ความผิดซึ่งกระทำในเรือไทยหรืออากาศยานไทย ไม่ว่าจะอยู่ ณ ที่ใด ให้ถือว่ากระทำในราชอาณาจักร",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "b5",
+        "section": "ม. 5",
+        "text": "ความผิดซึ่งกระทำในราชอาณาจักร หมายความรวมถึงความผิดที่เกิดขึ้น หรือผลแห่งการกระทำเกิดขึ้นในราชอาณาจักร หรือส่วนหนึ่งส่วนใดของการกระทำเกิดขึ้นในราชอาณาจักร",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "b6",
+        "section": "ม. 6",
+        "text": "ผู้ใดกระทำความผิดนอกราชอาณาจักร และความผิดนั้นเป็นความผิดตามที่บัญญัติไว้ในมาตรา 7, 8 หรือ 9 ต้องรับโทษในราชอาณาจักร",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "b7",
+        "section": "ม. 7",
+        "text": "ผู้ใดกระทำความผิดนอกราชอาณาจักร และผู้กระทำหรือผู้เสียหายเป็นคนไทย และรัฐบาลของประเทศที่ความผิดเกิดขึ้นมิได้ฟ้องร้อง หรือตกลงให้ไทยลงโทษ จะต้องรับโทษในราชอาณาจักร (ผู้กระทำ/ผู้เสียหายเป็นคนไทย)",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "b8",
+        "section": "ม. 8",
+        "text": "ผู้ใดกระทำความผิดนอกราชอาณาจักรซึ่งเป็นความผิดที่ระบุไว้ตามกฎหมายไทย เช่น ความผิดเกี่ยวกับความมั่นคง ความผิดเกี่ยวกับการก่อการร้าย ฯลฯ แม้ผู้กระทำจะเป็นคนต่างด้าว ก็ต้องรับโทษตามกฎหมายไทย",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "b9",
+        "section": "ม. 9",
+        "text": "ความผิดซึ่งกระทำนอกราชอาณาจักร โดยคนต่างด้าวต่อรัฐหรือพลเมืองไทย และผู้กระทำนั้นได้ปรากฏตัวในราชอาณาจักร ให้ผู้นั้นรับโทษตามกฎหมายไทย",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "b10",
+        "section": "ม. 10",
+        "text": "ถ้าผู้กระทำความผิดได้รับโทษสำหรับการกระทำนั้นในต่างประเทศมาแล้ว และได้รับโทษมาบ้างแล้ว ศาลจะลงโทษน้อยกว่าที่กฎหมายกำหนด หรือจะไม่ลงโทษก็ได้ (หลักประกันไม่ถูกลงโทษซ้ำ)",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "b11",
+        "section": "ม. 11",
+        "text": "ผู้ใดกระทำความผิดต้องรับโทษตามกฎหมายที่ใช้ในขณะกระทำความผิด เว้นแต่กฎหมายที่บัญญัติขึ้นภายหลังเป็นคุณแก่ผู้กระทำ ผู้นั้นได้รับประโยชน์ตามกฎหมายที่บัญญัติภายหลัง",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p18",
+        "section": "ม. 18",
+        "text": "โทษสำหรับลงแก่ผู้กระทำความผิดมี 5 สถาน: (1) ประหารชีวิต (2) จำคุก (3) กักขัง (4) ปรับ (5) ริบทรัพย์สิน",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p23",
+        "section": "ม. 23",
+        "text": "ผู้ใดกระทำความผิดครั้งแรก และศาลเห็นว่าเมื่อคำนึงถึงอายุ ประวัติ ความประพฤติ สติปัญญา การศึกษา สุขภาพ ภาวะแห่งจิต นิสัย อาชีพ และสิ่งแวดล้อมของผู้นั้น ศาลจะพิพากษาให้รอการลงโทษ หรือรอการกำหนดโทษไว้ก็ได้",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p27",
+        "section": "ม. 27",
+        "text": "ผู้ใดต้องโทษจำคุก และในการรับโทษครั้งก่อนนั้นยังไม่ปรากฏว่ากระทำผิดอีก ถ้าได้กระทำความดีความชอบแก่ชาติบ้านเมือง หรือแสดงความประพฤติดี อธิบดีกรมราชทัณฑ์เสนอให้ลดวันต้องโทษจำคุกลงได้",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p29",
+        "section": "ม. 29",
+        "text": "ผู้ใดต้องโทษปรับและไม่ชำระค่าปรับภายในกำหนด ศาลอาจสั่งให้กักขังแทนค่าปรับได้ อัตราค่าปรับให้คิดเป็นจำนวนวันกักขัง",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p30",
+        "section": "ม. 30",
+        "text": "ในการที่ศาลจะกำหนดโทษ ศาลต้องพิจารณาถึงความร้ายแรงแห่งความผิด และให้นำพฤติการณ์ต่างๆ มาประกอบการพิจารณา เช่น ความสำนึก หรือเหตุอื่นๆ ที่ควรรู้",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p32",
+        "section": "ม. 32",
+        "text": "ทรัพย์สินซึ่งบุคคลได้ใช้หรือมีไว้เพื่อใช้ในการกระทำความผิด หรือได้มาโดยการกระทำความผิด ให้ริบเสียทั้งสิ้น เว้นแต่ทรัพย์สินนั้นเป็นของผู้อื่นซึ่งมิได้รู้เห็นเป็นใจในการกระทำความผิด",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p33",
+        "section": "ม. 33",
+        "text": "ในการริบทรัพย์สิน นอกจากศาลจะมีอำนาจริบตามกฎหมายที่บัญญัติไว้โดยเฉพาะแล้ว ให้ศาลมีอำนาจสั่งริบทรัพย์สินดังต่อไปนี้ด้วย: (1) ทรัพย์สินซึ่งผู้กระทำผิดได้ใช้หรือมีไว้เพื่อใช้ในการกระทำความผิด (2) ทรัพย์สินซึ่งผู้กระทำผิดได้มาโดยการกระทำความผิด",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p34",
+        "section": "ม. 34",
+        "text": "บรรดาทรัพย์สินซึ่งกฎหมายบัญญัติว่าผู้ใดทำหรือมีไว้เป็นความผิด ให้ริบเสียทั้งสิ้น ไม่ว่าจะเป็นของผู้กระทำความผิดและมีผู้ถูกลงโทษตามคำพิพากษาหรือไม่",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p38",
+        "section": "ม. 38",
+        "text": "โทษจำคุกและโทษปรับให้เริ่มนับตั้งแต่วันที่คำพิพากษาถึงที่สุด แต่ถ้าผู้ต้องคำพิพากษาถูกคุมขังก่อนศาลพิพากษา ให้หักจำนวนวันที่ถูกคุมขังออกจากระยะเวลาจำคุก (หักวันต้องขัง)",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p39",
+        "section": "ม. 39",
+        "text": "โทษจำคุกให้ถือว่าสิ้นสุดลง เมื่อ (1) ครบกำหนดโทษ (2) ได้รับการพระราชทานอภัยโทษ (3) ผู้ต้องโทษตาย",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p51",
+        "section": "ม. 51",
+        "text": "โทษจำคุกหลายกระทงให้เรียงกันเกินไม่ได้ห้าสิบปี ทั้งนี้ถ้าโทษจำคุกของแต่ละกระทงสูงสุดรวมกันไม่เกินห้าสิบปี ให้รวมกันทั้งหมด (หลักการรวมโทษหลายกระทง)",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p52",
+        "section": "ม. 52",
+        "text": "ผู้ใดกระทำความผิดหลายกรรมต่างกัน ให้ศาลลงโทษผู้นั้นทุกกรรมเป็นกระทงความผิดไป",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p53",
+        "section": "ม. 53",
+        "text": "เมื่อปรากฏว่าผู้กระทำความผิดต้องโทษจำคุก และโทษจำคุกของกระทงที่หนักที่สุดคือตลอดชีวิต ให้ถือว่าโทษจำคุกตลอดชีวิตนั้นเป็นโทษสูงสุด",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "p58",
+        "section": "ม. 58",
+        "text": "เมื่อปรากฏว่าผู้ที่ถูกศาลสั่งให้คุมความประพฤติได้กระทำผิดเงื่อนไข ศาลอาจสั่งให้ผู้นั้นรับโทษตามคำพิพากษาเดิมก็ได้",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "a0",
+        "section": "ม. 2",
+        "text": "บุคคลจักต้องรับโทษในทางอาญาต่อเมื่อได้ทำการอันกฎหมายที่ใช้ในขณะกระทำนั้นบัญญัติเป็นความผิดและกำหนดโทษไว้ และโทษที่จะลงแก่ผู้กระทำความผิดนั้น ต้องเป็นโทษที่บัญญัติไว้ในกฎหมาย",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "a1",
+        "section": "ม. 59",
+        "text": "บุคคลจะต้องรับผิดในทางอาญาต่อเมื่อได้กระทำโดยเจตนา เว้นแต่จะได้กระทำโดยประมาท ในกรณีที่กฎหมายบัญญัติไว้โดยชัดแจ้งให้ต้องรับผิดเมื่อได้กระทำโดยประมาท หรือเว้นแต่ในกรณีที่กฎหมายบัญญัติไว้โดยชัดแจ้งให้ต้องรับผิดแม้ได้กระทำโดยไม่มีเจตนา",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a2",
+        "section": "ม. 60",
+        "text": "ผู้ใดเจตนาที่จะกระทำต่อบุคคลหนึ่ง แต่ผลของการกระทำเกิดแก่อีกบุคคลหนึ่งโดยพลาดไป ให้ถือว่าผู้นั้นเจตนาฆ่าหรือทำร้ายบุคคลผู้ได้รับผลร้ายจากการกระทำนั้น (เจตนาโดยผลกฎหมาย/พลาด)",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a3",
+        "section": "ม. 61",
+        "text": "ผู้ใดเจตนาจะกระทำต่อบุคคลหนึ่ง แต่ได้กระทำต่ออีกบุคคลหนึ่งโดยสำคัญผิด ผู้นั้นจะยกเอาความสำคัญผิดเป็นข้อแก้ตัวว่ามิได้มีเจตนาหาได้ไม่ (สำคัญผิดในตัวบุคคล)",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a4",
+        "section": "ม. 62",
+        "text": "ข้อเท็จจริงใด หากมีอยู่จริงจะทำให้การกระทำไม่เป็นความผิด หรือทำให้ผู้กระทำไม่ต้องรับโทษ หรือได้รับโทษน้อยลง แม้ข้อเท็จจริงนั้นจะไม่มีอยู่จริง แต่ผู้กระทำสำคัญผิดว่ามีอยู่จริง ผู้กระทำย่อมได้รับยกเว้นความผิดหรือยกเว้นโทษหรือได้รับโทษน้อยลง แล้วแต่กรณี (สำคัญผิดในข้อเท็จจริง)",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a5",
+        "section": "ม. 67",
+        "text": "ผู้ใดกระทำความผิดด้วยความจำเป็น เพราะอยู่ในที่บังคับหรือภายใต้ใช้อำนาจซึ่งไม่สามารถหลีกเลี่ยงหรือขัดขืนได้ หรือเพราะเพื่อให้ตนเองหรือผู้อื่นพ้นจากภยันตรายอันใกล้จะถึงและไม่สามารถหลีกเลี่ยงด้วยวิธีอื่นใดได้ เมื่อภยันตรายนั้นตนมิได้ก่อให้เกิดขึ้นโดยความผิดของตน",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a6",
+        "section": "ม. 68",
+        "text": "ผู้ใดจำต้องกระทำการใดเพื่อป้องกันสิทธิของตนหรือของผู้อื่นให้พ้นภยันตรายอันละเมิดต่อกฎหมาย และเป็นภยันตรายที่ใกล้จะถึง หากได้กระทำพอสมควรแก่เหตุ การกระทำนั้นเป็นการป้องกันโดยชอบด้วยกฎหมาย ผู้นั้นไม่มีความผิด",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a6_1",
+        "section": "ม. 69",
+        "text": "ในกรณีที่บัญญัติไว้ในมาตรา 67 และมาตรา 68 นั้น ถ้าผู้กระทำได้กระทำไปเกินสมควรแก่เหตุ หรือเกินกว่ากรณีแห่งความจำเป็น หรือเกินกว่าภัย ศาลจะลงโทษน้อยกว่าที่กฎหมายกำหนดไว้สำหรับความผิดนั้นเพียงใดก็ได้",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a7",
+        "section": "ม. 72",
+        "text": "ผู้ใดบันดาลโทสะโดยถูกข่มเหงอย่างร้ายแรงด้วยเหตุอันไม่เป็นธรรม จึงกระทำความผิดต่อผู้ข่มเหงในขณะนั้น ศาลจะลงโทษผู้นั้นน้อยกว่าที่กฎหมายกำหนดไว้สำหรับความผิดนั้นเพียงใดก็ได้",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a8",
+        "section": "ม. 80",
+        "text": "ผู้ใดลงมือกระทำความผิดแต่กระทำไปไม่ตลอด หรือกระทำไปตลอดแล้วแต่การกระทำนั้นไม่บรรลุผล ผู้นั้นย่อมพยายามกระทำความผิด ต้องระวางโทษสองในสามส่วนของโทษที่กฎหมายกำหนดไว้สำหรับความผิดนั้น",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a9",
+        "section": "ม. 83",
+        "text": "ในกรณีความผิดใดเกิดขึ้นโดยการร่วมกระทำความผิดด้วยกันตั้งแต่สองคนขึ้นไป ผู้ร่วมกระทำความผิดด้วยกันนั้นเป็นตัวการ ต้องระวางโทษตามที่กฎหมายกำหนดไว้สำหรับความผิดนั้น",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a10",
+        "section": "ม. 84",
+        "text": "ผู้ใดก่อให้ผู้อื่นกระทำความผิดไม่ว่าด้วยการสั่ง บังคับ ขู่เข็ญ ยุยงส่งเสริม หรือด้วยวิธีอื่นใด ผู้นั้นเป็นผู้ใช้ให้กระทำความผิด",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a11",
+        "section": "ม. 86",
+        "text": "ผู้ใดกระทำด้วยประการใดๆ อันเป็นการช่วยเหลือ หรือให้ความสะดวกในการที่ผู้อื่นกระทำความผิด ก่อนหรือขณะกระทำความผิด แม้ผู้กระทำความผิดจะมิได้รู้ถึงการช่วยเหลือหรือให้ความสะดวกนั้นก็ตาม ผู้นั้นเป็นผู้สนับสนุนการกระทำความผิด",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a11a",
+        "section": "ม. 63",
+        "text": "ถ้าผลอันเกิดจากการกระทำนั้น หากไม่มีอุบัติเหตุหรือความบกพร่องของผู้เสียหายเกิดขึ้นก่อนแล้ว ผลนั้นก็จะไม่เกิดขึ้น ให้ถือว่าผลนั้นเกิดจากอุบัติเหตุหรือความบกพร่องของผู้เสียหาย ไม่ใช่จากการกระทำของผู้กระทำ (ผลที่เกิดขึ้นเพราะเหตุอื่น)",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a11b",
+        "section": "ม. 78",
+        "text": "เมื่อปรากฏว่ามีเหตุบรรเทาโทษ ไม่ว่าจะเป็นการที่ผู้กระทำความผิดรู้สึกสำนึกในความผิด ให้การเป็นประโยชน์แก่การพิจารณา หรือเหตุอื่นๆ ในทำนองนี้ ศาลจะลงโทษน้อยกว่าที่กฎหมายกำหนด แต่ไม่เกินกึ่งหนึ่งของโทษต่ำสุด",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a11c",
+        "section": "ม. 81",
+        "text": "ผู้ใดกระทำการโดยมุ่งต่อผลซึ่งกฎหมายบัญญัติเป็นความผิด แต่การกระทำนั้นไม่สามารถบรรลุผลได้อย่างแน่แท้ ผู้นั้นไม่มีความผิดฐานพยายามกระทำความผิด (พยายามที่ไม่มีความผิด)",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a11d",
+        "section": "ม. 82",
+        "text": "ผู้ใดขณะกระทำความผิด ถ้าผู้นั้นได้กลับใจยับยั้งเสียเอง ไม่กระทำการให้ตลอด ผู้นั้นไม่ต้องรับโทษสำหรับการพยายามกระทำความผิดนั้น (ยับยั้งการพยายาม)",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a11e",
+        "section": "ม. 87",
+        "text": "ผู้ใดสนับสนุนการกระทำความผิด ต้องระวางโทษสองในสามส่วนของโทษที่กำหนดไว้สำหรับความผิดนั้น",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a11f",
+        "section": "ม. 88",
+        "text": "ถ้าตัวการคนหนึ่งคนใดกระทำเกินขอบเขตที่ตกลงกัน ตัวการอื่นไม่ต้องรับผิดในผลที่ตัวการนั้นกระทำเกินขอบเขตนั้น",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a11g",
+        "section": "ม. 89",
+        "text": "ถ้าผู้ใช้ได้กระทำเพื่อให้ผู้อื่นกระทำความผิด แต่ผู้ถูกใช้มิได้กระทำความผิดนั้น ผู้ใช้จะต้องรับโทษเพียงหนึ่งในสามของโทษสำหรับความผิดนั้น",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a11h",
+        "section": "ม. 92",
+        "text": "เมื่อผู้ใดต้องโทษจำคุกมาแล้วครั้งหนึ่ง และมากระทำความผิดอีกภายในห้าปีนับแต่วันพ้นโทษ ให้ศาลเพิ่มโทษที่จะลงได้ไม่เกินกึ่งหนึ่งของโทษที่ศาลกำหนดสำหรับความผิดครั้งหลัง",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a11i",
+        "section": "ม. 93",
+        "text": "ผู้ใดต้องโทษจำคุกมาแล้วสองครั้งขึ้นไป และมากระทำผิดอีกโดยความผิดครั้งใหม่เป็นความผิดที่มีโทษจำคุกเกินหกเดือน ให้ถือว่าเป็นผู้กระทำผิดติดนิสัย ศาลอาจเพิ่มโทษไม่เกินกึ่งหนึ่ง",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "a11j",
+        "section": "ม. 105",
+        "text": "การกระทำซึ่งผู้กระทำไม่รู้ข้อเท็จจริงอันเป็นองค์ประกอบของความผิด จะถือว่าผู้กระทำประสงค์ต่อผลหรือย่อมเล็งเห็นผลของการกระทำนั้นมิได้",
+        "category": "วิชาอาญา ข้อ 2 และ 3 มาตรา 59-106"
+    },
+    {
+        "id": "of136",
+        "section": "ม. 136",
+        "text": "ผู้ใดดูหมิ่นเจ้าพนักงานซึ่งกระทำการตามหน้าที่ หรือเพราะได้กระทำการตามหน้าที่ ต้องระวางโทษจำคุกไม่เกินหนึ่งปี หรือปรับไม่เกินสองหมื่นบาท หรือทั้งจำทั้งปรับ",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of138",
+        "section": "ม. 138",
+        "text": "ผู้ใดต่อสู้หรือขัดขวางเจ้าพนักงานหรือผู้ซึ่งต้องช่วยเจ้าพนักงานตามกฎหมาย ในการปฏิบัติการตามหน้าที่ ต้องระวางโทษจำคุกไม่เกินหนึ่งปี หรือปรับไม่เกินสองหมื่นบาท หรือทั้งจำทั้งปรับ",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of139",
+        "section": "ม. 139",
+        "text": "ผู้ใดข่มขืนใจหรือขู่เข็ญเจ้าพนักงานเพื่อให้กระทำหรืองดเว้นการกระทำอันชอบด้วยอำนาจหน้าที่ ต้องระวางโทษจำคุกไม่เกินสี่ปี หรือปรับไม่เกินแปดหมื่นบาท หรือทั้งจำทั้งปรับ",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of140",
+        "section": "ม. 140",
+        "text": "ถ้าความผิดตามมาตรา 138 หรือ 139 ได้กระทำโดยใช้กำลังประทุษร้าย ต้องระวางโทษหนักขึ้น",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of142",
+        "section": "ม. 142",
+        "text": "ผู้ใดเมื่อเจ้าพนักงานสอบถาม แจ้งข้อความอันเป็นเท็จเกี่ยวกับชื่อ สัญชาติ หรือที่อยู่ของตน ต้องระวางโทษปรับไม่เกินหนึ่งพันบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of143",
+        "section": "ม. 143",
+        "text": "ผู้ใดเรียก รับ หรือยอมจะรับทรัพย์สิน หรือประโยชน์อื่นใด สำหรับตนเองหรือผู้อื่น เป็นการตอบแทนที่ตนจะกระทำหรืองดเว้นกระทำการอย่างใดในตำแหน่ง ไม่ว่าตนจะมีอำนาจจริงหรือแสร้งทำว่ามีอำนาจ (รับสินบนเจ้าพนักงาน)",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of144",
+        "section": "ม. 144",
+        "text": "ผู้ใดให้ ขอให้ หรือรับว่าจะให้ทรัพย์สินหรือประโยชน์อื่นใดแก่เจ้าพนักงาน เพื่อจูงใจให้กระทำหรืองดเว้นกระทำ หรือเร่งรัดหรือหน่วงเหนี่ยวการกระทำในตำแหน่ง (ให้สินบนเจ้าพนักงาน) ต้องระวางโทษจำคุกตั้งแต่หนึ่งปีถึงห้าปี หรือปรับตั้งแต่สองหมื่นบาทถึงหนึ่งแสนบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of145",
+        "section": "ม. 145",
+        "text": "ผู้ใดแต่งเครื่องแบบหรือเครื่องหมายของเจ้าพนักงาน หรือแสดงว่าตนมีอำนาจหน้าที่ของเจ้าพนักงานโดยตนไม่มีสิทธิจะทำเช่นนั้น ต้องระวางโทษจำคุกไม่เกินหนึ่งปี หรือปรับไม่เกินสองหมื่นบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of146",
+        "section": "ม. 146",
+        "text": "ผู้ใดปลอมหรือแปลงตรา รูปรอย หรือสัญลักษณ์ของเจ้าพนักงาน หรือรัฐบาลต่างประเทศ ต้องระวางโทษจำคุกไม่เกินสามปี หรือปรับไม่เกินหกหมื่นบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of148",
+        "section": "ม. 148",
+        "text": "ผู้ใดเป็นเจ้าพนักงาน กระทำการหรือไม่กระทำการอย่างใดในตำแหน่งโดยเห็นแก่ทรัพย์สินหรือประโยชน์อื่นใดที่ตนได้รับหรือจะได้รับ (รับสินบน-กรรโชกเจ้าพนักงาน) ต้องระวางโทษจำคุกตั้งแต่ห้าปีถึงยี่สิบปี",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of149",
+        "section": "ม. 149",
+        "text": "ผู้ใดเป็นเจ้าพนักงาน สมาชิกสภานิติบัญญัติ หรือสมาชิกสภาท้องถิ่น เรียก รับ หรือยอมจะรับทรัพย์สินหรือประโยชน์อื่นใดสำหรับตนเองหรือผู้อื่น เพื่อกระทำการหรืองดเว้นกระทำการในหน้าที่อันมิชอบ (สินบนเจ้าพนักงาน-มาตราหลัก) ต้องระวางโทษจำคุกตั้งแต่ห้าปีถึงยี่สิบปี หรือตลอดชีวิต",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of151",
+        "section": "ม. 151",
+        "text": "ผู้ใดเป็นเจ้าพนักงาน มีหน้าที่จ่ายทรัพย์ กระทำการทุจริต จ่ายทรัพย์น้อยกว่าที่ควรจ่าย หรือจัดซื้อจัดจ้างโดยไม่ชอบ ต้องระวางโทษจำคุกตั้งแต่ห้าปีถึงยี่สิบปี หรือตลอดชีวิต และปรับตั้งแต่หนึ่งแสนถึงสี่แสนบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of152",
+        "section": "ม. 152",
+        "text": "ผู้ใดเป็นเจ้าพนักงาน มีหน้าที่จัดการหรือดูแลกิจการ กระทำการทุจริตต่อหน้าที่ในกิจการนั้นเพื่อแสวงหาประโยชน์ที่มิควรได้ ต้องระวางโทษจำคุกตั้งแต่หนึ่งปีถึงสิบปี",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of153",
+        "section": "ม. 153",
+        "text": "ผู้ใดเป็นเจ้าพนักงาน มีหน้าที่จัดทำเอกสาร หรือรับผิดชอบในการจัดทำเอกสาร กระทำการทุจริตในเอกสารนั้น เพื่อให้เกิดความเสียหายแก่ผู้อื่นหรือประชาชน",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of158",
+        "section": "ม. 158",
+        "text": "ผู้ใดเป็นเจ้าพนักงาน กระทำการเกินอำนาจหน้าที่หรือปฏิบัติหน้าที่โดยมิชอบ เพื่อให้เกิดความเสียหายแก่ผู้หนึ่งผู้ใด ต้องระวางโทษจำคุกไม่เกินหนึ่งปี หรือปรับไม่เกินสองหมื่นบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of161",
+        "section": "ม. 161",
+        "text": "ผู้ใดเป็นเจ้าพนักงาน มีหน้าที่ทำเอกสาร กรอกข้อความหรือแจ้ง ทำเอกสารเท็จหรือกรอกข้อความอันเป็นเท็จลงในเอกสาร ซึ่งตนมีอำนาจหน้าที่ทำ เพื่อให้ผู้อื่นหรือประชาชนหลงเชื่อว่าเป็นเอกสารจริง (ปลอมเอกสารราชการ)",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of162",
+        "section": "ม. 162",
+        "text": "ผู้ใดเป็นเจ้าพนักงาน มีหน้าที่รับฟ้อง บันทึกถ้อยคำ หรือแปล กระทำการบิดเบือน สอดแทรก ตัดทอนข้อความ หรือแปลโดยไม่สุจริตในสิ่งที่ตนมีหน้าที่ดำเนินการ",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of165",
+        "section": "ม. 165",
+        "text": "ผู้ใดข่มขืนใจหรือขู่เข็ญผู้มีสิทธิเลือกตั้งเพื่อให้ลงคะแนนเลือกตั้งหรืองดเว้นลงคะแนนเลือกตั้ง ต้องระวางโทษจำคุกไม่เกินหนึ่งปี หรือปรับไม่เกินสองหมื่นบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of167",
+        "section": "ม. 167",
+        "text": "ผู้ใดให้ ขอให้ หรือรับว่าจะให้ทรัพย์สินหรือประโยชน์อื่นใดแก่เจ้าพนักงาน เพื่อจูงใจให้กระทำการในตำแหน่งโดยมิชอบ ต้องระวางโทษจำคุกไม่เกินห้าปี หรือปรับไม่เกินหนึ่งแสนบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of172",
+        "section": "ม. 172",
+        "text": "ผู้ใดแจ้งข้อความอันเป็นเท็จเกี่ยวกับความผิดอาญาแก่พนักงานสอบสวนหรือเจ้าพนักงานผู้มีอำนาจสืบสวน โดยประการที่น่าจะทำให้ผู้อื่นหรือประชาชนเสียหาย ต้องระวางโทษจำคุกไม่เกินสองปี",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of173",
+        "section": "ม. 173",
+        "text": "ผู้ใดรู้ว่ามิได้มีการกระทำความผิดเกิดขึ้น แจ้งความแก่เจ้าพนักงานว่ามีผู้กระทำความผิด โดยประการที่น่าจะทำให้ผู้อื่นหรือประชาชนเสียหาย ต้องระวางโทษจำคุกไม่เกินสามปี",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of174",
+        "section": "ม. 174",
+        "text": "ผู้ใดรู้ว่าผู้อื่นไม่ได้กระทำความผิด แต่ช่วยปิดบัง ซ่อนเร้น หรือกระทำการอื่นใดเพื่อให้ผู้นั้นหลุดพ้นจากการสอบสวนหรือการลงโทษ ต้องระวางโทษจำคุกไม่เกินสองปี",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of175",
+        "section": "ม. 175",
+        "text": "ผู้ใดนำสืบหรือแสดงพยานหลักฐานอันเป็นเท็จในการพิจารณาคดี ต้องระวางโทษจำคุกไม่เกินห้าปี หรือปรับไม่เกินหนึ่งแสนบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of176",
+        "section": "ม. 176",
+        "text": "ผู้ใดเบิกความอันเป็นเท็จในการพิจารณาคดีอาญา ต้องระวางโทษหนักขึ้นกว่ามาตรา 175",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of177",
+        "section": "ม. 177",
+        "text": "ผู้ใดเบิกความอันเป็นเท็จในการพิจารณาคดีแพ่งหรือในการสอบสวน ต้องระวางโทษจำคุกไม่เกินห้าปี หรือปรับไม่เกินหนึ่งแสนบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of179",
+        "section": "ม. 179",
+        "text": "ผู้ใดขัดขวางหรือหน่วงเหนี่ยวการดำเนินกระบวนพิจารณาของศาล หรือทำให้คำสั่งหมายหรือคำพิพากษาของศาลไม่อาจบังคับได้ ต้องระวางโทษจำคุกไม่เกินสามปี หรือปรับไม่เกินหกหมื่นบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of180",
+        "section": "ม. 180",
+        "text": "ผู้ใดทำให้เสื่อมเสียอำนาจศาลหรือขัดขวางกระบวนพิจารณาของศาล ต้องระวางโทษจำคุกไม่เกินหนึ่งปี หรือปรับไม่เกินสองหมื่นบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of181",
+        "section": "ม. 181",
+        "text": "ผู้ใดหลบหนีหรือช่วยให้ผู้ต้องขังตามคำสั่งหรือคำพิพากษาของศาลหลบหนี ต้องระวางโทษจำคุกไม่เกินสามปี หรือปรับไม่เกินหกหมื่นบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of184",
+        "section": "ม. 184",
+        "text": "ผู้ใดขัดขืนไม่ยอมมาตามหมายเรียกโดยไม่มีเหตุอันสมควร ต้องระวางโทษปรับไม่เกินสองร้อยบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of188",
+        "section": "ม. 188",
+        "text": "ผู้ใดทำให้เสียหาย ทำลาย ซ่อนเร้น หรือเอาไปเสียซึ่งทรัพย์หรือเอกสารที่เจ้าพนักงานยึดหรืออายัดไว้ ต้องระวางโทษจำคุกไม่เกินสามปี",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of190",
+        "section": "ม. 190",
+        "text": "ผู้ใดหลบหนีไปจากการควบคุมของเจ้าพนักงาน ซึ่งควบคุมตามอำนาจที่กฎหมายให้ไว้ ต้องระวางโทษจำคุกไม่เกินสามปี",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of191",
+        "section": "ม. 191",
+        "text": "ผู้ใดช่วยผู้ต้องขังหลบหนี ต้องระวางโทษจำคุกไม่เกินห้าปี หรือปรับไม่เกินหนึ่งแสนบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of192",
+        "section": "ม. 192",
+        "text": "เจ้าพนักงานผู้ใดปล่อยผู้ต้องขังไปโดยไม่ชอบด้วยกฎหมาย ต้องระวางโทษจำคุกตั้งแต่หนึ่งปีถึงเจ็ดปี",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of193",
+        "section": "ม. 193",
+        "text": "เจ้าพนักงานผู้ใดขัดขวางไม่ให้มีการปล่อยผู้ต้องขังซึ่งต้องปล่อยตามกฎหมาย หรือไม่ยอมปล่อย ต้องระวางโทษจำคุกไม่เกินหนึ่งปี หรือปรับไม่เกินสองหมื่นบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of198",
+        "section": "ม. 198",
+        "text": "ผู้ใดดูหมิ่นศาลหรือผู้พิพากษาในการพิจารณาหรือพิพากษาคดี ต้องระวางโทษจำคุกตั้งแต่หนึ่งปีถึงเจ็ดปี หรือปรับตั้งแต่สองหมื่นบาทถึงหนึ่งแสนสี่หมื่นบาท",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of199",
+        "section": "ม. 199",
+        "text": "ผู้ใดทำลาย ทำให้เสียหาย ซ่อนเร้น หรือเอาไปเสียซึ่งศพ หรือส่วนของศพ ต้องระวางโทษจำคุกไม่เกินสามปี",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of200",
+        "section": "ม. 200",
+        "text": "เจ้าพนักงานผู้ใดปฏิบัติหน้าที่โดยมิชอบ ทำให้ผู้ต้องหาหรือจำเลยถูกจับหรือคุมขังโดยไม่ชอบด้วยกฎหมาย หรือสั่งให้ปล่อยผู้ที่ถูกกักขังโดยชอบด้วยกฎหมาย",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of201",
+        "section": "ม. 201",
+        "text": "เจ้าพนักงานในตำแหน่งตุลาการ พนักงานอัยการ พนักงานสอบสวน หรือเจ้าพนักงานผู้มีอำนาจชำระความ รับ ยอมรับ หรือขอสินบน เพื่อกระทำหรือละเว้นกระทำการในหน้าที่",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of204",
+        "section": "ม. 204",
+        "text": "ผู้ใดเป็นเจ้าพนักงาน ละทิ้งงานหรือกระทำการใดๆ เพื่อให้งานของรัฐหยุดชะงักหรือเสียหาย ต้องระวางโทษจำคุกไม่เกินสามปี",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "of205",
+        "section": "ม. 205",
+        "text": "ผู้ใดเป็นเจ้าพนักงาน ละทิ้งงานโดยพร้อมกันตั้งแต่ห้าคนขึ้นไปเพื่อให้งานของรัฐหยุดชะงัก ต้องระวางโทษหนักกว่ามาตรา 204",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "ae1",
+        "section": "ม. 137",
+        "text": "ผู้ใดแจ้งข้อความอันเป็นเท็จแก่เจ้าพนักงาน ซึ่งอาจทำให้ผู้อื่นหรือประชาชนเสียหาย ต้องระวางโทษจำคุกไม่เกินหกเดือน หรือปรับไม่เกินหนึ่งหมื่นบาท หรือทั้งจำทั้งปรับ",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "ae2",
+        "section": "ม. 147",
+        "text": "ผู้ใดเป็นเจ้าพนักงาน มีหน้าที่ซื้อ ทำ จัดการหรือรักษาทรัพย์ใด เบียดบังทรัพย์นั้นเป็นของตนหรือของผู้อื่นโดยทุจริต หรือโดยทุจริตยอมให้ผู้อื่นเอาทรัพย์นั้นเสีย (ยักยอกทรัพย์หลวง)",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "ae3",
+        "section": "ม. 157",
+        "text": "ผู้ใดเป็นเจ้าพนักงาน ปฏิบัติหรือละเว้นการปฏิบัติหน้าที่โดยมิชอบ เพื่อให้เกิดความเสียหายแก่ผู้หนึ่งผู้ใด หรือปฏิบัติหรือละเว้นการปฏิบัติหน้าที่โดยทุจริต",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "ae4",
+        "section": "ม. 189",
+        "text": "ผู้ใดช่วยผู้อื่นซึ่งเป็นผู้กระทำความผิด หรือเป็นผู้ต้องหาว่ากระทำความผิด เพื่อไม่ให้ต้องรับโทษ โดยให้ที่พำนัก แก่ซ่อนเร้น หรือช่วยด้วยประการใดเพื่อไม่ให้ถูกจับกุม",
+        "category": "วิชาอาญา ข้อ 1 มาตรา 1-58, 107-208"
+    },
+    {
+        "id": "ae5",
+        "section": "ม. 209",
+        "text": "ผู้ใดเป็นสมาชิกของคณะบุคคลซึ่งปกปิดวิธีดำเนินการและมีวัตถุประสงค์อันมิชอบด้วยกฎหมาย ผู้นั้นกระทำความผิดฐานเป็นอั้งยี่",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "ae6",
+        "section": "ม. 210",
+        "text": "ผู้ใดสมคบกันตั้งแต่ห้าคนขึ้นไป เพื่อกระทำความผิดอย่างหนึ่งอย่างใดตามที่บัญญัติไว้ในภาค 2 นี้ และความผิดนั้นมีกำหนดโทษจำคุกขั้นสูงตั้งแต่หนึ่งปีขึ้นไป ผู้นั้นกระทำความผิดฐานเป็นซ่องโจร",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "ae7",
+        "section": "ม. 264",
+        "text": "ผู้ใดทำเอกสารปลอมขึ้นทั้งฉบับหรือแต่ส่วนหนึ่งส่วนใด เติมหรือตัดทอนข้อความ หรือแก้ไขด้วยประการใดๆ ในเอกสารที่แท้จริง โดยประการที่น่าจะเกิดความเสียหายแก่ผู้อื่นหรือประชาชน (ปลอมเอกสารทั่วไป)",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "ae8",
+        "section": "ม. 265",
+        "text": "ผู้ใดปลอมเอกสารสิทธิ หรือเอกสารราชการ ต้องระวางโทษจำคุกตั้งแต่หกเดือนถึงห้าปี และปรับตั้งแต่หนึ่งหมื่นบาทถึงหนึ่งแสนบาท",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "ae9",
+        "section": "ม. 268",
+        "text": "ผู้ใดใช้หรืออ้างเอกสารอันเกิดจากการกระทำความผิดตามมาตรา 264 มาตรา 265 มาตรา 266 หรือมาตรา 267 ต้องระวางโทษดังที่บัญญัติไว้ในมาตรานั้นๆ (ใช้เอกสารปลอม)",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "a11_1",
+        "section": "ม. 276",
+        "text": "ผู้ใดข่มขืนกระทำชำเราผู้อื่นโดยขู่เข็ญด้วยประการใดๆ โดยใช้กำลังประทุษร้าย โดยผู้อื่นนั้นอยู่ในภาวะที่ไม่สามารถขัดขืนได้ หรือโดยทำให้ผู้อื่นนั้นเข้าใจผิดว่าตนเป็นบุคคลอื่น",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "a11_2",
+        "section": "ม. 277",
+        "text": "ผู้ใดกระทำชำเราเด็กอายุยังไม่เกินสิบห้าปี ซึ่งมิใช่ภริยาหรือสามีของตน โดยเด็กนั้นจะยินยอมหรือไม่ก็ตาม ต้องระวางโทษจำคุกตั้งแต่ห้าปีถึงยี่สิบปี และปรับตั้งแต่หนึ่งแสนบาทถึงสี่แสนบาท",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "a12",
+        "section": "ม. 288",
+        "text": "ผู้ใดฆ่าผู้อื่น ต้องระวางโทษประหารชีวิต จำคุกตลอดชีวิต หรือจำคุกตั้งแต่สิบห้าปีถึงยี่สิบปี",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a13",
+        "section": "ม. 289",
+        "text": "ผู้ใดฆ่าผู้อื่นโดยบุพการี ผู้ช่วยเหลือเจ้าพนักงาน ทรมานหรือทารุณโหดร้าย ตระเตรียมการ หรือเพื่อเอาผลประโยชน์ ย่อมต้องระวางโทษประหารชีวิต (ฆ่าโดยเหตุฉกรรจ์)",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a14",
+        "section": "ม. 290",
+        "text": "ผู้ใดมิได้มีเจตนาฆ่า แต่ทำร้ายผู้อื่นจนเป็นเหตุให้ผู้นั้นถึงแก่ความตาย ต้องระวางโทษจำคุกตั้งแต่สามปีถึงสิบห้าปี",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a15",
+        "section": "ม. 291",
+        "text": "ผู้ใดกระทำการโดยประมาท และการกระทำนั้นเป็นเหตุให้ผู้อื่นถึงแก่ความตาย ต้องระวางโทษจำคุกไม่เกินสิบปี และปรับไม่เกินสองแสนบาท",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a15_1",
+        "section": "ม. 292",
+        "text": "ผู้ใดกระทำด้วยประการใดๆ อันเป็นการยุยงส่งเสริม หรือช่วยขู่เข็ญให้เด็กอายุยังไม่เกินสิบหกปี หรือบุคคลที่ไม่สามารถเข้าใจผลการกระทำของตนเพื่อฆ่าตนเอง ถ้าการฆ่าตนเองได้เกิดขึ้นหรือได้มีการพยายาม",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a15_2",
+        "section": "ม. 293",
+        "text": "ผู้ใดช่วยหรือยุยงเด็กอายุยังไม่เกินสิบหกปี หรือบุคคลที่ไม่สามารถเข้าใจหรือบังคับการกระทำของตนเองได้ เพื่อให้ฆ่าตนเอง",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a15_3",
+        "section": "ม. 294",
+        "text": "ผู้ใดเข้าร่วมในการชุลมุนต่อสู้ระหว่างบุคคลตั้งแต่สามคนขึ้นไป และบุคคลหนึ่งถึงแก่ความตายโดยการกระทำในการชุลมุนต่อสู้นั้น",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16",
+        "section": "ม. 295",
+        "text": "ผู้ใดทำร้ายผู้อื่น จนเป็นเหตุให้เกิดอันตรายแก่กายหรือจิตใจของผู้อื่นนั้น ผู้นั้นกระทำความผิดฐานทำร้ายร่างกาย ต้องระวางโทษจำคุกไม่เกินสองปี หรือปรับไม่เกินสี่หมื่นบาท หรือทั้งจำทั้งปรับ",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_1",
+        "section": "ม. 297",
+        "text": "ผู้ใดกระทำความผิดฐานทำร้ายร่างกาย จนเป็นเหตุให้ผู้ถูกทำร้ายรับอันตรายสาหัส (เช่น เสียจักษุ, ตัดแขนขา, แท้งลูก, จิตพิการ, ทุพพลภาพเกิน 20 วัน)",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_2",
+        "section": "ม. 300",
+        "text": "ผู้ใดกระทำโดยประมาท และการกระทำนั้นเป็นเหตุให้ผู้อื่นรับอันตรายสาหัส ต้องระวางโทษจำคุกไม่เกินสามปี หรือปรับไม่เกินหกหมื่นบาท หรือทั้งจำทั้งปรับ",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_3",
+        "section": "ม. 309",
+        "text": "ผู้ใดข่มขืนใจผู้อื่นให้กระทำการใด ไม่กระทำการใด หรือยอมจำนนต่อสิ่งใด โดยทำให้กลัวว่าจะเกิดอันตรายต่อชีวิต ร่างกาย เสรีภาพ ชื่อเสียง หรือทรัพย์สินของผู้ถูกข่มขืนใจ หรือโดยใช้กำลังประทุษร้าย",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_4",
+        "section": "ม. 310",
+        "text": "ผู้ใดหน่วงเหนี่ยวหรือกักขังผู้อื่น หรือกระทำด้วยประการใดให้ผู้อื่นปราศจากเสรีภาพในร่างกาย ต้องระวางโทษจำคุกไม่เกินสามปี หรือปรับไม่เกินหกหมื่นบาท หรือทั้งจำทั้งปรับ",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_5",
+        "section": "ม. 313",
+        "text": "ผู้ใดเพื่อให้ได้มาซึ่งค่าไถ่ เอาตัวบุคคลอายุเกินสิบห้าปีไป โดยใช้อุบายหลอกลวง ขู่เข็ญ ใช้กำลังประทุษร้าย หรือหน่วงเหนี่ยวกักขังบุคคลใด (ความผิดฐานจับตัวเรียกค่าไถ่)",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a17",
+        "section": "ม. 334",
+        "text": "ผู้ใดเอาทรัพย์ของผู้อื่น หรือที่ผู้อื่นเป็นเจ้าของรวมอยู่ด้วยไปโดยทุจริต ผู้นั้นกระทำความผิดฐานลักทรัพย์ ต้องระวางโทษจำคุกไม่เกินสามปี และปรับไม่เกินหกหมื่นบาท",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a17_1",
+        "section": "ม. 335",
+        "text": "ผู้ใดลักทรัพย์ในเวลากลางคืน ในที่อุปโภคบริโภค โดยผ่านสิ่งกีดกั้น ปลอมตัว ร่วมกันตั้งแต่สองคน หรือเหตุฉกรรจ์อื่น ๆ ต้องระวางโทษหนักกว่าลักทรัพย์ธรรมดา",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a17_2",
+        "section": "ม. 336",
+        "text": "ผู้ใดลักทรัพย์โดยฉกฉวยเอาไปซึ่งหน้า ผู้นั้นกระทำความผิดฐานวิ่งราวทรัพย์ ต้องระวางโทษจำคุกไม่เกินห้าปี และปรับไม่เกินหนึ่งแสนบาท",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a17_3",
+        "section": "ม. 337",
+        "text": "ผู้ใดข่มขืนใจผู้อื่นให้ยอมให้หรือยอมจะให้ตนหรือผู้อื่นได้ประโยชน์ในลักษณะที่เป็นทรัพย์สิน โดยขู่เข็ญว่าจะทำอันตรายต่อชีวิต ร่างกาย หรือทรัพย์สิน ผู้นั้นกระทำความผิดฐานกรรโชกทรัพย์",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a17_4",
+        "section": "ม. 338",
+        "text": "ผู้ใดข่มขืนใจผู้อื่นให้ยอมให้ หรือยอมจะให้ตนหรือผู้อื่นได้ประโยชน์ในลักษณะที่เป็นทรัพย์สิน โดยขู่เข็ญว่าจะเปิดเผยความลับซึ่งจะทำให้เสียหาย ผู้นั้นกระทำความผิดฐานรีดเอาทรัพย์",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a18",
+        "section": "ม. 339",
+        "text": "ผู้ใดลักทรัพย์โดยใช้กำลังประทุษร้าย หรือขู่เข็ญว่าจะใช้กำลังประทุษร้ายทันที เพื่อให้ยื่นให้ซึ่งทรัพย์นั้น หรือเพื่อเอาทรัพย์นั้นไป ผู้นั้นกระทำความผิดฐานชิงทรัพย์",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a19",
+        "section": "ม. 340",
+        "text": "ผู้ใดชิงทรัพย์โดยร่วมกันกระทำความผิดด้วยกันตั้งแต่สามคนขึ้นไป ผู้นั้นกระทำความผิดฐานปล้นทรัพย์ ต้องระวางโทษจำคุกตั้งแต่สิบปีถึงสิบห้าปี และปรับตั้งแต่สองแสนบาทถึงสามแสนบาท",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a19_1",
+        "section": "ม. 341",
+        "text": "ผู้ใดโดยทุจริต หลอกลวงผู้อื่นด้วยการแสดงข้อความอันเป็นเท็จ หรือปกปิดข้อความจริงซึ่งควรบอกให้แจ้ง และโดยการหลอกลวงดังว่านั้นได้ไปซึ่งทรัพย์สิน ผู้นั้นกระทำความผิดฐานฉ้อโกง",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a19_2",
+        "section": "ม. 343",
+        "text": "ถ้าการกระทำความผิดตามมาตรา 341 ได้กระทำด้วยการแสดงข้อความอันเป็นเท็จต่อประชาชน หรือด้วยการปกปิดความจริงซึ่งควรบอกให้แจ้งแก่ประชาชน ผู้นั้นกระทำความผิดฐานฉ้อโกงประชาชน",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a20",
+        "section": "ม. 352",
+        "text": "ผู้ใดครอบครองทรัพย์ซึ่งเป็นของผู้อื่น หรือซึ่งผู้อื่นเป็นเจ้าของรวมอยู่ด้วย เบียดบังเอาทรัพย์นั้นเป็นของตนหรือบุคคลที่สามโดยทุจริต ผู้นั้นกระทำความผิดฐานยักยอก",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a20_1",
+        "section": "ม. 357",
+        "text": "ผู้ใดช่วยซ่อนเร้น ช่วยจำหน่าย ช่วยพาเอาไปเสีย ซื้อ รับจำนำหรือรับไว้โดยประการใดซึ่งทรัพย์อันได้มาโดยการกระทำความผิด (ลักทรัพย์, วิ่งราว, กรรโชก, ชิงทรัพย์ ฯลฯ) ผู้นั้นกระทำความผิดฐานรับของโจร",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a20_2",
+        "section": "ม. 358",
+        "text": "ผู้ใดทำให้เสียหาย ทำลาย ทำให้เสื่อมค่าหรือทำให้ไร้ประโยชน์ ซึ่งทรัพย์ของผู้อื่นหรือผู้อื่นเป็นเจ้าของรวมอยู่ด้วย ผู้นั้นกระทำความผิดฐานทำให้เสียทรัพย์",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a20_3",
+        "section": "ม. 362",
+        "text": "ผู้ใดเข้าไปในอสังหาริมทรัพย์ของผู้อื่น เพื่อถือการครอบครองอสังหาริมทรัพย์นั้นทั้งหมดหรือแต่บางส่วน หรือเข้าไปกระทำการใดๆ อันเป็นการรบกวนการครอบครองอสังหาริมทรัพย์ของเขาโดยปกติสุข ผู้นั้นกระทำความผิดฐานบุกรุก",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "c0_0",
+        "section": "ป.พ.พ. ม. 15",
+        "text": "สภาพบุคคลย่อมเริ่มแต่เมื่อคลอดแล้วอยู่รอดเป็นทารก และสิ้นสุดลงเมื่อตาย ทารกในครรภ์มารดาก็มีสิทธิต่างๆ ได้ หากว่าภายหลังคลอดแล้วอยู่รอดเป็นทารก",
+        "category": "วิชาแพ่ง อื่นๆ"
+    },
+    {
+        "id": "c0_1",
+        "section": "ป.พ.พ. ม. 19",
+        "text": "บุคคลย่อมพ้นจากภาวะผู้เยาว์และบรรลุนิติภาวะเมื่อมีอายุยี่สิบปีบริบูรณ์",
+        "category": "วิชาแพ่ง อื่นๆ"
+    },
+    {
+        "id": "c0_2",
+        "section": "ป.พ.พ. ม. 21",
+        "text": "ผู้เยาว์จะทำนิติกรรมใดๆ ต้องได้รับความยินยอมของผู้แทนโดยชอบธรรมก่อน การใดๆ ที่ผู้เยาว์ได้ทำลงปราศจากความยินยอมเช่นนั้นเป็นโมฆียะ เว้นแต่จะบัญญัติไว้เป็นอย่างอื่น",
+        "category": "วิชาแพ่ง อื่นๆ"
+    },
+    {
+        "id": "c0",
+        "section": "ป.พ.พ. ม. 149",
+        "text": "นิติกรรมหมายความว่า การใดๆ อันทำลงโดยชอบด้วยกฎหมายและด้วยใจสมัคร มุ่งโดยตรงต่อการผูกนิติสัมพันธ์ขึ้นระหว่างบุคคล เพื่อจะจัด ตั้ง เปลี่ยนแปลง โอน สงวน หรือระงับซึ่งสิทธิ",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c1",
+        "section": "ป.พ.พ. ม. 150",
+        "text": "การใดมีวัตถุประสงค์เป็นการต้องห้ามชัดแจ้งโดยกฎหมายเป็นการพ้นวิสัย หรือเป็นการขัดต่อความสงบเรียบร้อยหรือศีลธรรมอันดีของประชาชน การนั้นเป็นโมฆะ",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c2",
+        "section": "ป.พ.พ. ม. 151",
+        "text": "การใดเป็นการแตกต่างกับบทบัญญัติของกฎหมาย ถ้ามิใช่กฎหมายอันเกี่ยวกับความสงบเรียบร้อยหรือศีลธรรมอันดีของประชาชน การนั้นไม่เป็นโมฆะ",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c3",
+        "section": "ป.พ.พ. ม. 152",
+        "text": "การใดมิได้ทำให้ถูกต้องตามแบบที่กฎหมายบังคับไว้ การนั้นเป็นโมฆะ",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c4",
+        "section": "ป.พ.พ. ม. 153",
+        "text": "การใดมิได้เป็นไปตามบทบัญญัติของกฎหมายว่าด้วยความสามารถของบุคคล การนั้นเป็นโมฆียะ",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c5",
+        "section": "ป.พ.พ. ม. 154",
+        "text": "การแสดงเจตนาในใจจริงซ่อนเร้นอยู่ (เจตนาซ่อนเร้น) คู่แสดงเจตนาไม่มุ่งผูกพันตามเจตนานั้น ไม่เป็นโมฆะ เว้นแต่คู่กรณีอีกฝ่ายหนึ่งจะรู้ถึงเจตนาอันซ่อนอยู่ในใจนั้น",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c5_1",
+        "section": "ป.พ.พ. ม. 155",
+        "text": "การแสดงเจตนาลวงโดยสมรู้กับคู่กรณีอีกฝ่ายหนึ่งเป็นโมฆะ แต่จะยกขึ้นเป็นข้อต่อสู้บุคคลภายนอกผู้กระทำการโดยสุจริตและต้องเสียหายจากการแสดงเจตนาลวงนั้นมิได้ (เจตนาลวง)",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c5_2",
+        "section": "ป.พ.พ. ม. 156",
+        "text": "การแสดงเจตนาโดยสำคัญผิดในสิ่งซึ่งเป็นสาระสำคัญแห่งนิติกรรมเป็นโมฆะ เช่น สำคัญผิดในลักษณะนิติกรรม หรือตัวบุคคลซึ่งเป็นคู่สัญญา",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c5_3",
+        "section": "ป.พ.พ. ม. 157",
+        "text": "การแสดงเจตนาโดยสำคัญผิดในคุณสมบัติของบุคคลหรือทรัพย์สินเป็นโมฆียะ โดยคุณสมบัตินั้นต้องเป็นสาระสำคัญในปกติธรรมดา",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c5_4",
+        "section": "ป.พ.พ. ม. 159",
+        "text": "การแสดงเจตนาเพราะถูกกลฉ้อฉลเป็นโมฆียะ กลฉ้อฉลที่จะเป็นโมฆียะต้องถึงขนาดที่ว่าถ้าไม่มีกลฉ้อฉลนั้นคงจะไม่ได้ทำนิติกรรมนั้นขึ้นเลย",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c5_6",
+        "section": "ป.พ.พ. ม. 164",
+        "text": "การแสดงเจตนาเพราะถูกข่มขู่เป็นโมฆียะ การข่มขู่ที่จะทำให้เป็นโมฆียะนั้นต้องเป็นภัยอันใกล้จะถึง และถึงขนาดที่จะทำให้ผู้ถูกข่มขู่เกิดความกลัว",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c5_5",
+        "section": "ป.พ.พ. ม. 172",
+        "text": "โมฆะกรรมนั้นไม่อาจให้สัตยาบันแก่กันได้ และผู้มีส่วนได้เสียคนหนึ่งคนใดจะยกความเสียเปล่าแห่งโมฆะกรรมขึ้นกล่าวอ้างก็ได้",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c5_7",
+        "section": "ป.พ.พ. ม. 175",
+        "text": "โมฆียะกรรมนั้น บุคคลผู้มีสิทธิบอกล้าง (เช่น ผู้แทนโดยชอบธรรม, ผู้ถูกกลฉ้อฉล/ข่มขู่) อาจบอกล้างหรือให้สัตยาบันได้",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c5_8",
+        "section": "ป.พ.พ. ม. 176",
+        "text": "โมฆียะกรรมเมื่อบอกล้างแล้ว ให้ถือว่าเป็นโมฆะมาแต่เริ่มแรก และให้ผู้เป็นคู่กรณีกลับคืนสู่ฐานะเดิม",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6",
+        "section": "ป.พ.พ. ม. 204",
+        "text": "ถ้าหนี้ถึงกำหนดชำระแล้ว และภายหลังเจ้าหนี้ได้เตือนลูกหนี้แล้ว ลูกหนี้ยังไม่ชำระหนี้ ลูกหนี้ได้ชื่อว่าผิดนัดเพราะเขาเตือน หรือถ้ากำหนดเวลาชำระหนี้ไว้ตามวันเวลาแน่นอน ลูกหนี้ยังไม่ชำระเมื่อถึงกำหนด ได้ชื่อว่าผิดนัดโดยมิพักต้องเตือนเลย",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_01",
+        "section": "ป.พ.พ. ม. 213",
+        "text": "ถ้าลูกหนี้ละเลยเสียไม่ชำระหนี้ของตน เจ้าหนี้จะร้องขอต่อศาลให้สั่งบังคับชำระหนี้เฉพาะเจาะจงก็ได้ เว้นแต่สภาพแห่งหนี้จะไม่เปิดช่องให้ทำเช่นนั้น",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_02",
+        "section": "ป.พ.พ. ม. 215",
+        "text": "เมื่อลูกหนี้ไม่ชำระหนี้ให้ต้องตามความประสงค์แท้จริงแห่งมูลหนี้ เจ้าหนี้จะเรียกร้องค่าสินไหมทดแทนเพื่อความเสียหายอันเกิดแต่การนั้นก็ได้",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_03",
+        "section": "ป.พ.พ. ม. 222",
+        "text": "การเรียกเงินค่าสินไหมทดแทนนั้น ได้แก่เรียกค่าเสียหายอันตามปกติย่อมเกิดขึ้นแต่การไม่ชำระหนี้นั้น หรือค่าเสียหายอันเกิดจากพฤติการณ์พิเศษที่คู่กรณีคาดเห็นไว้แล้ว",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_04",
+        "section": "ป.พ.พ. ม. 224",
+        "text": "หนี้เงินนั้น ท่านให้คิดดอกเบี้ยในระหว่างผิดนัดในอัตราที่กฎหมายกำหนดต่อปี (ดอกเบี้ยผิดนัด)",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_05",
+        "section": "ป.พ.พ. ม. 291",
+        "text": "ถ้าบุคคลหลายคนต้องชำระหนี้โดยทำนองซึ่งแต่ละคนจำต้องชำระหนี้สิ้นเชิง (ลูกหนี้ร่วม) เจ้าหนี้จะเรียกชำระหนี้จากลูกหนี้คนใดคนหนึ่งสิ้นเชิงหรือแต่โดยส่วนก็ได้",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_1",
+        "section": "ป.พ.พ. ม. 353",
+        "text": "การวางทรัพย์อันเป็นวัตถุแห่งหนี้เมื่อเจ้าหนี้ผิดนัด หรือหนี้ไม่สามารถชำระได้ด้วยเหตุขัดข้องอันมิใช่ความผิดของลูกหนี้ ทำให้ลูกหนี้หลุดพ้นจากหนี้",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_06",
+        "section": "ป.พ.พ. ม. 369",
+        "text": "ในสัญญาต่างตอบแทนนั้น คู่สัญญาฝ่ายหนึ่งจะไม่ยอมชำระหนี้จนกว่าอีกฝ่ายหนึ่งจะชำระหนี้ หรือขอปฏิบัติการชำระหนี้ก็ได้",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_07",
+        "section": "ป.พ.พ. ม. 370",
+        "text": "ในสัญญาต่างตอบแทนเพื่อโอนทรัพย์เฉพาะสิ่ง ถ้าทรัพย์นั้นสูญหายหรือทำลายลงด้วยภัยพิบัติอันจะโทษลูกหนี้มิได้ การสูญหายหรือทำลายนั้นตกเป็นพับแก่เจ้าหนี้",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_08",
+        "section": "ป.พ.พ. ม. 374",
+        "text": "ถ้าคู่สัญญาตกลงว่าจะชำระหนี้แก่บุคคลภายนอก สิทธิของบุคคลภายนอกย่อมเกิดมีขึ้นตั้งแต่แสดงความจำนงแก่ลูกหนี้ว่าจะถือเอาประโยชน์จากสัญญานั้น",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_09",
+        "section": "ป.พ.พ. ม. 381",
+        "text": "ถ้าลูกหนี้สัญญาว่าจะให้เบี้ยปรับเมื่อไม่ชำระหนี้ให้ถูกต้องสมควร เจ้าหนี้จะเรียกเอาทั้งชำระหนี้และเบี้ยปรับด้วยก็ได้",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_10",
+        "section": "ป.พ.พ. ม. 391",
+        "text": "เมื่อคู่สัญญาฝ่ายหนึ่งได้ใช้สิทธิเลิกสัญญาแล้ว คู่สัญญาแต่ละฝ่ายจำต้องให้อีกฝ่ายหนึ่งได้กลับคืนสู่ฐานะเดิม แต่ทั้งนี้จะกระทบกระทั่งถึงสิทธิของบุคคลภายนอกหาไม่",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_2",
+        "section": "ป.พ.พ. ม. 420",
+        "text": "ผู้ใดจงใจหรือประมาทเลินเล่อ ทำต่อบุคคลอื่นโดยผิดกฎหมายให้เขาเสียหายถึงแก่ชีวิต ร่างกาย อนามัย เสรีภาพ ทรัพย์สินหรือสิทธิอย่างหนึ่งอย่างใด ผู้นั้นทำละเมิดจำต้องใช้ค่าสินไหมทดแทนเพื่อการนั้น",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_3",
+        "section": "ป.พ.พ. ม. 425",
+        "text": "นายจ้างต้องร่วมกันรับผิดกับลูกจ้างในผลแห่งละเมิด ซึ่งลูกจ้างได้กระทำไปในทางการที่จ้างนั้น",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_11",
+        "section": "ป.พ.พ. ม. 426",
+        "text": "นายจ้างซึ่งได้ใช้ค่าสินไหมทดแทนให้แก่บุคคลภายนอกเพื่อการละเมิดอันลูกจ้างได้ทำนั้น ชอบที่จะได้ชดใช้จากลูกจ้างนั้น (ไล่เบี้ย)",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_12",
+        "section": "ป.พ.พ. ม. 427",
+        "text": "บทบัญญัติมาตราทั้งสองก่อนนั้น (นายจ้าง-ลูกจ้าง) ให้ใช้บังคับแก่ตัวการและตัวแทนด้วยโดยอนุโลม",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c6_4",
+        "section": "ป.พ.พ. ม. 438",
+        "text": "ค่าสินไหมทดแทนเพื่อละเมิดนั้น ให้ศาลวินิจฉัยตามควรแก่พฤติการณ์และความร้ายแรงแห่งละเมิด โดยอาจรวมถึงการคืนทรัพย์สินหรือการใช้ราคาทรัพย์สินนั้นด้วย",
+        "category": "วิชาแพ่ง ข้อ 2 และ 3 นิติกรรมกับละเมิด มาตรา 149-419, 420-452"
+    },
+    {
+        "id": "c7",
+        "section": "ป.พ.พ. ม. 453",
+        "text": "อันว่าซื้อขายนั้น คือสัญญาซึ่งบุคคลฝ่ายหนึ่ง เรียกว่าผู้ขาย โอนกรรมสิทธิ์แห่งทรัพย์สินให้แก่บุคคลอีกฝ่ายหนึ่ง เรียกว่าผู้ซื้อ และผู้ซื้อตกลงว่าจะใช้ราคาทรัพย์สินนั้นให้แก่ผู้ขาย",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "c7_1",
+        "section": "ป.พ.พ. ม. 456",
+        "text": "การซื้อขายอสังหาริมทรัพย์ หรือเรือกำปั่น แพ หรือสัตว์พาหนะ ถ้ามิได้ทำเป็นหนังสือและจดทะเบียนต่อพนักงานเจ้าหน้าที่ เป็นโมฆะ และสัญญาจะซื้อจะขายหรือคำมั่นในการซื้อขายทรัพย์สินดังกล่าว ต้องมีหลักฐานเป็นหนังสือจึงจะฟ้องร้องได้",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "c7_2",
+        "section": "ป.พ.พ. ม. 461",
+        "text": "ผู้ขายจำต้องส่งมอบทรัพย์สินซึ่งขายนั้นให้แก่ผู้ซื้อตามสัญญา",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "c7_3",
+        "section": "ป.พ.พ. ม. 472",
+        "text": "ในกรณีที่ทรัพย์สินซึ่งขายนั้นชำรุดบกพร่องอย่างหนึ่งอย่างใดอันเป็นเหตุให้เสื่อมราคาหรือเสื่อมประโยชน์อันคู่สัญญาจะมุ่งหมายโดยปกติ ผู้ขายย่อมต้องรับผิด",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "c7_4",
+        "section": "ป.พ.พ. ม. 475",
+        "text": "หากว่ามีบุคคลผู้ใดมาก่อการรบกวนขัดสิทธิของผู้ซื้อในอันจะครองทรัพย์สินโดยปกติสุข เพราะบุคคลผู้นั้นมีสิทธิเหนือทรัพย์สินที่ได้ซื้อขายกันนั้นในเวลาซื้อขาย ผู้ขายจำต้องรับผิด (รอนสิทธิ)",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "c8",
+        "section": "ป.พ.พ. ม. 537",
+        "text": "อันว่าเช่าทรัพย์สินนั้น คือสัญญาซึ่งบุคคลคนหนึ่งเรียกว่าผู้ให้เช่า ตกลงให้บุคคลอีกคนหนึ่งเรียกว่าผู้เช่า ได้ใช้หรือได้รับประโยชน์ในทรัพย์สินอย่างใดอย่างหนึ่งชั่วระยะเวลาอันมีจำกัด และผู้เช่าตกลงจะให้ค่าเช่าเพื่อการนั้น",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "c8_1",
+        "section": "ป.พ.พ. ม. 538",
+        "text": "การเช่าอสังหาริมทรัพย์นั้น ถ้ามิได้มีหลักฐานเป็นหนังสืออย่างใดอย่างหนึ่งลงลายมือชื่อฝ่ายที่ต้องรับผิดเป็นสำคัญ จะฟ้องร้องบังคับคดีไม่ได้ และถ้าเช่ามีกำหนดเกินกว่าสามปีขึ้นไปต้องจดทะเบียนต่อเจ้าหน้าที่",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "c8_1a",
+        "section": "ป.พ.พ. ม. 564",
+        "text": "อันสัญญาเช่านั้น ย่อมระงับสิ้นไปเมื่อสิ้นกำหนดเวลาที่ได้ตกลงกันไว้ โดยมิพักต้องบอกกล่าวเลิกสัญญาก่อน",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "c8_1b",
+        "section": "ป.พ.พ. ม. 569",
+        "text": "อันสัญญาเช่าอสังหาริมทรัพย์นั้น ย่อมไม่ระงับไปเพราะเหตุโอนกรรมสิทธิ์ทรัพย์สินที่เช่า ผู้รับโอนย่อมรับไปทั้งสิทธิและหน้าที่ของผู้โอน",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "c8_1c",
+        "section": "ป.พ.พ. ม. 650",
+        "text": "อันว่ายืมใช้สิ้นเปลืองนั้น คือสัญญาซึ่งผู้ให้ยืมโอนกรรมสิทธิ์ในทรัพย์สินชนิดใช้ไปสิ้นไปนั้นเป็นปริมาณมีกำหนดให้แก่ผู้ยืม และผู้ยืมตกลงว่าจะคืนทรัพย์สินเป็นประเภท ชนิด และปริมาณเดียวกันแทน",
+        "category": "วิชาแพ่ง ข้อ 5 ยืม 640-769"
+    },
+    {
+        "id": "c8_2",
+        "section": "ป.พ.พ. ม. 653",
+        "text": "การกู้ยืมเงินกว่าสองพันบาทขึ้นไปนั้น หากมิได้มีหลักฐานเป็นหนังสืออย่างใดอย่างหนึ่งลงลายมือชื่อผู้ยืมเป็นสำคัญ จะฟ้องร้องบังคับคดีหาได้ไม่ และจะนำสืบพยานบุคคลไม่ได้",
+        "category": "วิชาแพ่ง ข้อ 5 ยืม 640-769"
+    },
+    {
+        "id": "c8_3",
+        "section": "ป.พ.พ. ม. 680",
+        "text": "อันว่าค้ำประกันนั้น คือสัญญาซึ่งบุคคลภายนอกคนหนึ่ง เรียกว่าผู้ค้ำประกัน ผูกพันตนต่อเจ้าหนี้เพื่อชำระหนี้ในเมื่อลูกหนี้ไม่ชำระหนี้นั้น",
+        "category": "วิชาแพ่ง ข้อ 5 ยืม 640-769"
+    },
+    {
+        "id": "c8_4",
+        "section": "ป.พ.พ. ม. 681",
+        "text": "อันการค้ำประกันนั้น จะมีได้แต่เฉพาะเพื่อหนี้อันสมบูรณ์ (หนี้ประธานต้องสมบูรณ์)",
+        "category": "วิชาแพ่ง ข้อ 5 ยืม 640-769"
+    },
+    {
+        "id": "c8_5",
+        "section": "ป.พ.พ. ม. 702",
+        "text": "อันว่าจำนองนั้น คือสัญญาซึ่งบุคคลคนหนึ่ง เรียกว่าผู้จำนอง เอาอสังหาริมทรัพย์ของตนตราไว้แก่บุคคลอีกคนหนึ่ง เรียกว่าผู้รับจำนอง เพื่อเป็นประกันการชำระหนี้ โดยไม่ส่งมอบทรัพย์สิน",
+        "category": "วิชาแพ่ง ข้อ 5 ยืม 640-769"
+    },
+    {
+        "id": "c8_6",
+        "section": "ป.พ.พ. ม. 714",
+        "text": "อันสัญญาจำนองนั้น ท่านว่าต้องทำเป็นหนังสือและจดทะเบียนต่อพนักงานเจ้าหน้าที่ มิฉะนั้นเป็นโมฆะ",
+        "category": "วิชาแพ่ง ข้อ 5 ยืม 640-769"
+    },
+    {
+        "id": "c8_7",
+        "section": "ป.พ.พ. ม. 747",
+        "text": "อันว่าจำนำนั้น คือสัญญาซึ่งบุคคลคนหนึ่ง เรียกว่าผู้จำนำ ส่งมอบสังหาริมทรัพย์ให้แก่บุคคลอีกคนหนึ่ง เรียกว่าผู้รับจำนำ เพื่อเป็นประกันการชำระหนี้",
+        "category": "วิชาแพ่ง ข้อ 5 ยืม 640-769"
+    },
+    {
+        "id": "c8_8",
+        "section": "ป.พ.พ. ม. 797",
+        "text": "อันว่าตัวแทนนั้น คือสัญญาซึ่งบุคคลคนหนึ่ง เรียกว่าตัวแทน มีอำนาจทำการแทนบุคคลอีกคนหนึ่ง เรียกว่าตัวการ และตกลงจะทำการนั้น",
+        "category": "วิชาแพ่ง ข้อ 6 ตัวแทน มาตรา 797-1011"
+    },
+    {
+        "id": "c8_9",
+        "section": "ป.พ.พ. ม. 1308",
+        "text": "ที่ดินงอกริมตลิ่งของที่ดินมีโฉนด ย่อมตกเป็นทรัพย์สินของเจ้าของที่ดินแปลงนั้น (ที่งอกริมตลิ่ง)",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "c8_10",
+        "section": "ป.พ.พ. ม. 1310",
+        "text": "ผู้ใดสร้างโรงเรือนในที่ดินของผู้อื่นโดยสุจริต ท่านว่าเจ้าของที่ดินเป็นเจ้าของโรงเรือนนั้นๆ แต่ต้องใช้ค่าที่ดินที่เพิ่มขึ้น หรือเลือกซื้อที่ดินตามสมควร",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "c8_11",
+        "section": "ป.พ.พ. ม. 1312",
+        "text": "ผู้ใดสร้างโรงเรือนรุกล้ำเข้าไปในที่ดินของผู้อื่นโดยสุจริต ท่านว่าผู้สร้างเป็นเจ้าของโรงเรือนส่วนที่รุกล้ำ แต่ต้องเสียค่าใช้ที่ดินและจดทะเบียนภาระจำยอม",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "c8_12",
+        "section": "ป.พ.พ. ม. 1367",
+        "text": "บุคคลใดยึดถือทรัพย์สินไว้โดยเจตนาจะยึดเพื่อตน ท่านว่าบุคคลนั้นได้สิทธิครอบครอง",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "c8_13",
+        "section": "ป.พ.พ. ม. 1382",
+        "text": "บุคคลใดครอบครองทรัพย์สินของผู้อื่นไว้โดยสงบและโดยเปิดเผยด้วยเจตนาเป็นเจ้าของ ถ้าเป็นอสังหาริมทรัพย์ติดต่อกันสิบปี (หรือสังหาริมทรัพย์ห้าปี) ท่านว่าบุคคลนั้นได้กรรมสิทธิ์ (ครอบครองปรปักษ์)",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "c8_14",
+        "section": "ป.พ.พ. ม. 1599",
+        "text": "เมื่อบุคคลใดตาย มรดกของบุคคลนั้นตกทอดแก่ทายาท",
+        "category": "วิชาแพ่ง ข้อ 8 ครอบครัว มาตรา 1435-1598/41, 1599-1755"
+    },
+    {
+        "id": "c8_15",
+        "section": "ป.พ.พ. ม. 1600",
+        "text": "ภายใต้บังคับแห่งบทบัญญัติประมวลกฎหมายนี้ กองมรดกของผู้ตายได้แก่ทรัพย์สินทุกชนิดของผู้ตาย รวมตลอดทั้งสิทธิ หน้าที่ และความรับผิดต่างๆ เว้นแต่สิทธิหน้าที่เฉพาะตัว",
+        "category": "วิชาแพ่ง ข้อ 8 ครอบครัว มาตรา 1435-1598/41, 1599-1755"
+    },
+    {
+        "id": "c8_16",
+        "section": "ป.พ.พ. ม. 1629",
+        "text": "ทายาทโดยธรรมมีหกลำดับเท่านั้น และลำดับผู้มีสิทธิได้รับมรดกก่อนหลัง (เช่น ลูก, พ่อแม่, พี่น้องร่วมบิดามารดา ฯลฯ)",
+        "category": "วิชาแพ่ง ข้อ 8 ครอบครัว มาตรา 1435-1598/41, 1599-1755"
+    },
+    {
+        "id": "of211",
+        "section": "ม. 211",
+        "text": "ผู้ใดประชุมในที่ประชุมอั้งยี่หรือซ่องโจร ต้องระวางโทษจำคุกไม่เกินสามปี หรือปรับไม่เกินหกหมื่นบาท หรือทั้งจำทั้งปรับ",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of212",
+        "section": "ม. 212",
+        "text": "ผู้ใดช่วยเหลืออั้งยี่หรือซ่องโจร โดยจัดหาที่พำนัก ซ่อนเร้น หรือช่วยด้วยประการใดๆ เพื่อไม่ให้ถูกจับกุม ต้องระวางโทษจำคุกไม่เกินสามปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of213",
+        "section": "ม. 213",
+        "text": "ถ้าผู้กระทำความผิดฐานอั้งยี่หรือซ่องโจร เป็นหัวหน้า ผู้มีหน้าที่จัดการ หรือเป็นผู้มีวิชาชีพกฎหมาย หรือแพทย์ ต้องระวางโทษหนักขึ้น",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of217",
+        "section": "ม. 217",
+        "text": "ผู้ใดวางเพลิงเผาทรัพย์ของผู้อื่น ต้องระวางโทษจำคุกตั้งแต่เจ็ดปีถึงยี่สิบปี และปรับตั้งแต่หนึ่งแสนสี่หมื่นบาทถึงสี่แสนบาท",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of218",
+        "section": "ม. 218",
+        "text": "ผู้ใดวางเพลิงเผาทรัพย์เหตุฉกรรจ์ เช่น โรงเรือนที่คนอยู่อาศัย โรงเรือนสาธารณะ ยานพาหนะสาธารณะ ต้องระวางโทษประหารชีวิต จำคุกตลอดชีวิต หรือจำคุกตั้งแต่สิบห้าปีถึงยี่สิบปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of219",
+        "section": "ม. 219",
+        "text": "ผู้ใดพยายามกระทำความผิดตามมาตรา 217 หรือมาตรา 218 ต้องระวางโทษเช่นเดียวกับผู้กระทำความผิดสำเร็จ",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of220",
+        "section": "ม. 220",
+        "text": "ผู้ใดทำให้เกิดเพลิงไหม้แก่วัตถุใดๆ แม้เป็นของตนเอง จนน่าจะเป็นอันตรายแก่บุคคลอื่นหรือทรัพย์สินของผู้อื่น",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of224",
+        "section": "ม. 224",
+        "text": "ถ้าการวางเพลิงหรือการกระทำตามมาตรา 217-223 เป็นเหตุให้บุคคลอื่นถึงแก่ความตาย หรือรับอันตรายสาหัส ต้องระวางโทษหนักขึ้น (ผลฉกรรจ์)",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of225",
+        "section": "ม. 225",
+        "text": "ผู้ใดทำให้เกิดเพลิงไหม้โดยประมาท และเป็นเหตุให้ทรัพย์สินของผู้อื่นเสียหาย หรือน่าจะเป็นอันตรายแก่ชีวิตของบุคคลอื่น",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of233",
+        "section": "ม. 233",
+        "text": "ผู้ใดใช้ทางหลวงหรือทางรถไฟสาธารณะ โดยประการที่น่าจะเกิดอันตรายแก่ผู้อื่นหรือทรัพย์สิน",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of236",
+        "section": "ม. 236",
+        "text": "ผู้ใดปลอมปนอาหาร ยา หรือเครื่องอุปโภคบริโภค เพื่อบุคคลอื่นเสพหรือใช้ และการปลอมปนนั้นน่าจะเป็นอันตรายแก่สุขภาพ",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of240",
+        "section": "ม. 240",
+        "text": "ผู้ใดทำปลอมขึ้นซึ่งเงินตรา ไม่ว่าจะปลอมเหรียญกษาปณ์ ธนบัตร หรือสิ่งอื่นใดที่รัฐบาลออกใช้ ต้องระวางโทษจำคุกตลอดชีวิต หรือจำคุกตั้งแต่สิบปีถึงยี่สิบปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of244",
+        "section": "ม. 244",
+        "text": "ผู้ใดนำเข้าในราชอาณาจักรซึ่งเงินตราปลอม หรือได้มาโดยรู้ว่าเป็นของปลอมแล้วนำออกใช้ ต้องระวางโทษจำคุกตั้งแต่สิบปีถึงยี่สิบปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of245",
+        "section": "ม. 245",
+        "text": "ผู้ใดได้เงินตราปลอมมาโดยไม่รู้ว่าเป็นของปลอม แล้วต่อมาเมื่อรู้ว่าเป็นของปลอมยังขืนนำออกใช้ ต้องระวางโทษจำคุกไม่เกินสิบปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of246",
+        "section": "ม. 246",
+        "text": "ผู้ใดทำเครื่องมือ เครื่องจักร หรือวัตถุสำหรับใช้ในการปลอมแปลงเงินตรา ต้องระวางโทษจำคุกตั้งแต่ห้าปีถึงสิบห้าปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of247",
+        "section": "ม. 247",
+        "text": "ความผิดเกี่ยวกับเงินตราต่างประเทศ ให้นำบทบัญญัติในหมวดนี้มาใช้บังคับโดยอนุโลม",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of248",
+        "section": "ม. 248",
+        "text": "ถ้าผู้กระทำความผิดเกี่ยวกับเงินตรา เป็นผู้จัดทำเครื่องมือหรือมีหน้าที่พิมพ์ธนบัตร ต้องระวางโทษหนักขึ้น",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of249",
+        "section": "ม. 249",
+        "text": "ผู้ใดทำเลียนแบบเงินตรา เพื่อให้ประชาชนเชื่อว่าเป็นเงินตราที่แท้จริง ต้องระวางโทษจำคุกไม่เกินหนึ่งปี หรือปรับไม่เกินสองหมื่นบาท",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of266",
+        "section": "ม. 266",
+        "text": "ผู้ใดปลอมเอกสารสิทธิอันเป็นเอกสารราชการ เอกสารมหาชน หรือตั๋วเงิน ต้องระวางโทษจำคุกตั้งแต่หนึ่งปีถึงสิบปี และปรับตั้งแต่สองหมื่นบาทถึงสองแสนบาท",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of267",
+        "section": "ม. 267",
+        "text": "ผู้ใดแจ้งให้เจ้าพนักงานผู้กระทำการตามหน้าที่จดข้อความอันเป็นเท็จลงในเอกสารมหาชนหรือเอกสารราชการ ต้องระวางโทษจำคุกไม่เกินสามปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of269_1",
+        "section": "ม. 269/1",
+        "text": "ผู้ใดทำบัตรอิเล็กทรอนิกส์ปลอมขึ้นทั้งฉบับหรือแต่ส่วนหนึ่งส่วนใด เติมหรือตัดทอนข้อความ หรือแก้ไขด้วยประการใดๆ ในบัตรอิเล็กทรอนิกส์ที่แท้จริง ต้องระวางโทษจำคุกตั้งแต่หนึ่งปีถึงห้าปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of269_4",
+        "section": "ม. 269/4",
+        "text": "ผู้ใดใช้หรือมีไว้เพื่อใช้ซึ่งบัตรอิเล็กทรอนิกส์ปลอม โดยรู้ว่าเป็นของปลอม ต้องระวางโทษจำคุกตั้งแต่หนึ่งปีถึงเจ็ดปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of269_5",
+        "section": "ม. 269/5",
+        "text": "ผู้ใดใช้บัตรอิเล็กทรอนิกส์ของผู้อื่นโดยมิชอบ ในประการที่น่าจะก่อให้เกิดความเสียหายแก่ผู้อื่นหรือประชาชน ต้องระวางโทษจำคุกไม่เกินห้าปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of269_6",
+        "section": "ม. 269/6",
+        "text": "ผู้ใดทำเครื่องมือหรือวัตถุสำหรับเจาะข้อมูล หรือสำหรับทำบัตรอิเล็กทรอนิกส์ปลอม ต้องระวางโทษจำคุกตั้งแต่หนึ่งปีถึงห้าปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of269_7",
+        "section": "ม. 269/7",
+        "text": "ถ้าการกระทำความผิดเกี่ยวกับบัตรอิเล็กทรอนิกส์ได้กระทำนอกราชอาณาจักร ให้นำมาลงโทษในราชอาณาจักรไทยได้",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of269_8",
+        "section": "ม. 269/8",
+        "text": "ถ้าความผิดเกี่ยวกับบัตรอิเล็กทรอนิกส์ตามมาตรา 269/1 ถึง 269/5 เป็นการกระทำเกี่ยวกับบัตรที่ผู้ออกได้ออกให้แก่ผู้มีสิทธิใช้เพื่อประโยชน์ในการชำระค่าสินค้าหรือบริการ",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of269_9",
+        "section": "ม. 269/9",
+        "text": "ผู้ใดครอบครองบัตรอิเล็กทรอนิกส์ปลอม เพื่อใช้หรือให้ผู้อื่นใช้ในการกระทำความผิด ต้องระวางโทษจำคุกตั้งแต่หนึ่งปีถึงห้าปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of269_11",
+        "section": "ม. 269/11",
+        "text": "ผู้ใดลัก ยักยอก หรือรับของโจรซึ่งบัตรอิเล็กทรอนิกส์ของผู้อื่น ต้องระวางโทษจำคุกตั้งแต่หนึ่งปีถึงห้าปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of278",
+        "section": "ม. 278",
+        "text": "ผู้ใดกระทำอนาจารแก่บุคคลอายุกว่าสิบห้าปีโดยขู่เข็ญด้วยประการใดๆ หรือโดยใช้กำลังประทุษร้าย โดยบุคคลนั้นอยู่ในภาวะที่ไม่สามารถขัดขืนได้",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of279",
+        "section": "ม. 279",
+        "text": "ผู้ใดกระทำอนาจารแก่เด็กอายุยังไม่เกินสิบห้าปี โดยเด็กนั้นจะยินยอมหรือไม่ก็ตาม ต้องระวางโทษจำคุกไม่เกินสิบปี หรือปรับไม่เกินสองแสนบาท",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of282",
+        "section": "ม. 282",
+        "text": "ผู้ใดเพื่อสนองความใคร่ของผู้อื่น เป็นธุระจัดหา ล่อไป หรือพาไปเพื่อการอนาจารซึ่งชายหรือหญิง แม้ผู้นั้นจะยินยอมก็ตาม",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "of284",
+        "section": "ม. 284",
+        "text": "ผู้ใดพาบุคคลอายุเกินสิบห้าปีไปเพื่อการอนาจาร โดยใช้อุบายหลอกลวง ขู่เข็ญ หรือใช้กำลังประทุษร้าย ต้องระวางโทษจำคุกตั้งแต่หนึ่งปีถึงเจ็ดปี",
+        "category": "วิชาอาญา ข้อ 4 มาตรา 209-287, 367-398"
+    },
+    {
+        "id": "a16_1a",
+        "section": "ม. 296",
+        "text": "ผู้ใดกระทำความผิดฐานทำร้ายร่างกายตามมาตรา 295 โดยมีเหตุฉกรรจ์ตามที่บัญญัติไว้ในมาตรา 289 ต้องระวางโทษหนักขึ้น (ทำร้ายร่างกายโดยเหตุฉกรรจ์)",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_1b",
+        "section": "ม. 298",
+        "text": "ผู้ใดกระทำความผิดฐานทำร้ายร่างกายจนรับอันตรายสาหัสตามมาตรา 297 โดยมีเหตุฉกรรจ์ตามที่บัญญัติไว้ในมาตรา 289 ต้องระวางโทษหนักขึ้น",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_1c",
+        "section": "ม. 299",
+        "text": "ผู้ใดเข้าร่วมในการชุลมุนต่อสู้ระหว่างบุคคลตั้งแต่สามคนขึ้นไป และบุคคลหนึ่งรับอันตรายสาหัสโดยการกระทำในการชุลมุนต่อสู้นั้น",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_2a",
+        "section": "ม. 301",
+        "text": "หญิงใดทำให้ตนเองแท้งลูก หรือยอมให้ผู้อื่นทำให้ตนแท้งลูก ขณะมีอายุครรภ์เกินสิบสองสัปดาห์ ต้องระวางโทษจำคุกไม่เกินหกเดือน หรือปรับไม่เกินหนึ่งหมื่นบาท",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_2b",
+        "section": "ม. 302",
+        "text": "ผู้ใดทำให้หญิงแท้งลูกโดยหญิงนั้นยินยอม ต้องระวางโทษจำคุกไม่เกินสามปี หรือปรับไม่เกินหกหมื่นบาท หรือทั้งจำทั้งปรับ",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_2c",
+        "section": "ม. 303",
+        "text": "ผู้ใดทำให้หญิงแท้งลูกโดยหญิงนั้นไม่ยินยอม ต้องระวางโทษจำคุกตั้งแต่สามปีถึงสิบปี และปรับตั้งแต่หกหมื่นบาทถึงสองแสนบาท",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_2d",
+        "section": "ม. 304",
+        "text": "ผู้ใดพยายามกระทำความผิดตามมาตรา 301 หรือมาตรา 302 ต้องระวางโทษสองในสามส่วนของโทษที่กำหนดไว้สำหรับความผิดนั้น",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_2e",
+        "section": "ม. 305",
+        "text": "เหตุยกเว้นโทษความผิดฐานทำให้แท้งลูก หากเป็นการกระทำของแพทย์ผู้ประกอบวิชาชีพเวชกรรม และเป็นไปตามเงื่อนไขที่กฎหมายกำหนด (เช่น หญิงถูกข่มขืน, สุขภาพหญิง)",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_2f",
+        "section": "ม. 306",
+        "text": "ผู้ใดทอดทิ้งเด็กอายุยังไม่เกินเก้าปีไว้ ณ ที่ใดๆ เพื่อให้เด็กนั้นพ้นไปเสียจากตน โดยประการที่ทำให้เด็กนั้นปราศจากผู้ดูแล",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_2g",
+        "section": "ม. 307",
+        "text": "ผู้ใดมีหน้าที่ตามกฎหมายหรือตามสัญญาต้องดูแลบุคคลผู้ช่วยเหลือตัวเองไม่ได้ เพราะอายุ ความเจ็บป่วย หรือชรา ทอดทิ้งบุคคลนั้นในประการที่น่าจะเป็นอันตรายแก่ชีวิต",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_2h",
+        "section": "ม. 308",
+        "text": "ถ้าการกระทำความผิดตามมาตรา 306 หรือ 307 เป็นเหตุให้ผู้ถูกทอดทิ้งถึงแก่ความตายหรือรับอันตรายสาหัส ต้องระวางโทษหนักขึ้น",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_4a",
+        "section": "ม. 311",
+        "text": "ผู้ใดกระทำโดยประมาท และการกระทำนั้นเป็นเหตุให้ผู้อื่นถูกหน่วงเหนี่ยว กักขัง หรือต้องปราศจากเสรีภาพในร่างกาย",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_4b",
+        "section": "ม. 312",
+        "text": "ผู้ใดเพื่อจะเอาคนลงเป็นทาส หรือมีฐานะคล้ายทาส นำเข้าในราชอาณาจักร ส่งออกไปนอกราชอาณาจักร ซื้อ ขาย หรือจำหน่ายบุคคลใด",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_5a",
+        "section": "ม. 317",
+        "text": "ผู้ใดโดยปราศจากเหตุอันสมควร พรากเด็กอายุยังไม่เกินสิบห้าปีไปเสียจากบิดามารดา ผู้ปกครอง หรือผู้ดูแล ต้องระวางโทษจำคุกตั้งแต่สามปีถึงสิบห้าปี",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_5b",
+        "section": "ม. 318",
+        "text": "ผู้ใดพรากผู้เยาว์อายุกว่าสิบห้าปีแต่ยังไม่เกินสิบแปดปีไปเสียจากบิดามารดา โดยผู้เยาว์นั้นไม่ยินยอม ต้องระวางโทษจำคุกตั้งแต่สามปีถึงสิบห้าปี",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_5c",
+        "section": "ม. 319",
+        "text": "ผู้ใดพรากผู้เยาว์อายุกว่าสิบห้าปีแต่ยังไม่เกินสิบแปดปีไปเสียจากบิดามารดา เพื่อหากำไรหรือเพื่อการอนาจาร โดยผู้เยาว์นั้นยินยอมด้วย",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_6a",
+        "section": "ม. 326",
+        "text": "ผู้ใดใส่ความผู้อื่นต่อบุคคลที่สาม โดยประการที่น่าจะทำให้ผู้อื่นนั้นเสียชื่อเสียง ถูกดูหมิ่น หรือถูกเกลียดชัง ผู้นั้นกระทำความผิดฐานหมิ่นประมาท",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_6b",
+        "section": "ม. 328",
+        "text": "ถ้าความผิดฐานหมิ่นประมาทได้กระทำโดยการโฆษณาด้วยเอกสาร ภาพวาด ภาพระบายสี ภาพยนตร์ หรือตัวอักษรที่ทำให้ปรากฏไม่ว่าด้วยวิธีใดๆ ต้องระวางโทษหนักขึ้น",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a16_6c",
+        "section": "ม. 329",
+        "text": "ผู้ใดแสดงความคิดเห็นหรือข้อความใดโดยสุจริต เพื่อความชอบธรรม ป้องกันตนหรือส่วนได้เสีย หรือในฐานะเจ้าพนักงานปฏิบัติการตามหน้าที่ ผู้นั้นไม่มีความผิดฐานหมิ่นประมาท",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a17_1a",
+        "section": "ม. 335 ทวิ",
+        "text": "ผู้ใดลักทรัพย์ที่เป็นพระพุทธรูปหรือวัตถุในทางศาสนา หรือลักทรัพย์ในวัด สุสาน หรือสถานที่เคารพในทางศาสนา ต้องระวางโทษจำคุกตั้งแต่สามปีถึงสิบปี",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a19_1b",
+        "section": "ม. 344",
+        "text": "ผู้ใดโดยทุจริต หลอกลวงผู้อื่นว่าตนสามารถหางาน หรือส่งไปฝึกงานในต่างประเทศได้ และโดยการหลอกลวงนั้นได้ไปซึ่งทรัพย์สิน",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a19_1c",
+        "section": "ม. 345",
+        "text": "ผู้ใดสั่งซื้ออาหารหรือเครื่องดื่ม หรือเข้าอยู่ในโรงแรมโดยรู้ว่าตนไม่สามารถชำระเงินค่าอาหาร ค่าเครื่องดื่ม หรือค่าห้องพักนั้นได้",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a19_1d",
+        "section": "ม. 348",
+        "text": "ความผิดในหมวดฉ้อโกงนี้ เว้นแต่ความผิดตามมาตรา 343 (ฉ้อโกงประชาชน) เป็นความผิดอันยอมความได้",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a19_1e",
+        "section": "ม. 349",
+        "text": "ผู้ใดเอาไปเสีย นำไปเสีย หรือทำให้เสียหายซึ่งทรัพย์ที่จำนำไว้แก่ตน หรือที่ตนเป็นเจ้าของรวมอยู่ด้วย โดยประการที่น่าจะเกิดความเสียหายแก่ผู้อื่น",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a19_1f",
+        "section": "ม. 350",
+        "text": "ผู้ใดเพื่อมิให้เจ้าหนี้ของตนหรือของผู้อื่นได้รับชำระหนี้ทั้งหมดหรือแต่บางส่วน ย้าย ซ่อนเร้น หรือโอนทรัพย์สินไปให้แก่ผู้อื่น (โกงเจ้าหนี้)",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a20_a",
+        "section": "ม. 356",
+        "text": "ความผิดในหมวดยักยอกทรัพย์นี้ เป็นความผิดอันยอมความได้",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a20_2a",
+        "section": "ม. 359",
+        "text": "ผู้ใดทำให้เสียทรัพย์เหตุฉกรรจ์ เช่น เครื่องจักรกล โค กระบือ หรือเครื่องมือเครื่องใช้ในการประกอบกสิกรรมหรืออุตสาหกรรม ต้องระวางโทษหนักขึ้น",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a20_3a",
+        "section": "ม. 364",
+        "text": "ผู้ใดโดยไม่มีเหตุอันสมควร เข้าไปหรือซ่อนตัวอยู่ในเคหสถาน อาคารเก็บรักษาทรัพย์ หรือสำนักงานในความครอบครองของผู้อื่น หรือไม่ยอมออกไปเมื่อเขาไล่ให้ออก",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a20_3b",
+        "section": "ม. 365",
+        "text": "ถ้าความผิดฐานบุกรุกตามมาตรา 362, 363 หรือ 364 ได้กระทำโดยใช้กำลังประทุษร้าย ในเวลากลางคืน หรือโดยร่วมกันกระทำความผิดตั้งแต่สองคนขึ้นไป",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a20_4a",
+        "section": "ม. 366/1",
+        "text": "ผู้ใดกระทำชำเราศพ ต้องระวางโทษจำคุกตั้งแต่สามปีถึงสิบห้าปี หรือปรับตั้งแต่หกหมื่นบาทถึงสามแสนบาท หรือทั้งจำทั้งปรับ",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a20_4b",
+        "section": "ม. 366/2",
+        "text": "ผู้ใดกระทำอนาจารแก่ศพ ต้องระวางโทษจำคุกไม่เกินสามปี หรือปรับไม่เกินหกหมื่นบาท หรือทั้งจำทั้งปรับ",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a20_4c",
+        "section": "ม. 366/3",
+        "text": "ผู้ใดดูหมิ่นเหยียดหยามศพ ต้องระวางโทษจำคุกไม่เกินสามเดือน หรือปรับไม่เกินห้าพันบาท หรือทั้งจำทั้งปรับ",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "a20_4d",
+        "section": "ม. 366/4",
+        "text": "ผู้ใดกระทำด้วยประการใดๆ แก่ศพ หรือส่วนของศพโดยไม่มีเหตุอันสมควร ในประการที่น่าจะทำให้ศพหรือส่วนของศะนั้นเสียหาย หรือทำให้เป็นที่อัปรีย์",
+        "category": "วิชาอาญา ข้อ 5 และ 6 มาตรา 288-366/4"
+    },
+    {
+        "id": "tax_39",
+        "section": "ป.รัษฎากร ม. 39",
+        "text": "คำนิยามสำคัญ: 'บริษัทหรือห้างหุ้นส่วนนิติบุคคล', 'เงินได้พึงประเมิน', 'ปีภาษี' หมายถึงปีปฏิทิน",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_40",
+        "section": "ป.รัษฎากร ม. 40",
+        "text": "ประเภทเงินได้พึงประเมิน 8 ประเภท: (1) เงินเดือน (2) ค่าจ้างทำของ/ค่านายหน้า (3) ค่าลิขสิทธิ์/กู๊ดวิลล์ (4) ดอกเบี้ย/เงินปันผล (5) ค่าเช่าทรัพย์สิน (6) วิชาชีพอิสระ (7) รับเหมา (8) การพาณิชย์อื่นๆ",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_41",
+        "section": "ป.รัษฎากร ม. 41",
+        "text": "หลักแหล่งเงินได้และหลักถิ่นที่อยู่: ผู้มีหน้าที่เสียภาษีเงินได้บุคคลธรรมดาเมื่อมีเงินได้จากแหล่งในประเทศ หรือแหล่งนอกประเทศและนำเงินได้นั้นเข้ามาในประเทศในปีภาษีเดียวกันและอยู่ในไทยถึง 180 วัน",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_42",
+        "section": "ป.รัษฎากร ม. 42",
+        "text": "เงินได้พึงประเมินที่ได้รับการยกเว้นภาษี เช่น ค่าเบี้ยเลี้ยงเดินทางราชการ เงินรางวัลเพื่อการศึกษา ดอกเบี้ยเงินฝากออมทรัพย์ตามเกณฑ์",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_47",
+        "section": "ป.รัษฎากร ม. 47",
+        "text": "การหักลดหย่อนภาษีเงินได้บุคคลธรรมดา เช่น ลดหย่อนส่วนตัว สามีภรรยา บุตร เบี้ยประกันชีวิต และกองทุนสำรองเลี้ยงชีพ",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_56",
+        "section": "ป.รัษฎากร ม. 56",
+        "text": "หน้าที่ในการยื่นแบบแสดงรายการภาษีเงินได้บุคคลธรรมดาประจำปี (ภ.ง.ด.90 หรือ 91) ภายในเดือนมีนาคมของปีถัดไป",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_57",
+        "section": "ป.รัษฎากร ม. 57",
+        "text": "หน้าที่ยื่นแบบแสดงรายการภาษีในกรณีที่ผู้มีเงินได้เป็นผู้เยาว์ คนไร้ความสามารถ หรือเสมือนคนไร้ความสามารถ ให้เป็นหน้าที่ของผู้แทนโดยชอบธรรม ผู้อนุบาล หรือผู้พิทักษ์",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_57bis",
+        "section": "ป.รัษฎากร ม. 57 ทวิ",
+        "text": "การเสียภาษีสำหรับเงินได้ของสามีและภรรยา ให้ต่างฝ่ายต่างมีหน้าที่เสียภาษีในส่วนของตน หรือจะเลือกรวมคำนวณภาษีร่วมกันก็ได้",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_65",
+        "section": "ป.รัษฎากร ม. 65",
+        "text": "เกณฑ์การคำนวณกำไรสุทธิเพื่อเสียภาษีเงินได้นิติบุคคล: คำนวณจากรายได้จากกิจการหรือเนื่องจากกิจการที่กระทำในรอบระยะเวลาบัญชี หักด้วยรายจ่ายตามเกณฑ์สิทธิ์",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_65bis",
+        "section": "ป.รัษฎากร ม. 65 ทวิ",
+        "text": "เงื่อนไขการคำนวณกำไรสุทธิทางภาษี (เงื่อนไขพิเศษ) เช่น การคำนวณค่าสึกหรอและค่าเสื่อมราคาทรัพย์สิน, ราคาสินค้าคงเหลือ",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_65ter",
+        "section": "ป.รัษฎากร ม. 65 ตรี",
+        "text": "รายจ่ายต้องห้ามทางภาษี (ไม่ให้ถือเป็นรายจ่ายในการคำนวณกำไรสุทธิ) เช่น เบี้ยปรับ เงินเพิ่ม รายจ่ายส่วนตัว รายจ่ายอันมีลักษณะเป็นการลงทุน",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_66",
+        "section": "ป.รัษฎากร ม. 66",
+        "text": "บริษัทหรือห้างหุ้นส่วนนิติบุคคลที่ตั้งขึ้นตามกฎหมายไทย หรือตั้งขึ้นตามกฎหมายต่างประเทศและกระทำกิจการในไทย ต้องเสียภาษีเงินได้นิติบุคคลจากกำไรสุทธิ",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_67",
+        "section": "ป.รัษฎากร ม. 67",
+        "text": "หน้าที่ยื่นแบบแสดงรายการและเสียภาษีเงินได้นิติบุคคลครึ่งรอบระยะเวลาบัญชี (ภ.ง.ด.51) ภายในสองเดือนนับแต่วันสุดท้ายของหกเดือนแรก",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_70",
+        "section": "ป.รัษฎากร ม. 70",
+        "text": "การเสียภาษีของนิติบุคคลต่างประเทศที่ไม่ได้ประกอบกิจการในไทย แต่ได้รับเงินได้พึงประเมินตามมาตรา 40(2)(3)(4)(5) หรือ (6) ที่จ่ายจากหรือในประเทศไทย (ภาษีหัก ณ ที่จ่าย)",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_70bis",
+        "section": "ป.รัษฎากร ม. 70 ทวิ",
+        "text": "บริษัทหรือห้างหุ้นส่วนนิติบุคคลใด จำหน่ายเงินกำไรหรือเงินประเภทอื่นใดที่กันไว้จากกำไรออกไปจากประเทศไทย ให้เสียภาษีเงินได้นิติบุคคลต่างหาก (ภาษีการจำหน่ายกำไร)",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_76bis",
+        "section": "ป.รัษฎากร ม. 76 ทวิ",
+        "text": "นิติบุคคลต่างประเทศที่มีลูกจ้าง ผู้ทำการแทน หรือผู้ทำการติดต่อในการประกอบกิจการในประเทศไทย ทำให้ได้รับเงินได้หรือกำไรในไทย ให้ถือว่าประกอบกิจการในไทยและต้องเสียภาษี",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_77_1",
+        "section": "ป.รัษฎากร ม. 77/1",
+        "text": "คำนิยามสำหรับภาษีมูลค่าเพิ่ม (VAT): 'ขาย', 'บริการ', 'ผู้นำเข้า', 'ผู้ประกอบการจดทะเบียน'",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_77_2",
+        "section": "ป.รัษฎากร ม. 77/2",
+        "text": "กิจกรรมที่ต้องเสียภาษีมูลค่าเพิ่ม ได้แก่ การขายสินค้าหรือการให้บริการในทางธุรกิจหรือวิชาชีพในราชอาณาจักร และการนำเข้าสินค้า",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_78",
+        "section": "ป.รัษฎากร ม. 78",
+        "text": "จุดความรับผิดในการเสียภาษีมูลค่าเพิ่ม (Tax Point) สำหรับการขายสินค้า: เกิดขึ้นเมื่อส่งมอบสินค้า โอนกรรมสิทธิ์ ได้รับชำระราคา หรือได้ออกใบกำกับภาษี แล้วแต่เหตุการณ์ใดจะเกิดก่อน",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_78_1",
+        "section": "ป.รัษฎากร ม. 78/1",
+        "text": "จุดความรับผิดในการเสียภาษีมูลค่าเพิ่ม (Tax Point) สำหรับการให้บริการ: เกิดขึ้นเมื่อได้รับชำระราคาค่าบริการ ออกใบกำกับภาษี หรือได้ใช้บริการนั้นแล้ว แล้วแต่เหตุการณ์ใดจะเกิดก่อน",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_78_2",
+        "section": "ป.รัษฎากร ม. 78/2",
+        "text": "จุดความรับผิดในการเสียภาษีมูลค่าเพิ่มสำหรับการนำเข้าสินค้า: เกิดขึ้นเมื่อชำระอากรขาเข้า วางประกัน หรือจัดทำใบขนสินค้าขาออก",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_78_3",
+        "section": "ป.รัษฎากร ม. 78/3",
+        "text": "จุดความรับผิดสำหรับการขายสินค้าหรือการให้บริการบางประเภท เช่น การขายกระแสไฟฟ้า การให้บริการขนส่ง หรือการขายตามสัญญาเช่าซื้อ",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_81",
+        "section": "ป.รัษฎากร ม. 81",
+        "text": "กิจการที่ได้รับยกเว้นภาษีมูลค่าเพิ่ม เช่น การขายพืชผลทางการเกษตร สัตว์ดิบ หนังสือ บริการการศึกษา บริการสาธารณสุข และการขนส่งในราชอาณาจักร",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_81_1",
+        "section": "ป.รัษฎากร ม. 81/1",
+        "text": "ผู้ประกอบการที่ได้รับยกเว้นภาษีมูลค่าเพิ่มแต่มีรายรับไม่เกินเกณฑ์ (เช่น รายรับไม่เกิน 1.8 ล้านบาทต่อปี) อาจเลือกขอจดทะเบียนภาษีมูลค่าเพิ่มได้",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_82",
+        "section": "ป.รัษฎากร ม. 82",
+        "text": "ผู้มีหน้าที่เสียภาษีมูลค่าเพิ่ม ได้แก่ ผู้ประกอบการขายสินค้าหรือให้บริการ ผู้นำเข้า หรือบุคคลที่กฎหมายกำหนดไว้เฉพาะ",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_91_2",
+        "section": "ป.รัษฎากร ม. 91/2",
+        "text": "กิจการที่ต้องเสียภาษีธุรกิจเฉพาะ (SBT) เช่น การธนาคาร การประกอบธุรกิจเงินทุนหลักทรัพย์ การประกันชีวิต การจำนำ และการขายอสังหาริมทรัพย์เป็นทางการค้าหรือหากำไร",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "tax_91_3",
+        "section": "ป.รัษฎากร ม. 91/3",
+        "text": "ฐานภาษีและอัตราภาษีธุรกิจเฉพาะ: คำนวณจากรายรับก่อนหักรายจ่ายใดๆ ที่ผู้ประกอบกิจการได้รับหรือพึงได้รับเนื่องจากการประกอบกิจการ",
+        "category": "วิชาอาญา ข้อ 7 เป็นข้อภาษี"
+    },
+    {
+        "id": "lab_protect",
+        "section": "พ.ร.บ.คุ้มครองแรงงาน ม. 5",
+        "text": "บทนิยามสำคัญ: 'นายจ้าง', 'ลูกจ้าง', 'วันทำงาน', 'วันหยุด', 'ค่าจ้าง', 'ค่าล่วงเวลา', 'ค่าชดเชย'",
+        "category": "วิชาอาญา ข้อ 8 กฎหมายแรงงาน"
+    },
+    {
+        "id": "lab_protect_time",
+        "section": "พ.ร.บ.คุ้มครองแรงงาน ม. 23",
+        "text": "เวลาทำงานปกติไม่เกิน 8 ชั่วโมงต่อวัน และไม่เกิน 48 ชั่วโมงต่อสัปดาห์ สำหรับงานทั่วไป และไม่เกิน 7 ชั่วโมงต่อวัน (35 ชม./สัปดาห์) สำหรับงานอันตราย",
+        "category": "วิชาอาญา ข้อ 8 กฎหมายแรงงาน"
+    },
+    {
+        "id": "lab_protect_ot",
+        "section": "พ.ร.บ.คุ้มครองแรงงาน ม. 24",
+        "text": "ห้ามนายจ้างให้ลูกจ้างทำงานล่วงเวลา เว้นแต่ได้รับความยินยอมจากลูกจ้างเป็นหนังสือเป็นคราวๆ ไป หรือเป็นงานฉุกเฉิน",
+        "category": "วิชาอาญา ข้อ 8 กฎหมายแรงงาน"
+    },
+    {
+        "id": "lab_protect_compensate",
+        "section": "พ.ร.บ.คุ้มครองแรงงาน ม. 118",
+        "text": "อัตราค่าชดเชยเมื่อเลิกจ้างโดยไม่มีความผิด: ทำงานครบ 120 วัน ได้ 30 วัน, ครบ 1 ปี ได้ 90 วัน, ครบ 3 ปี ได้ 180 วัน, ครบ 10 ปี ได้ 300 วัน, ครบ 20 ปีขึ้นไป ได้ 400 วัน",
+        "category": "วิชาอาญา ข้อ 8 กฎหมายแรงงาน"
+    },
+    {
+        "id": "lab_protect_no_pay",
+        "section": "พ.ร.บ.คุ้มครองแรงงาน ม. 119",
+        "text": "ข้อยกเว้นที่นายจ้างไม่ต้องจ่ายค่าชดเชย: ทุจริตต่อหน้าที่ กระทำผิดอาญาจงใจทำให้นายจ้างเสียหาย ประมาทเลินเล่อร้ายแรง ละทิ้งหน้าที่ 3 วันทำงานติดต่อกันโดยไม่มีเหตุอันสมควร",
+        "category": "วิชาอาญา ข้อ 8 กฎหมายแรงงาน"
+    },
+    {
+        "id": "lab_rel_18",
+        "section": "พ.ร.บ.แรงงานสัมพันธ์ ม. 18",
+        "text": "การทำข้อตกลงเกี่ยวกับสภาพการจ้าง: เมื่อนายจ้างและลูกจ้างเจรจากันได้ข้อตกลงแล้ว ต้องทำเป็นหนังสือ ลงลายมือชื่อ และนำไปจดทะเบียนภายใน 15 วัน",
+        "category": "วิชาอาญา ข้อ 8 กฎหมายแรงงาน"
+    },
+    {
+        "id": "lab_rel_unfair",
+        "section": "พ.ร.บ.แรงงานสัมพันธ์ ม. 121",
+        "text": "ข้อห้ามการกระทำอันไม่เป็นธรรม (Unfair Labor Practices): ห้ามนายจ้างเลิกจ้างหรือกระทำการใดๆ ที่เป็นผลให้ลูกจ้างไม่สามารถทนทำงานอยู่ได้ เพราะเหตุที่รวมกลุ่มยื่นข้อเรียกร้องหรือก่อตั้งสหภาพแรงงาน",
+        "category": "วิชาอาญา ข้อ 8 กฎหมายแรงงาน"
+    },
+    {
+        "id": "lab_fund_18",
+        "section": "พ.ร.บ.เงินทดแทน ม. 18",
+        "text": "เมื่อลูกจ้างประสบอันตราย เจ็บป่วย หรือสูญหายเนื่องจากการทำงาน นายจ้างต้องจ่ายเงินทดแทนเป็นค่ารักษาพยาบาล ค่าฟื้นฟูสมรรถภาพ และค่าจัดการศพตามเกณฑ์",
+        "category": "วิชาอาญา ข้อ 8 กฎหมายแรงงาน"
+    },
+    {
+        "id": "lab_court",
+        "section": "พ.ร.บ.จัดตั้งศาลแรงงาน ม. 8",
+        "text": "ศาลแรงงานมีอำนาจพิจารณาพิพากษาคดีพิพาทเกี่ยวกับสิทธิหรือหน้าที่ตามสัญญาจ้างแรงงาน หรือตามกฎหมายว่าด้วยการคุ้มครองแรงงาน แรงงานสัมพันธ์ และเงินทดแทน",
+        "category": "วิชาอาญา ข้อ 8 กฎหมายแรงงาน"
+    },
+    {
+        "id": "const_3",
+        "section": "รัฐธรรมนูญ ม. 3",
+        "text": "อำนาจอธิปไตยเป็นของปวงชนชาวไทย พระมหากษัตริย์ผู้ทรงเป็นประมุขทรงใช้อำนาจนั้นทางรัฐสภา คณะรัฐมนตรี และศาล ตามบัญญัติแห่งรัฐธรรมนูญ",
+        "category": "วิชาอาญา ข้อ 9 รัฐธรรมนูญ"
+    },
+    {
+        "id": "const_25",
+        "section": "รัฐธรรมนูญ ม. 25",
+        "text": "สิทธิและเสรีภาพของปวงชนชาวไทย ตราบเท่าที่การใช้นั้นไม่กระทบกระเทือนหรือเป็นอันตรายต่อความมั่นคงของรัฐ ความสงบเรียบร้อย หรือศีลธรรมอันดี",
+        "category": "วิชาอาญา ข้อ 9 รัฐธรรมนูญ"
+    },
+    {
+        "id": "const_court",
+        "section": "รัฐธรรมนูญ ม. 210",
+        "text": "ศาลรัฐธรรมนูญมีหน้าที่และอำนาจในการพิจารณาวินิจฉัยความชอบด้วยรัฐธรรมนูญของกฎหมายหรือร่างกฎหมาย และหน้าที่เกี่ยวกับอำนาจหน้าที่ขององค์กรอิสระ",
+        "category": "วิชาอาญา ข้อ 9 รัฐธรรมนูญ"
+    },
+    {
+        "id": "const_criminal_pol",
+        "section": "พ.ร.บ.ป.ป.ช. ม. 4",
+        "text": "หน้าที่ของคณะกรรมการป้องกันและปราบปรามการทุจริตแห่งชาติ (ป.ป.ช.) ในการไต่สวนและมีความเห็นกรณีเจ้าหน้าที่รัฐร่ำรวยผิดปกติ กระทำความผิดฐานทุจริตต่อหน้าที่",
+        "category": "วิชาอาญา ข้อ 9 รัฐธรรมนูญ"
+    },
+    {
+        "id": "const_pol_court",
+        "section": "พ.ร.บ.วิธีพิจารณาคดีอาญาผู้ดำรงตำแหน่งทางการเมือง ม. 9",
+        "text": "ศาลฎีกาแผนกคดีอาญาของผู้ดำรงตำแหน่งทางการเมือง มีอำนาจพิจารณาพิพากษาคดีที่มีการกล่าวหาว่านายกรัฐมนตรี รัฐมนตรี สส. สว. ร่ำรวยผิดปกติหรือทุจริตต่อหน้าที่",
+        "category": "วิชาอาญา ข้อ 9 รัฐธรรมนูญ"
+    },
+    {
+        "id": "prop_144",
+        "section": "ป.พ.พ. ม. 144",
+        "text": "ส่วนควบของทรัพย์ หมายถึงส่วนซึ่งโดยสภาพแห่งทรัพย์หรือโดยจารีตประเพณีแห่งท้องถิ่นเป็นสาระสำคัญในความเป็นอยู่ของทรัพย์นั้น และไม่อาจแยกจากกันได้เว้นแต่จะทำลาย",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_145",
+        "section": "ป.พ.พ. ม. 145",
+        "text": "ไม้ยืนต้นเป็นส่วนควบกับที่ดินที่ไม้นั้นขึ้นอยู่ แต่ไม้ล้มลุกหรือธัญชาติอันจะเก็บเกี่ยวรวงผลได้คราวหนึ่งหรือหลายคราวต่อปีไม่เป็นส่วนควบกับที่ดิน",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_146",
+        "section": "ป.พ.พ. ม. 146",
+        "text": "ทรัพย์ที่ติดกับที่ดินหรือโรงเรือนเพียงชั่วคราว หรือโรงเรือนหรือสิ่งปลูกสร้างอย่างอื่นซึ่งผู้มีสิทธิในที่ดินของผู้อื่นปลูกสร้างไว้ในที่ดินนั้น ไม่ถือว่าเป็นส่วนควบ",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_148",
+        "section": "ป.พ.พ. ม. 148",
+        "text": "ดอกผลของทรัพย์สินย่อมได้แก่ ดอกผลธรรมดา (ผลไม้ ลูกสัตว์ น้ำนม ฯลฯ) และดอกผลนิตินัย (ดอกเบี้ย ค่าเช่า เงินปันผล ฯลฯ) ซึ่งได้มาเป็นครั้งคราวจากทรัพย์สินนั้น",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1299",
+        "section": "ป.พ.พ. ม. 1299",
+        "text": "การได้มาโดยนิติกรรมซึ่งอสังหาริมทรัพย์หรือทรัพยสิทธิอันเกี่ยวกับอสังหาริมทรัพย์นั้น ถ้ามิได้ทำเป็นหนังสือและจดทะเบียนการได้มากับพนักงานเจ้าหน้าที่ ท่านว่าไม่บริบูรณ์ (วรรคสอง: ได้มาทางอื่นนอกจากนิติกรรม เช่น ครอบครองปรปักษ์ ถ้ายังไม่ได้จดทะเบียน จะมิให้ยกขึ้นเป็นข้อต่อสู้บุคคลภายนอกผู้สุจริต เสียค่าตอบแทน และได้จดทะเบียนสิทธิโดยสุจริตแล้วไม่ได้)",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1300",
+        "section": "ป.พ.พ. ม. 1300",
+        "text": "การจดทะเบียนโอนอสังหาริมทรัพย์หรือทรัพยสิทธิอันเกี่ยวกับอสังหาริมทรัพย์ที่เสียเปรียบแก่บุคคลผู้มีสิทธิจะเรียกให้จดทะเบียนสิทธิของตนได้ก่อนนั้น บุคคลนั้นอาจเรียกให้เพิกถอนการจดทะเบียนนั้นได้ เว้นแต่ผู้รับโอนจะสุจริตและเสียค่าตอบแทน",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1304",
+        "section": "ป.พ.พ. ม. 1304",
+        "text": "สาธารณสมบัติของแผ่นดิน รวมถึงทรัพย์สินทุกชนิดของแผ่นดินซึ่งใช้เพื่อสาธารณประโยชน์หรือสงวนไว้เพื่อประโยชน์ร่วมกัน เช่น ที่ดินรกร้างว่างเปล่า ทรัพย์สินสำหรับพลเมืองใช้ร่วมกัน (ทางหลวง ชายตลิ่ง) ทรัพย์สินเพื่อประโยชน์ของแผ่นดินโดยเฉพาะ (ป้อมทหาร)",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1305",
+        "section": "ป.พ.พ. ม. 1305",
+        "text": "ทรัพย์สินซึ่งเป็นสาธารณสมบัติ of แผ่นดินนั้น จะโอนแก่กันมิได้ เว้นแต่จะอาศัยอำนาจแห่งบทกฎหมายเฉพาะหรือพระราชบัญญัติ และห้ามยกอายุความขึ้นต่อสู้กับแผ่นดิน",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1311",
+        "section": "ป.พ.พ. ม. 1311",
+        "text": "ผู้ใดสร้างโรงเรือนในที่ดินของผู้อื่นโดยไม่สุจริต ท่านว่าผู้นั้นต้องทำที่ดินให้เป็นตามเดิมแล้วส่งคืนแก่เจ้าของ เว้นแต่เจ้าของที่ดินจะเลือกให้ส่งคืนตามที่เป็นอยู่ โดยจ่ายค่าที่ดินที่เพิ่มขึ้นหรือค่าโรงเรือนตามสมควร",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1314",
+        "section": "ป.พ.พ. ม. 1314",
+        "text": "บทบัญญัติมาตรา 1310, 1311 และ 1312 ให้นำมาใช้บังคับแก่การปลูกสร้างสิ่งก่อสร้างอย่างอื่น หรือการเพาะปลูกต้นไม้หรือธัญชาติในที่ดินของผู้อื่นด้วยโดยอนุโลม",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1329",
+        "section": "ป.พ.พ. ม. 1329",
+        "text": "สิทธิของบุคคลผู้ได้มาซึ่งทรัพย์สินโดยมีค่าตอบแทนและโดยสุจริตนั้น ท่านว่ามิเสียไปถึงแม้ว่าผู้โอนทรัพย์สินให้จะได้ทรัพย์สินนั้นมาโดยนิติกรรมอันเป็นโมฆียะ และนิติกรรมนั้นได้ถูกบอกล้างภายหลัง",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1330",
+        "section": "ป.พ.พ. ม. 1330",
+        "text": "สิทธิของบุคคลผู้ซื้อทรัพย์สินโดยสุจริตในการขายทอดตลาดตามคำสั่งศาล หรือของเจ้าพนักงานพิทักษ์ทรัพย์ในคดีล้มละลายนั้น ท่านว่ามิเสียไป ถึงแม้ภายหลังจะพิสูจน์ได้ว่าทรัพย์สินนั้นไม่ใช่ของจำเลยหรือลูกหนี้โดยธรรม",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1332",
+        "section": "ป.พ.พ. ม. 1332",
+        "text": "บุคคลผู้ซื้อทรัพย์สินมาโดยสุจริตในการขายทอดตลาด หรือในท้องตลาด หรือจากพ่อค้าซึ่งขายของชนิดนั้น ไม่จำเป็นต้องคืนให้แก่เจ้าของแท้จริง เว้นแต่เจ้าของแท้จริงจะชดใช้ราคาที่ซื้อมา",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1336",
+        "section": "ป.พ.พ. ม. 1336",
+        "text": "ภายในบังคับแห่งกฎหมาย เจ้าของทรัพย์สินมีสิทธิใช้สอยและจำหน่ายทรัพย์สินของตนและได้ซึ่งดอกผลแห่งทรัพย์สินนั้น กับทั้งมีสิทธิติดตามและเอาคืนซึ่งทรัพย์สินของตนจากบุคคลผู้ไม่มีสิทธิจะยึดถือไว้ และมีสิทธิขัดขวางมิให้ผู้อื่นสอดเข้าเกี่ยวข้องกับทรัพย์สินนั้นโดยมิชอบด้วยกฎหมาย",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1337",
+        "section": "ป.พ.พ. ม. 1337",
+        "text": "บุคคลใดใช้สิทธิของตนเป็นเหตุให้เจ้าของอสังหาริมทรัพย์ได้รับความเสียหายหรือเดือดร้อนเกินควร ท่านว่าเจ้าของอสังหาริมทรัพย์มีสิทธิจะปฏิบัติการเพื่อยังความเสียหายหรือเดือดร้อนนั้นให้สิ้นไป",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1349",
+        "section": "ป.พ.พ. ม. 1349",
+        "text": "ที่ดินแปลงใดมีที่ดินแปลงอื่นล้อมรอบจนไม่มีทางออกถึงทางสาธารณะได้ ท่านว่าเจ้าของที่ดินแปลงนั้นมีสิทธิผ่านที่ดินที่ล้อมรอบอยู่ไปสู่ทางสาธารณะได้ (ทางจำเป็น) แต่ต้องออมให้เกิดความเสียหายแก่ที่ดินล้อมรอบน้อยที่สุดและต้องจ่ายค่าทดแทน",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1350",
+        "section": "ป.พ.พ. ม. 1350",
+        "text": "ถ้าที่ดินแบ่งแยกหรือแบ่งโอนกันเป็นเหตุให้แปลงหนึ่งไม่มีทางออกไปสู่ทางสาธารณะ ท่านว่าเจ้าของที่ดินแปลงนั้นมีสิทธิเรียกร้องทางจำเป็นได้เฉพาะบนที่ดินแปลงที่ได้แบ่งแยกหรือแบ่งโอนกัน และไม่ต้องเสียค่าทดแทน",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1368",
+        "section": "ป.พ.พ. ม. 1368",
+        "text": "บุคคลอาจได้มาซึ่งสิทธิครอบครองโดยยึดถือทรัพย์สินไว้แทนผู้อื่น (ยึดถือแทน)",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1374",
+        "section": "ป.พ.พ. ม. 1374",
+        "text": "ถ้าผู้ครอบครองถูกรบกวนในการครอบครองทรัพย์สินเพราะมีผู้สอดเข้ามาเกี่ยวข้องโดยมิชอบด้วยกฎหมาย ท่านว่าผู้ครอบครองมีสิทธิจะให้ปลดเปลื้องการรบกวนนั้นได้ และถ้าเป็นที่เกรงว่าจะยังมีการรบกวนอีก จะฟ้องร้องขอห้ามก็ได้",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1375",
+        "section": "ป.พ.พ. ม. 1375",
+        "text": "ถ้าผู้ครอบครองถูกแย่งการครอบครองโดยมิชอบด้วยกฎหมาย ท่านว่ามีสิทธิจะได้คืนซึ่งการครอบครอง เว้นแต่ฟ้องคดีเพื่อเอาคืนนั้นพ้นกำหนดปีหนึ่งนับแต่เวลาถูกแย่งการครอบครอง",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1377",
+        "section": "ป.พ.พ. ม. 1377",
+        "text": "ถ้าผู้ครอบครองสละเจตนาครอบครอง หรือไม่ยึดถือทรัพย์สินนั้นต่อไป การครอบครองย่อมเป็นอันสุดสิ้นลง",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1378",
+        "section": "ป.พ.พ. ม. 1378",
+        "text": "การโอนไปซึ่งการครอบครองย่อมทำได้โดยส่งมอบทรัพย์สินที่ครอบครอง",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1381",
+        "section": "ป.พ.พ. ม. 1381",
+        "text": "บุคคลใดปฏิบัติการยึดถือทรัพย์สินไว้แทนผู้ครอบครอง จะเปลี่ยนลักษณะแห่งการยึดถือได้ต่อเมื่อบอกกล่าวไปยังผู้ครอบครองว่าไม่เจตนาจะยึดถือทรัพย์สินแทนอีกต่อไป หรือตนเองครอบครองโดยสุจริตอาศัยสิทธิใหม่อันได้จากบุคคลภายนอก",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1384",
+        "section": "ป.พ.พ. ม. 1384",
+        "text": "ผู้ครอบครองย่อมขาดสิทธิครอบครองเมื่อผู้ครอบครองปล่อยให้ผู้อื่นยึดถือทรัพย์สินไว้เกินกว่าหนึ่งปี",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1385",
+        "section": "ป.พ.พ. ม. 1385",
+        "text": "ถ้ามีการโอนการครอบครองแก่กัน ผู้รับโอนจะนับเวลาครอบครองของตนรวมเข้ากับเวลาครอบครองของผู้โอนก็ได้",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1387",
+        "section": "ป.พ.พ. ม. 1387",
+        "text": "อสังหาริมทรัพย์อาจต้องตกอยู่ในภาระจำยอมอันเป็นเหตุให้เจ้าของต้องยอมรับกรรมบางอย่างซึ่งกระทบถึงทรัพย์สินของตน หรือต้องงดเว้นการใช้สิทธิบางอย่างเพื่อประโยชน์แก่อสังหาริมทรัพย์อื่น",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1390",
+        "section": "ป.พ.พ. ม. 1390",
+        "text": "ท่านห้ามมิให้เจ้าของภารยทรัพย์ประกอบกรรมใดๆ อันจะเป็นเหตุให้ประโยชน์แห่งภาระจำยอมลดลงหรือเสื่อมความสะดวกไป",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1391",
+        "section": "ป.พ.พ. ม. 1391",
+        "text": "เจ้าของสามยทรัพย์มีสิทธิทำการทุกอย่างอันจำเป็นเพื่อรักษาและใช้ภาระจำยอม แต่ต้องเสียค่าใช้จ่ายของตนเอง และต้องออมให้ภารยทรัพย์เสียหายน้อยที่สุด",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1399",
+        "section": "ป.พ.พ. ม. 1399",
+        "text": "ภาระจำยอมย่อมสิ้นไปถ้าไม่ได้ใช้สิบปีติดต่อกัน",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "prop_1401",
+        "section": "ป.พ.พ. ม. 1401",
+        "text": "ภาระจำยอมอาจได้มาโดยอายุความ ท่านให้นำบทบัญญัติว่าด้วยการครอบครองปรปักษ์มาใช้บังคับโดยอนุโลม (คือใช้โดยสงบ เปิดเผย เจตนาเป็นภาระจำยอม 10 ปี)",
+        "category": "วิชาแพ่ง ข้อ 1 ทรัพย์ มาตรา 137-148, 1298-1434"
+    },
+    {
+        "id": "tort_officer_5",
+        "section": "พ.ร.บ.ความรับผิดทางละเมิดของเจ้าหน้าที่ ม. 5",
+        "text": "หน่วยงานของรัฐต้องรับผิดชอบต่อผู้เสียหายในผลกระทบจากการละเมิดของเจ้าหน้าที่ซึ่งได้กระทำในการปฏิบัติหน้าที่ ในกรณีนี้ผู้เสียหายจะฟ้องเจ้าหน้าที่โดยตรงไม่ได้ ต้องฟ้องหน่วยงานของรัฐ",
+        "category": "วิชาอาญา ข้อ 10 กฎหมายปกครอง"
+    },
+    {
+        "id": "tort_officer_6",
+        "section": "พ.ร.บ.ความรับผิดทางละเมิดของเจ้าหน้าที่ ม. 6",
+        "text": "ถ้าการละเมิดของเจ้าหน้าที่ไม่ได้กระทำในการปฏิบัติหน้าที่ เจ้าหน้าที่ต้องรับผิดเป็นการเฉพาะตัว ในกรณีนี้ผู้เสียหายฟ้องเจ้าหน้าที่ได้โดยตรง แต่จะฟ้องหน่วยงานของรัฐไม่ได้",
+        "category": "วิชาอาญา ข้อ 10 กฎหมายปกครอง"
+    },
+    {
+        "id": "tort_officer_8",
+        "section": "พ.ร.บ.ความรับผิดทางละเมิดของเจ้าหน้าที่ ม. 8",
+        "text": "ในกรณีที่หน่วยงานของรัฐชดใช้ค่าสินไหมทดแทนให้แก่ผู้เสียหายไปแล้ว และการละเมิดเกิดจากความจงใจหรือประมาทเลินเล่ออย่างร้ายแรงของเจ้าหน้าที่ หน่วยงานของรัฐมีสิทธิเรียกให้เจ้าหน้าที่ชดใช้เงินคืนได้ (สิทธิไล่เบี้ย)",
+        "category": "วิชาอาญา ข้อ 10 กฎหมายปกครอง"
+    },
+    {
+        "id": "tort_officer_10",
+        "section": "พ.ร.บ.ความรับผิดทางละเมิดของเจ้าหน้าที่ ม. 10",
+        "text": "สิทธิเรียกร้องค่าสินไหมทดแทนจากเจ้าหน้าที่ในกรณีไล่เบี้ย มีกำหนดอายุความ 1 ปี นับแต่วันที่หน่วยงานของรัฐได้ชดใช้ค่าสินไหมทดแทน หรือ 2 ปีนับแต่วันรู้ถึงการละเมิด",
+        "category": "วิชาอาญา ข้อ 10 กฎหมายปกครอง"
+    },
+    {
+        "id": "sale_consignment_491",
+        "section": "ป.พ.พ. ม. 491",
+        "text": "อันว่าขายฝากนั้น คือสัญญาซื้อขายซึ่งกรรมสิทธิ์ในทรัพย์สินตกไปยังผู้ซื้อ โดยมีข้อตกลงกันว่าผู้ขายอาจไถ่ทรัพย์นั้นคืนได้ภายในเวลาที่กำหนด",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "sale_consignment_492",
+        "section": "ป.พ.พ. ม. 492",
+        "text": "ในกรณีไถ่ทรัพย์สินฝากขายภายในกำหนด ให้ทรัพย์สินตกเป็นกรรมสิทธิ์ของผู้ไถ่ตั้งแต่เวลาที่ชำระสินไถ่หรือวางทรัพย์สินไถ่",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "sale_consignment_494",
+        "section": "ป.พ.พ. ม. 494",
+        "text": "ท่านห้ามมิให้ตั้งกำหนดเวลาไถ่ถอนเกินสิบปีสำหรับอสังหาริมทรัพย์ หรือเกินสามปีสำหรับสังหาริมทรัพย์ ถ้ากำหนดไว้เกินกว่านั้นให้ลดลงมาเป็นสิบปีหรือสามปี",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "sale_consignment_496",
+        "section": "ป.พ.พ. ม. 496",
+        "text": "กำหนดเวลาไถ่นั้น อาจทำสัญญาขยายเวลาออกไปอีกก็ได้ แต่กำหนดเวลาที่ขยายรวมกับเวลาเดิมต้องไม่เกินกำหนดสิบปีหรือสามปีตามกฎหมาย",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "rent_560",
+        "section": "ป.พ.พ. ม. 560",
+        "text": "ผู้เช่าต้องชำระค่าเช่าตามเวลาที่กำหนดไว้ในสัญญาหรือตามจารีตประเพณี หากไม่ชำระ ผู้ให้เช่าบอกเลิกสัญญาได้",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "rent_566",
+        "section": "ป.พ.พ. ม. 566",
+        "text": "ถ้ากำหนดเวลาเช่าไม่ปรากฏในสัญญา คู่สัญญาฝ่ายใดฝ่ายหนึ่งบอกเลิกสัญญาในขณะสุดสิ้นระยะเวลาอันเป็นกำหนดชำระค่าเช่าได้ทุกระยะ แต่ต้องบอกกล่าวล่วงหน้าไม่น้อยกว่าหนึ่งงวด",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "rent_570",
+        "section": "ป.พ.พ. ม. 570",
+        "text": "เมื่อสิ้นสุดกำหนดเวลาเช่าแล้ว ผู้เช่ายังคงครองทรัพย์สินอยู่และผู้ให้เช่ารู้ความนั้นแล้วไม่ทักท้วง ท่านให้ถือว่าคู่สัญญาเป็นอันได้ทำสัญญาเช่าใหม่ต่อไปไม่มีกำหนดเวลา",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "hire_purchase_572",
+        "section": "ป.พ.พ. ม. 572",
+        "text": "อันว่าเช่าซื้อนั้น คือสัญญาซึ่งเจ้าของเอาทรัพย์สินออกให้เช่า และให้คำมั่นว่าจะขายทรัพย์สินนั้น หรือว่าจะให้ทรัพย์สินนั้นตกเป็นสิทธิแก่ผู้เช่า โดยเงื่อนไขที่ผู้เช่าได้ชำระเงินตามจำนวนคราวที่กำหนด และสัญญาเช่าซื้อต้องทำเป็นหนังสือ มิฉะนั้นเป็นโมฆะ",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "hire_purchase_573",
+        "section": "ป.พ.พ. ม. 573",
+        "text": "ผู้เช่าซื้อจะบอกเลิกสัญญาในเวลาใดก็ได้ ด้วยการส่งมอบทรัพย์สินกลับคืนให้แก่เจ้าของโดยเสียค่าใช้จ่ายของตนเอง",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "hire_purchase_574",
+        "section": "ป.พ.พ. ม. 574",
+        "text": "ในกรณีผิดนัดไม่ใช้เงินสองคราวติดกัน หรือกระทำผิดสัญญาในส่วนที่เป็นสาระสำคัญ เจ้าของทรัพย์สินบอกเลิกสัญญาเช่าซื้อได้ และริบเงินที่ชำระมาแล้วทั้งหมดตลอดจนกลับเข้าครอบครองทรัพย์สิน",
+        "category": "วิชาแพ่ง ข้อ 4 ซื้อขาย มาตรา 453-574"
+    },
+    {
+        "id": "loan_640",
+        "section": "ป.พ.พ. ม. 640",
+        "text": "อันว่ายืมใช้คงรูปนั้น คือสัญญาซึ่งบุคคลคนหนึ่ง เรียกว่าผู้ให้ยืม ให้บุคคลอีกคนหนึ่ง เรียกว่าผู้ยืม ใช้สอยทรัพย์สินสิ่งใดสิ่งหนึ่งได้เปล่า และผู้ยืมตกลงว่าจะคืนทรัพย์สินนั้นเมื่อได้ใช้สอยเสร็จแล้ว",
+        "category": "วิชาแพ่ง ข้อ 5 ยืม 640-769"
+    },
+    {
+        "id": "broker_845",
+        "section": "ป.พ.พ. ม. 845",
+        "text": "บุคคลผู้ใดตกลงจะให้ค่าบำเหน็จแก่ที่เป็นนายหน้าเพื่อชี้ช่องให้ได้ทำสัญญา หรือจัดการให้ได้ทำสัญญากัน ท่านว่าบุคคลผู้นั้นต้องจ่ายค่าบำเหน็จเมื่อสัญญานั้นได้ทำกันสำเร็จเนื่องจากผลการชี้ช่องนั้น",
+        "category": "วิชาแพ่ง ข้อ 6 ตัวแทน มาตรา 797-1011"
+    },
+    {
+        "id": "broker_846",
+        "section": "ป.พ.พ. ม. 846",
+        "text": "ค่าบำเหน็จนายหน้า ถ้าไม่ได้กำหนดราคากันไว้ ท่านให้ถือว่าตกลงกันเป็นจำนวนตามธรรมเนียมท้องถิ่น",
+        "category": "วิชาแพ่ง ข้อ 6 ตัวแทน มาตรา 797-1011"
+    },
+    {
+        "id": "insurance_861",
+        "section": "ป.พ.พ. ม. 861",
+        "text": "อันว่าสัญญาประกันภัยนั้น คือสัญญาซึ่งบุคคลคนหนึ่งตกลงจะชดใช้ค่าสินไหมทดแทน หรือจ่ายเงินจำนวนหนึ่งให้ในเมื่อมีวินาศภัยขึ้น หรือมีเหตุอย่างอื่นในอนาคตดังได้ระบุไว้ในสัญญา และบุคคลอีกคนหนึ่งตกลงจะส่งเบี้ยประกันภัย",
+        "category": "วิชาแพ่ง ข้อ 6 ตัวแทน มาตรา 797-1011"
+    },
+    {
+        "id": "insurance_865",
+        "section": "ป.พ.พ. ม. 865",
+        "text": "การเปิดเผยข้อความจริงในการทำสัญญาประกันภัย: ผู้เอาประกันภัยต้องบอกกล่าวข้อความจริงอันเป็นสาระสำคัญต่อการรับประกันภัย หากไม่เปิดเผยหรือแถลงข้อความอันเป็นเท็จ สัญญานั้นเป็นโมฆียะ",
+        "category": "วิชาแพ่ง ข้อ 6 ตัวแทน มาตรา 797-1011"
+    },
+    {
+        "id": "insurance_887",
+        "section": "ป.พ.พ. ม. 887",
+        "text": "อันว่าประกันภัยค้ำจุนนั้น คือสัญญาประกันภัยซึ่งผู้รับประกันภัยตกลงจะชดใช้ค่าสินไหมทดแทนในนามของผู้เอาประกันภัย เพื่อความเสียหายอันเกิดแก่บุคคลภายนอกซึ่งผู้เอาประกันภัยต้องรับผิดชอบ",
+        "category": "วิชาแพ่ง ข้อ 6 ตัวแทน มาตรา 797-1011"
+    },
+    {
+        "id": "bill_898",
+        "section": "ป.พ.พ. ม. 898",
+        "text": "อันตั๋วเงินตามความหมายแห่งประมวลกฎหมายนี้มี 3 ประเภท คือ: (1) ตั๋วแลกเงิน (2) ตั๋วสัญญาใช้เงิน (3) เช็ค",
+        "category": "วิชาแพ่ง ข้อ 6 ตัวแทน มาตรา 797-1011"
+    },
+    {
+        "id": "bill_900",
+        "section": "ป.พ.พ. ม. 900",
+        "text": "บุคคลผู้ลงลายมือชื่อของตนในตั๋วเงิน ย่อมต้องรับผิดตามเนื้อความในตั๋วเงินนั้น (หลักความรับผิดของลงลายมือชื่อ)",
+        "category": "วิชาแพ่ง ข้อ 6 ตัวแทน มาตรา 797-1011"
+    },
+    {
+        "id": "bill_904",
+        "section": "ป.พ.พ. ม. 904",
+        "text": "อันว่าผู้ทรงตั๋วเงินนั้น หมายความว่า บุคคลผู้มีตั๋วเงินไว้ในครอบครองโดยฐานะเป็นผู้รับเงิน หรือเป็นผู้รับสลักหลัง หรือเป็นผู้ถือตั๋วเงินที่มีสิทธิเรียกเก็บเงิน",
+        "category": "วิชาแพ่ง ข้อ 6 ตัวแทน มาตรา 797-1011"
+    },
+    {
+        "id": "bill_905",
+        "section": "ป.พ.พ. ม. 905",
+        "text": "การพิสูจน์ฐานะเป็นผู้ทรงโดยชอบด้วยกฎหมาย: ถ้าเป็นตั๋วเงินสั่งจ่ายระบุชื่อ ให้ถือว่าบุคคลผู้มีชื่อในตั๋วเงินหรือผู้รับสลักหลังคนสุดท้ายในสายการสลักหลังที่ไม่ขาดสายเป็นผู้ทรงโดยชอบ",
+        "category": "วิชาแพ่ง ข้อ 6 ตัวแทน มาตรา 797-1011"
+    },
+    {
+        "id": "bill_914",
+        "section": "ป.พ.พ. ม. 914",
+        "text": "ผู้สั่งจ่ายหรือผู้สลักหลังตั๋วแลกเงินย่อมเป็นอันสัญญาว่า เมื่อตั๋วเงินนั้นนำยื่นเพื่อการยอมรับหรือเพื่อชำระเงินแล้ว หากถูกปฏิเสธ ตนจะชำระเงินแก่ผู้ทรง",
+        "category": "วิชาแพ่ง ข้อ 6 ตัวแทน มาตรา 797-1011"
+    },
+    {
+        "id": "bill_990",
+        "section": "ป.พ.พ. ม. 990",
+        "text": "ผู้ทรงเช็คต้องยื่นเช็คแก่ธนาคารเพื่อให้ใช้เงินภายในกำหนดเวลา: ภายในหนึ่งเดือนนับแต่วันออกเช็คหากยื่นในเมืองเดียวกัน หรือภายในสามเดือนหากยื่นจากที่อื่น มิฉะนั้นผู้ทรงสิ้นสิทธิไล่เบี้ยผู้สลักหลัง",
+        "category": "วิชาแพ่ง ข้อ 6 ตัวแทน มาตรา 797-1011"
+    },
+    {
+        "id": "partner_1012",
+        "section": "ป.พ.พ. ม. 1012",
+        "text": "อันว่าสัญญาจัดตั้งห้างหุ้นส่วนหรือบริษัทนั้น คือสัญญาซึ่งบุคคลตั้งแต่สองคนขึ้นไปตกลงเข้ากันเพื่อกระทำกิจการร่วมกัน ด้วยประสงค์จะแบ่งปันกำไรอันพึงได้จากกิจการนั้น",
+        "category": "วิชาแพ่ง ข้อ 7 หุ้นส่วน มาตรา 1012-1297"
+    },
+    {
+        "id": "partner_1025",
+        "section": "ป.พ.พ. ม. 1025",
+        "text": "อันว่าห้างหุ้นส่วนสามัญนั้น คือห้างหุ้นส่วนประเภทซึ่งผู้เป็นหุ้นส่วนหมดทุกคนต้องรับผิดร่วมกันเพื่อหนี้ทั้งปวงของห้างหุ้นส่วนโดยไม่มีจำกัดปริมาณ",
+        "category": "วิชาแพ่ง ข้อ 7 หุ้นส่วน มาตรา 1012-1297"
+    },
+    {
+        "id": "partner_1050",
+        "section": "ป.พ.พ. ม. 1050",
+        "text": "การงานใดๆ ที่ผู้เป็นหุ้นส่วนคนใดคนหนึ่งได้ทำไปในทางที่เป็นธรรมดาการค้าขายของห้างหุ้นส่วนนั้น ท่านว่าผู้เป็นหุ้นส่วนหมดทุกคนย่อมผูกพันและต้องรับผิดชอบร่วมกันในการนั้น",
+        "category": "วิชาแพ่ง ข้อ 7 หุ้นส่วน มาตรา 1012-1297"
+    },
+    {
+        "id": "partner_1077",
+        "section": "ป.พ.พ. ม. 1077",
+        "text": "อันห้างหุ้นส่วนจำกัดนั้น คือห้างหุ้นส่วนประเภทที่มีผู้เป็นหุ้นส่วนสองจำพวก คือ (1) หุ้นส่วนจำกัดความรับผิด และ (2) หุ้นส่วนไม่จำกัดความรับผิด",
+        "category": "วิชาแพ่ง ข้อ 7 หุ้นส่วน มาตรา 1012-1297"
+    },
+    {
+        "id": "company_1096",
+        "section": "ป.พ.พ. ม. 1096",
+        "text": "อันว่า...บริษัทจำกัดนั้น คือบริษัทประเภทซึ่งจัดตั้งขึ้นด้วยแบ่งทุนเป็นหุ้นมีมูลค่าเท่าๆ กัน โดยผู้ถือหุ้นต่างรับผิดจำกัดเพียงไม่เกินจำนวนเงินที่ตนยังส่งใช้ไม่ครบมูลค่าของหุ้นที่ตนถือ",
+        "category": "วิชาแพ่ง ข้อ 7 หุ้นส่วน มาตรา 1012-1297"
+    },
+    {
+        "id": "family_1435",
+        "section": "ป.พ.พ. ม. 1435",
+        "text": "การหมั้นจะทำได้ต่อเมื่อชายและหญิงมีอายุสิบเจ็ดปีบริบูรณ์แล้ว การหมั้นที่ฝ่าฝืนบทบัญญัตินี้เป็นโมฆะ",
+        "category": "วิชาแพ่ง ข้อ 8 ครอบครัว มาตรา 1435-1598/41, 1599-1755"
+    },
+    {
+        "id": "family_1437",
+        "section": "ป.พ.พ. ม. 1437",
+        "text": "การหมั้นจะสมบูรณ์ต่อเมื่อฝ่ายชายได้ส่งมอบหรือโอนทรัพย์สินอันเป็นของหมั้นให้แก่หญิงเพื่อเป็นหลักฐานว่าจะสมรสกับหญิงนั้น (ของหมั้นตกเป็นสิทธิแก่หญิงทันที)",
+        "category": "วิชาแพ่ง ข้อ 8 ครอบครัว มาตรา 1435-1598/41, 1599-1755"
+    },
+    {
+        "id": "family_1452",
+        "section": "ป.พ.พ. ม. 1452",
+        "text": "ชายหรือหญิงจะทำการสมรสในขณะที่ตนมีคู่สมรสอยู่ไม่ได้ (ห้ามจดทะเบียนสมรสซ้อน) การสมรสซ้อนเป็นโมฆะ",
+        "category": "วิชาแพ่ง ข้อ 8 ครอบครัว มาตรา 1435-1598/41, 1599-1755"
+    },
+    {
+        "id": "family_1458",
+        "section": "ป.พ.พ. ม. 1458",
+        "text": "การสมรสจะทำได้ต่อเมื่อชายและหญิงยินยอมเป็นสามีภรรยากัน และต้องจดทะเบียนการสมรสตามกฎหมาย จึงจะสมบูรณ์",
+        "category": "วิชาแพ่ง ข้อ 8 ครอบครัว มาตรา 1435-1598/41, 1599-1755"
+    },
+    {
+        "id": "maritime_carriage_3",
+        "section": "พ.ร.บ.รับขนของทางทะเล ม. 3",
+        "text": "คำนิยามสำคัญ: 'ผู้ขนส่ง', 'ผู้ส่งของ', 'ผู้รับตราส่ง', 'ใบตราส่ง' (Bill of Lading)",
+        "category": "วิชาแพ่ง ข้อ 9 กฎหมายระหว่างประเทศ"
+    },
+    {
+        "id": "maritime_carriage_39",
+        "section": "พ.ร.บ.รับขนของทางทะเล ม. 39",
+        "text": "หน้าที่ของผู้ขนส่งในการจัดเตรียมเรือให้อยู่ในสภาพที่สามารถเดินทะเลได้อย่างปลอดภัย (Seaworthiness) และจัดวาง ดูแลรักษาของที่รับขนอย่างเหมาะสม",
+        "category": "วิชาแพ่ง ข้อ 9 กฎหมายระหว่างประเทศ"
+    },
+    {
+        "id": "maritime_carriage_58",
+        "section": "พ.ร.บ.รับขนของทางทะเล ม. 58",
+        "text": "ข้อจำกัดความรับผิดของผู้ขนส่งสำหรับความเสียหายหรือสูญหายของของที่รับขน โดยจำกัดไว้ไม่เกินจำนวนที่กำหนดต่อหีบห่อหรือต่อกิโลกรัม เว้นแต่ได้แจ้งราคาทรัพย์ไว้",
+        "category": "วิชาแพ่ง ข้อ 9 กฎหมายระหว่างประเทศ"
+    },
+    {
+        "id": "lc_concept",
+        "section": "Letter of Credit (L/C)",
+        "text": "ตราสารเครดิตที่ธนาคารออกตามคำสั่งของผู้ซื้อ (ผู้นำเข้า) เพื่อรับประกันการชำระเงินแก่ผู้ขาย (ผู้ส่งออก) เมื่อผู้ขายยื่นเอกสารที่ถูกต้องตรงตามเงื่อนไขใน L/C",
+        "category": "วิชาแพ่ง ข้อ 9 กฎหมายระหว่างประเทศ"
+    },
+    {
+        "id": "tr_concept",
+        "section": "Trust Receipt (T/R)",
+        "text": "สัญญาทรัสต์รีซีท: ตราสารที่ผู้นำเจ้านำไปรับสินค้าจากธนาคารเพื่อนำไปขายหรือผลิต โดยกรรมสิทธิ์ในสินค้ายังคงเป็นของธนาคาร และผู้นำเข้ามีหน้าที่ส่งมอบเงินที่ได้จากการขายให้แก่ธนาคาร",
+        "category": "วิชาแพ่ง ข้อ 9 กฎหมายระหว่างประเทศ"
+    },
+    {
+        "id": "ip_copyright_6",
+        "section": "พ.ร.บ.ลิขสิทธิ์ ม. 6",
+        "text": "งานอันมีลิขสิทธิ์ ได้แก่ งานสร้างสรรค์ประเภทวรรณกรรม นาฏกรรม ศิลปกรรม ดนตรีกรรม โสตทัศนวัสดุ ภาพยนตร์ สิ่งบันทึกเสียง หรือแพร่เสียงแพร่ภาพ",
+        "category": "วิชาแพ่ง ข้อ 10 ทรัพย์สินทางปัญญา"
+    },
+    {
+        "id": "ip_copyright_15",
+        "section": "พ.ร.บ.ลิขสิทธิ์ ม. 15",
+        "text": "สิทธิแต่เพียงผู้เดียวของเจ้าของลิขสิทธิ์ ได้แก่ สิทธิในการทำซ้ำหรือดัดแปลง เผยแพร่ต่อสาธารณชน หรือให้เช่าต้นฉบับหรือสำเนางาน",
+        "category": "วิชาแพ่ง ข้อ 10 ทรัพย์สินทางปัญญา"
+    },
+    {
+        "id": "ip_patent_5",
+        "section": "พ.ร.บ.สิทธิบัตร ม. 5",
+        "text": "การประดิษฐ์ที่ขอรับสิทธิบัตรได้ ต้องประกอบด้วยเงื่อนไข 3 ประการ: (1) เป็นการประดิษฐ์ขึ้นใหม่ (2) มีขั้นการประดิษฐ์ที่สูงขึ้น (3) สามารถประยุกต์ในทางอุตสาหกรรมได้",
+        "category": "วิชาแพ่ง ข้อ 10 ทรัพย์สินทางปัญญา"
+    },
+    {
+        "id": "ip_trademark_44",
+        "section": "พ.ร.บ.เครื่องหมายการค้า ม. 44",
+        "text": "เมื่อเครื่องหมายการค้าได้รับการจดทะเบียนแล้ว ผู้เป็นเจ้าของมีสิทธิแต่เพียงผู้เดียวในการใช้เครื่องหมายการค้านั้นสำหรับสินค้าที่ได้จดทะเบียนไว้",
+        "category": "วิชาแพ่ง ข้อ 10 ทรัพย์สินทางปัญญา"
+    }
+];
+
+        // --- 2. STATE MANAGEMENT ---
+        let database = [...defaultLaws];
+        let categories = [];
+        let activeCategory = "ทั้งหมด";
+        let activeMode = "quiz"; // 'quiz' or 'flashcard'
+        let currentCardIndex = 0;
+        let filteredCards = [];
+        let isCardFlipped = false;
+        let isAnswered = false; // For quiz mode
+
+        // User stats
+        let stats = {
+            correct: 0,
+            total: 0,
+            streak: 0
+        };
+
+        // Theme and Audio State
+        let theme = "dark";
+        let audioEnabled = true;
+        let audioCtx = null;
+        let bgmGainNode = null;
+        let bgmVolume = 0.5; // range 0 to 1
+        let bgmEnabled = false;
+        let bgmScheduler = null;
+        let bgmStartTime = 0;
+        let bgmStep = 0;
+
+        // --- 3. AUDIO SYSTEM (8-BIT SYNTHETIC) ---
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                bgmGainNode = audioCtx.createGain();
+                bgmGainNode.gain.setValueAtTime(bgmVolume, audioCtx.currentTime);
+                bgmGainNode.connect(audioCtx.destination);
+            }
+        }
+
+        // 8-bit BGM melody (study lofi chip-tune feel)
+        const bgmMelody = [
+            // Bar 1 - theme A
+            [392, 0.25], [440, 0.125], [494, 0.125], [523, 0.25], [494, 0.125], [440, 0.125],
+            [392, 0.25], [330, 0.25], [349, 0.5],
+            // Bar 2
+            [440, 0.25], [494, 0.125], [523, 0.125], [587, 0.25], [523, 0.125], [494, 0.125],
+            [440, 0.5], [392, 0.25], [330, 0.25],
+            // Bar 3 - theme B
+            [523, 0.25], [494, 0.125], [440, 0.125], [494, 0.25], [440, 0.25],
+            [392, 0.25], [349, 0.25], [330, 0.5],
+            // Bar 4 - resolve
+            [349, 0.25], [392, 0.125], [440, 0.125], [494, 0.25], [440, 0.25],
+            [392, 0.5], [330, 0.5]
+        ];
+
+        const bgmBass = [
+            [196, 0.5], [196, 0.5], [165, 0.5], [175, 0.5],
+            [220, 0.5], [220, 0.5], [196, 0.5], [165, 0.5],
+            [262, 0.5], [247, 0.5], [220, 0.5], [196, 0.5],
+            [175, 0.5], [196, 0.5], [220, 1.0]
+        ];
+
+        function scheduleBgm() {
+            if (!bgmEnabled || !audioCtx) return;
+            const tempo = 0.85; // seconds per beat scale
+
+            let t = audioCtx.currentTime + 0.05;
+
+            // Schedule melody
+            bgmMelody.forEach(([freq, dur]) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'square';
+                osc.frequency.value = freq;
+                osc.connect(gain);
+                gain.connect(bgmGainNode);
+                gain.gain.setValueAtTime(0.04, t);
+                gain.gain.setValueAtTime(0.03, t + dur * tempo * 0.8);
+                gain.gain.linearRampToValueAtTime(0.0, t + dur * tempo);
+                osc.start(t);
+                osc.stop(t + dur * tempo);
+                t += dur * tempo;
+            });
+
+            const totalDur = bgmMelody.reduce((s, [, d]) => s + d * tempo, 0);
+
+            // Schedule bass (pulse wave)
+            let tb = audioCtx.currentTime + 0.05;
+            bgmBass.forEach(([freq, dur]) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.value = freq;
+                osc.connect(gain);
+                gain.connect(bgmGainNode);
+                gain.gain.setValueAtTime(0.025, tb);
+                gain.gain.linearRampToValueAtTime(0.0, tb + dur * tempo * 0.9);
+                osc.start(tb);
+                osc.stop(tb + dur * tempo);
+                tb += dur * tempo;
+            });
+
+            bgmScheduler = setTimeout(scheduleBgm, totalDur * 1000);
+        }
+
+        function startBgm() {
+            initAudio();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            bgmEnabled = true;
+            if (bgmScheduler) clearTimeout(bgmScheduler);
+            scheduleBgm();
+        }
+
+        function stopBgm() {
+            bgmEnabled = false;
+            if (bgmScheduler) clearTimeout(bgmScheduler);
+        }
+
+        function toggleBgm() {
+            if (bgmEnabled) {
+                stopBgm();
+                document.getElementById('bgmToggleBtn').innerText = '🎵';
+                document.getElementById('bgmToggleBtn').title = 'เปิดเพลงพื้นหลัง';
+            } else {
+                startBgm();
+                document.getElementById('bgmToggleBtn').innerText = '🎶';
+                document.getElementById('bgmToggleBtn').title = 'ปิดเพลงพื้นหลัง';
+            }
+        }
+
+        function playSound(type) {
+            if (!audioEnabled) return;
+            initAudio();
+            if (!audioCtx) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'correct') {
+                // 8-bit correct jingle: C-E-G arpeggio
+                const notes = [[523, 0], [659, 0.1], [784, 0.2]];
+                notes.forEach(([freq, delay]) => {
+                    const o = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    o.type = 'square';
+                    o.frequency.value = freq;
+                    o.connect(g); g.connect(audioCtx.destination);
+                    g.gain.setValueAtTime(0.08, now + delay);
+                    g.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.15);
+                    o.start(now + delay);
+                    o.stop(now + delay + 0.15);
+                });
+                return;
+            } else if (type === 'wrong') {
+                // 8-bit wrong: descending buzz
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(220, now);
+                osc.frequency.linearRampToValueAtTime(110, now + 0.3);
+                gainNode.gain.setValueAtTime(0.08, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'flip') {
+                // 8-bit flip: quick chirp
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.1);
+                gainNode.gain.setValueAtTime(0.05, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+                osc.start(now);
+                osc.stop(now + 0.1);
+            }
+        }
+
+        // --- 4. APP INITS & LOCAL STORAGE ---
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCustomLaws();
+            updateCategoriesList();
+            setCategory("ทั้งหมด");
+            
+            document.getElementById('themeToggleBtn').addEventListener('click', toggleTheme);
+            document.getElementById('audioToggleBtn').addEventListener('click', toggleAudio);
+            document.getElementById('bgmToggleBtn').addEventListener('click', toggleBgm);
+            
+            const volSlider = document.getElementById('bgmVolumeSlider');
+            volSlider.addEventListener('input', (e) => {
+                bgmVolume = parseFloat(e.target.value) / 100;
+                initAudio();
+                if (bgmGainNode) {
+                    bgmGainNode.gain.setValueAtTime(bgmVolume, audioCtx.currentTime);
+                }
+            });
+            updateStatsUI();
+        });
+
+        function loadCustomLaws() {
+            const saved = localStorage.getItem('law_flashcards_custom');
+            if (saved) {
+                try {
+                    const customData = JSON.parse(saved);
+                    database = [...defaultLaws, ...customData];
+                } catch(e) {
+                    console.error("Error loading custom laws", e);
+                }
+            }
+        }
+
+        function toggleTheme() {
+            theme = theme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', theme);
+            document.getElementById('themeToggleBtn').innerText = theme === 'dark' ? '🌓' : '☀️';
+            playSound('flip');
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            document.getElementById('audioToggleBtn').innerText = audioEnabled ? '🔊' : '🔇';
+            if (audioEnabled) {
+                initAudio();
+                playSound('correct');
+            }
+        }
+
+        function updateCategoriesList() {
+            const uniqueCats = [];
+            database.forEach(card => {
+                if (!uniqueCats.includes(card.category)) {
+                    uniqueCats.push(card.category);
+                }
+            });
+            
+            // Systematically sort categories: 'ทั้งหมด' first, then 'วิชาอาญา ข้อ 1' to 10, then 'วิชาแพ่ง ข้อ 1' to 10
+            const sortKey = (cat) => {
+                if (cat === "ทั้งหมด") return "0000";
+                
+                // Extract question number
+                const numMatch = cat.match(/ข้อ\s*(\d+)/);
+                const num = numMatch ? parseInt(numMatch[1], 10) : 99;
+                const formattedNum = num.toString().padStart(2, '0');
+                
+                if (cat.includes("อาญา")) {
+                    return `01_${formattedNum}`;
+                } else if (cat.includes("แพ่ง")) {
+                    return `02_${formattedNum}`;
+                }
+                return `99_${cat}`;
+            };
+            
+            uniqueCats.sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
+            uniqueCats.unshift("ทั้งหมด");
+            categories = uniqueCats;
+
+            const listEl = document.getElementById('categoryList');
+            listEl.innerHTML = '';
+
+            categories.forEach(cat => {
+                const count = cat === "ทั้งหมด" ? database.length : database.filter(c => c.category === cat).length;
+                
+                const li = document.createElement('li');
+                li.className = 'category-item';
+                if (cat === activeCategory) li.className += ' active';
+                
+                li.innerHTML = `
+                    <button onclick="setCategory('${cat}')">
+                        <span>${cat}</span>
+                        <span class="badge-count">${count}</span>
+                    </button>
+                `;
+                listEl.appendChild(li);
+            });
+        }
+
+        function setCategory(catName) {
+            activeCategory = catName;
+            
+            const items = document.querySelectorAll('.category-item');
+            items.forEach((item, index) => {
+                if (categories[index] === catName) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            if (catName === "ทั้งหมด") {
+                filteredCards = [...database];
+            } else {
+                filteredCards = database.filter(c => c.category === catName);
+            }
+
+            shuffle(filteredCards);
+            currentCardIndex = 0;
+            isCardFlipped = false;
+            isAnswered = false;
+
+            document.getElementById('flashcardStage').classList.remove('flipped');
+            updateProgressUI();
+            showCard();
+        }
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function switchMode(mode) {
+            activeMode = mode;
+            document.getElementById('modeQuiz').classList.toggle('active', mode === 'quiz');
+            document.getElementById('modeFlashcard').classList.toggle('active', mode === 'flashcard');
+
+            isCardFlipped = false;
+            isAnswered = false;
+            document.getElementById('flashcardStage').classList.remove('flipped');
+            
+            showCard();
+            playSound('flip');
+        }
+
+        // --- 5. RENDER CARD & OPTIONS ---
+        function showCard() {
+            if (filteredCards.length === 0) {
+                renderEmptyState();
+                return;
+            }
+
+            const currentCard = filteredCards[currentCardIndex];
+            
+            document.getElementById('cardCategory').innerText = currentCard.category;
+            document.getElementById('cardQuestion').innerText = currentCard.text;
+
+            document.getElementById('cardAnswer').innerText = currentCard.section;
+            document.getElementById('cardAnswerFull').innerText = `${currentCard.category} \n(${currentCard.section})`;
+
+            isCardFlipped = false;
+            isAnswered = false;
+            document.getElementById('flashcardStage').classList.remove('flipped');
+
+            if (activeMode === 'quiz') {
+                document.getElementById('quizOptions').style.display = 'grid';
+                renderQuizOptions(currentCard);
+                document.getElementById('controlPanel').innerHTML = '';
+            } else {
+                document.getElementById('quizOptions').style.display = 'none';
+                renderFlashcardControls();
+            }
+
+            updateProgressUI();
+        }
+
+        function renderEmptyState() {
+            document.getElementById('flashcardStage').innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <h2>ไม่พบมาตราในหมวดนี้</h2>
+                    <p>ลองเพิ่มมาตราใหม่ที่ฟอร์มด้านล่าง หรือเลือกหมวดหมู่อื่นเพื่อเริ่มต้น</p>
+                </div>
+            `;
+            document.getElementById('quizOptions').style.display = 'none';
+            document.getElementById('controlPanel').innerHTML = '';
+        }
+
+        function renderQuizOptions(correctCard) {
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+
+            // Step 1: Find other sections in the same category
+            let pool = database.filter(c => c.section !== correctCard.section && c.category === correctCard.category);
+            
+            // Step 2: If we don't have enough in the same category, get from same law type (อาญา/แพ่ง)
+            if (pool.length < 3) {
+                const isCivil = correctCard.section.startsWith("ป.พ.พ. ม.") || correctCard.category.includes("แพ่ง");
+                pool = database.filter(c => {
+                    if (c.section === correctCard.section) return false;
+                    const cIsCivil = c.section.startsWith("ป.พ.พ. ม.") || c.category.includes("แพ่ง");
+                    return isCivil === cIsCivil;
+                });
+            }
+
+            // Step 3: Extract unique section numbers
+            let uniquePool = [];
+            let seen = new Set();
+            for (let card of pool) {
+                if (!seen.has(card.section)) {
+                    seen.add(card.section);
+                    uniquePool.push(card);
+                }
+            }
+
+            // Helper to parse out numbers from sections like "ม. 288" or "ป.พ.พ. ม. 420"
+            const getNumber = (secStr) => {
+                const match = secStr.match(/\d+/);
+                return match ? parseInt(match[0], 10) : 0;
+            };
+            const correctNum = getNumber(correctCard.section);
+            
+            // Sort by absolute numeric difference (proximity)
+            uniquePool.sort((a, b) => {
+                const diffA = Math.abs(getNumber(a.section) - correctNum);
+                const diffB = Math.abs(getNumber(b.section) - correctNum);
+                return diffA - diffB;
+            });
+
+            // Pick 3 closest distractors
+            let distractors = uniquePool.slice(0, 5).map(c => c.section);
+            shuffle(distractors);
+            distractors = distractors.slice(0, 3);
+
+            // If still not enough, generate dummies close to the correct number
+            const prefix = correctCard.section.startsWith("ป.พ.พ. ม.") ? "ป.พ.พ. ม. " : "ม. ";
+            while (distractors.length < 3) {
+                const offset = Math.floor(Math.random() * 15) - 7;
+                if (offset !== 0) {
+                    const dummyNum = correctNum + offset;
+                    if (dummyNum > 0) {
+                        const dummy = `${prefix}${dummyNum}`;
+                        if (!distractors.includes(dummy) && dummy !== correctCard.section) {
+                            distractors.push(dummy);
+                        }
+                    }
+                }
+            }
+
+            let allOptions = [correctCard.section, ...distractors];
+            shuffle(allOptions);
+
+            allOptions.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option-btn';
+                btn.innerText = opt;
+                btn.onclick = () => selectQuizOption(btn, opt, correctCard.section);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectQuizOption(button, selected, correct) {
+            if (isAnswered) return;
+            isAnswered = true;
+
+            const allButtons = document.querySelectorAll('.quiz-option-btn');
+            allButtons.forEach(btn => btn.disabled = true);
+            stats.total++;
+
+            if (selected === correct) {
+                button.classList.add('correct');
+                stats.correct++;
+                stats.streak++;
+                playSound('correct');
+                triggerConfetti(button);
+            } else {
+                button.classList.add('wrong');
+                stats.streak = 0;
+                playSound('wrong');
+
+                allButtons.forEach(btn => {
+                    if (btn.innerText === correct) {
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+
+            updateStatsUI();
+
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'btn-action btn-action-primary';
+            nextBtn.innerHTML = 'ถัดไป ➡️';
+            nextBtn.onclick = nextCard;
+            
+            document.getElementById('controlPanel').innerHTML = '';
+            document.getElementById('controlPanel').appendChild(nextBtn);
+        }
+
+        function renderFlashcardControls() {
+            const cp = document.getElementById('controlPanel');
+            cp.innerHTML = `
+                <button class="btn-action btn-rate-hard" onclick="rateCard('hard')">❌ จำไม่ได้</button>
+                <button class="btn-action btn-rate-medium" onclick="rateCard('medium')">⚠️ พอจำได้</button>
+                <button class="btn-action btn-rate-easy" onclick="rateCard('easy')">✅ จำได้แม่น</button>
+            `;
+        }
+
+        function handleCardClick() {
+            if (activeMode === 'flashcard') {
+                isCardFlipped = !isCardFlipped;
+                const stage = document.getElementById('flashcardStage');
+                if (isCardFlipped) {
+                    stage.classList.add('flipped');
+                } else {
+                    stage.classList.remove('flipped');
+                }
+                playSound('flip');
+            }
+        }
+
+        function rateCard(rating) {
+            stats.total++;
+            if (rating === 'easy') {
+                stats.correct++;
+                stats.streak++;
+                playSound('correct');
+            } else if (rating === 'medium') {
+                stats.streak++;
+                playSound('correct');
+            } else {
+                stats.streak = 0;
+                playSound('wrong');
+            }
+
+            updateStatsUI();
+            nextCard();
+        }
+
+        function nextCard() {
+            currentCardIndex = (currentCardIndex + 1) % filteredCards.length;
+            showCard();
+        }
+
+        // --- 6. STATS & PROGRESS UI ---
+        function updateStatsUI() {
+            document.getElementById('statStreak').innerText = stats.streak;
+            document.getElementById('statCorrect').innerText = stats.correct;
+            document.getElementById('statTotal').innerText = stats.total;
+            
+            const accuracy = stats.total === 0 ? 0 : Math.round((stats.correct / stats.total) * 100);
+            document.getElementById('statAccuracy').innerText = `${accuracy}%`;
+        }
+
+        function updateProgressUI() {
+            const total = filteredCards.length;
+            const current = total === 0 ? 0 : currentCardIndex + 1;
+            document.getElementById('progressText').innerText = `${current} / ${total} มาตรา`;
+            
+            const percentage = total === 0 ? 0 : Math.round((current / total) * 100);
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+        }
+
+        // --- 7. ADD CUSTOM LAWS ---
+        function addCustomLaw(event) {
+            event.preventDefault();
+
+            const sec = document.getElementById('customLawNum').value.trim();
+            const cat = document.getElementById('customLawCat').value.trim();
+            const txt = document.getElementById('customLawText').value.trim();
+
+            if (!sec || !cat || !txt) return;
+
+            const newCard = {
+                id: 'custom_' + Date.now(),
+                section: sec,
+                text: txt,
+                category: cat
+            };
+
+            const saved = localStorage.getItem('law_flashcards_custom');
+            let customList = [];
+            if (saved) {
+                try {
+                    customList = JSON.parse(saved);
+                } catch(e) {}
+            }
+
+            customList.push(newCard);
+            localStorage.setItem('law_flashcards_custom', JSON.stringify(customList));
+
+            loadCustomLaws();
+            updateCategoriesList();
+            setCategory(cat);
+
+            document.getElementById('customLawForm').reset();
+            playSound('correct');
+            
+            alert(`บันทึกมาตรา ${sec} เข้าหมวดหมู่ "${cat}" เรียบร้อยแล้ว!`);
+        }
+
+        // --- 8. CONFETTI EFFECT ---
+        function triggerConfetti(target) {
+            const rect = target.getBoundingClientRect();
+            const container = document.body;
+            
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                const colors = ['#d4af37', '#10b981', '#3b82f6', '#f59e0b', '#ffffff'];
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                confetti.style.left = `${rect.left + rect.width / 2}px`;
+                confetti.style.top = `${rect.top + rect.height / 2}px`;
+                
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 50 + Math.random() * 100;
+                confetti.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
+                confetti.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
+                
+                container.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 1000);
+            }
+        }
+    </script>
+</body>
+</html>
